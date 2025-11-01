@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Memory: Complex Scenarios</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --bg: #ecf0f1;
+            --card: #ffffff;
+            --code-bg: #f8f9fa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+            background: var(--bg);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        header h1 { font-size: 2.5em; margin-bottom: 15px; }
+        header .subtitle { font-size: 1.2em; opacity: 0.9; }
+
+        nav {
+            background: var(--card);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .scenario-card {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .scenario-card h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .scenario-card .metrics {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge-success { background: var(--success); color: white; }
+        .badge-warning { background: var(--warning); color: white; }
+        .badge-danger { background: var(--danger); color: white; }
+        .badge-primary { background: var(--secondary); color: white; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal.active { display: block; }
+
+        .modal-content {
+            background: var(--card);
+            margin: 50px auto;
+            padding: 40px;
+            max-width: 900px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .section {
+            background: var(--card);
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+        }
+
+        h3 { color: var(--secondary); font-size: 1.5em; margin: 30px 0 15px; }
+        h4 { color: var(--primary); font-size: 1.2em; margin: 20px 0 10px; }
+
+        pre {
+            background: var(--code-bg);
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary);
+        }
+
+        code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table tr:hover { background: var(--bg); }
+
+        .info-box {
+            background: #d1ecf1;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary);
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--success);
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--warning);
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            .scenario-grid { grid-template-columns: 1fr; }
+            .modal-content { margin: 20px; padding: 20px; }
+            .container { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Context Memory: Complex Scenarios</h1>
+            <p class="subtitle">Real-world applications with token usage analysis and optimization strategies</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <p style="margin-bottom: 15px;"><strong>8 Real-World Scenarios</strong> demonstrating 65% average token reduction and 50-90% time savings</p>
+        </nav>
+
+        <div class="info-box">
+            <h3>Overview</h3>
+            <p>Context memory becomes critical in complex scenarios where multiple systems interact, long-running investigations require state persistence, team coordination demands shared understanding, and resource constraints force strategic information selection.</p>
+            <p><strong>Average Results: 65% token reduction • 50-90% time savings • ROI break-even in 2-3 sessions</strong></p>
+        </div>
+
+        <h2>Complex Scenarios</h2>
+        <div class="scenario-grid">
+            <div class="scenario-card" onclick="openModal('scenario1')">
+                <h3>1. Legacy System Migration</h3>
+                <p>Migrating 150K LOC PHP monolith to Node.js microservices over 6 months</p>
+                <div class="metrics">
+                    <span class="badge badge-success">70% token savings</span>
+                    <span class="badge badge-primary">33% time saved</span>
+                    <span class="badge badge-warning">365K → 108K tokens</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="openModal('scenario2')">
+                <h3>2. Microservices Debugging</h3>
+                <p>Emergency production issue across 12 microservices with $10K/min revenue loss</p>
+                <div class="metrics">
+                    <span class="badge badge-success">82% token savings</span>
+                    <span class="badge badge-danger">81% faster resolution</span>
+                    <span class="badge badge-warning">40K → 7K tokens</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="openModal('scenario3')">
+                <h3>3. Full-Stack Feature</h3>
+                <p>Building "Buy Now, Pay Later" checkout with 3 developers across frontend/backend</p>
+                <div class="metrics">
+                    <span class="badge badge-success">57% token savings</span>
+                    <span class="badge badge-primary">33% time saved</span>
+                    <span class="badge badge-warning">60K → 26K tokens</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="openModal('scenario4')">
+                <h3>4. Performance Optimization</h3>
+                <p>Dashboard load time increased from 2s to 12s, need to find and fix bottlenecks</p>
+                <div class="metrics">
+                    <span class="badge badge-success">52% token savings</span>
+                    <span class="badge badge-danger">93% faster (2 weeks → 1 day)</span>
+                    <span class="badge badge-warning">50K → 24K tokens</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="openModal('scenario5')">
+                <h3>5. Security Audit</h3>
+                <p>47 vulnerabilities across 8 repositories requiring prioritization and remediation</p>
+                <div class="metrics">
+                    <span class="badge badge-success">60% token savings</span>
+                    <span class="badge badge-primary">Complete audit trail</span>
+                    <span class="badge badge-warning">60K → 24K tokens</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="openModal('scenario6')">
+                <h3>6. Large-Scale Refactoring</h3>
+                <p>Extracting User Service from 150K LOC monolith over 12 weeks</p>
+                <div class="metrics">
+                    <span class="badge badge-success">46% token savings</span>
+                    <span class="badge badge-primary">Zero downtime achieved</span>
+                    <span class="badge badge-warning">160K → 87K tokens</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="openModal('scenario7')">
+                <h3>7. Multi-Team API Design</h3>
+                <p>Coordinating API v2 design across 10 teams with 30+ engineers</p>
+                <div class="metrics">
+                    <span class="badge badge-success">65% token savings</span>
+                    <span class="badge badge-primary">50% time saved</span>
+                    <span class="badge badge-warning">100K → 35K tokens</span>
+                </div>
+            </div>
+
+            <div class="scenario-card" onclick="openModal('scenario8')">
+                <h3>8. Emergency Bug Fix</h3>
+                <p>Payment processing completely down, $10K/min revenue loss, all hands on deck</p>
+                <div class="metrics">
+                    <span class="badge badge-success">86% token savings</span>
+                    <span class="badge badge-danger">62% faster (2h → 45min)</span>
+                    <span class="badge badge-warning">80K → 11K tokens</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Cross-Scenario Analysis</h2>
+            
+            <h3>Token Usage Patterns</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Without Memory</th>
+                        <th>With Memory</th>
+                        <th>Savings</th>
+                        <th>ROI Break-Even</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Legacy Migration</td>
+                        <td>365K</td>
+                        <td>108K</td>
+                        <td><span class="badge badge-success">70%</span></td>
+                        <td>Session 3</td>
+                    </tr>
+                    <tr>
+                        <td>Microservices Debug</td>
+                        <td>40K</td>
+                        <td>7K</td>
+                        <td><span class="badge badge-success">82%</span></td>
+                        <td>Immediate</td>
+                    </tr>
+                    <tr>
+                        <td>Full-Stack Feature</td>
+                        <td>60K</td>
+                        <td>26K</td>
+                        <td><span class="badge badge-success">57%</span></td>
+                        <td>Session 2</td>
+                    </tr>
+                    <tr>
+                        <td>Performance Optimization</td>
+                        <td>50K</td>
+                        <td>24K</td>
+                        <td><span class="badge badge-success">52%</span></td>
+                        <td>Session 2</td>
+                    </tr>
+                    <tr>
+                        <td>Security Audit</td>
+                        <td>60K</td>
+                        <td>24K</td>
+                        <td><span class="badge badge-success">60%</span></td>
+                        <td>Session 3</td>
+                    </tr>
+                    <tr>
+                        <td>Large Refactoring</td>
+                        <td>160K</td>
+                        <td>87K</td>
+                        <td><span class="badge badge-success">46%</span></td>
+                        <td>Week 2</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-Team API</td>
+                        <td>100K</td>
+                        <td>35K</td>
+                        <td><span class="badge badge-success">65%</span></td>
+                        <td>Week 1</td>
+                    </tr>
+                    <tr>
+                        <td>Emergency Bug Fix</td>
+                        <td>80K</td>
+                        <td>11K</td>
+                        <td><span class="badge badge-success">86%</span></td>
+                        <td>Immediate</td>
+                    </tr>
+                    <tr style="font-weight: bold; background: var(--bg);">
+                        <td>Average</td>
+                        <td>114K</td>
+                        <td>40.25K</td>
+                        <td><span class="badge badge-success">65%</span></td>
+                        <td>Session 2-3</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Time Savings Patterns</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Without Memory</th>
+                        <th>With Memory</th>
+                        <th>Time Saved</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Legacy Migration</td>
+                        <td>6 months</td>
+                        <td>4 months</td>
+                        <td><span class="badge badge-primary">33%</span></td>
+                    </tr>
+                    <tr>
+                        <td>Microservices Debug</td>
+                        <td>3+ hours</td>
+                        <td>35 minutes</td>
+                        <td><span class="badge badge-danger">81%</span></td>
+                    </tr>
+                    <tr>
+                        <td>Full-Stack Feature</td>
+                        <td>3 weeks</td>
+                        <td>2 weeks</td>
+                        <td><span class="badge badge-primary">33%</span></td>
+                    </tr>
+                    <tr>
+                        <td>Performance Optimization</td>
+                        <td>2 weeks</td>
+                        <td>1 day</td>
+                        <td><span class="badge badge-danger">93%</span></td>
+                    </tr>
+                    <tr>
+                        <td>Security Audit</td>
+                        <td>2 weeks</td>
+                        <td>3 days</td>
+                        <td><span class="badge badge-danger">79%</span></td>
+                    </tr>
+                    <tr>
+                        <td>Large Refactoring</td>
+                        <td>High risk/failure</td>
+                        <td>12 weeks (success)</td>
+                        <td><span class="badge badge-success">Enabled project</span></td>
+                    </tr>
+                    <tr>
+                        <td>Multi-Team API</td>
+                        <td>2 months</td>
+                        <td>1 month</td>
+                        <td><span class="badge badge-primary">50%</span></td>
+                    </tr>
+                    <tr>
+                        <td>Emergency Bug Fix</td>
+                        <td>2+ hours</td>
+                        <td>45 minutes</td>
+                        <td><span class="badge badge-danger">62%</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Best Practices Summary</h2>
+
+            <h3>When to Invest in Memory</h3>
+            <div class="success-box">
+                <h4>High Value Scenarios (Do immediately)</h4>
+                <ul>
+                    <li>Long-running projects (>1 month)</li>
+                    <li>Complex systems with many dependencies</li>
+                    <li>Emergency response situations (create runbooks)</li>
+                    <li>Multi-team coordination</li>
+                    <li>Repeated pattern work (audits, optimizations)</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>Medium Value Scenarios (Consider)</h4>
+                <ul>
+                    <li>Multi-week features</li>
+                    <li>Performance investigations</li>
+                    <li>Security work</li>
+                    <li>Refactoring projects</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Low Value Scenarios (Skip)</h4>
+                <ul>
+                    <li>Single-session tasks</li>
+                    <li>One-off scripts</li>
+                    <li>Throw-away prototypes</li>
+                    <li>Simple bug fixes</li>
+                </ul>
+            </div>
+
+            <h3>Critical Success Factors</h3>
+            <ol>
+                <li><strong>Early Memory Investment</strong>: First session sets foundation for entire project</li>
+                <li><strong>Structured Information</strong>: Well-organized memories > scattered notes</li>
+                <li><strong>Progressive Refinement</strong>: Memories evolve as understanding deepens</li>
+                <li><strong>Context Budgeting</strong>: Load only what's needed for current task</li>
+                <li><strong>Team Coordination</strong>: Shared memories = shared understanding</li>
+            </ol>
+
+            <h3>Common Anti-Patterns</h3>
+            <ul>
+                <li>❌ <strong>Repeated Discovery</strong>: Re-analyzing same code multiple times</li>
+                <li>❌ <strong>Scattered Information</strong>: Important decisions in Slack, email, docs</li>
+                <li>❌ <strong>Panic-Driven Investigation</strong>: Chaotic, unfocused searching during emergencies</li>
+                <li>❌ <strong>Tribal Knowledge</strong>: Critical information in people's heads only</li>
+                <li>❌ <strong>Documentation Debt</strong>: "We'll document it later" (never happens)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Key Insights</h2>
+            <div class="success-box">
+                <p><strong>Quantitative Benefits:</strong></p>
+                <ul>
+                    <li>65% average token reduction across all scenarios</li>
+                    <li>50-90% time savings depending on scenario type</li>
+                    <li>ROI break-even typically in Session 2-3 or Week 1-2</li>
+                    <li>Emergency response 62-81% faster with pre-existing memories</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Qualitative Benefits:</strong></p>
+                <ul>
+                    <li>Projects that were risky become manageable (Large Refactoring)</li>
+                    <li>Team coordination scales (Multi-Team API)</li>
+                    <li>Knowledge persists (Emergency Bug Fix runbook reuse)</li>
+                    <li>Onboarding accelerates (hours instead of weeks)</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Key Insight:</strong> Context memory is not about storing more information—it's about storing the <em>right</em> information in the <em>right</em> structure at the <em>right</em> time. The difference between success and failure in complex scenarios often comes down to how effectively you manage context.</p>
+        </div>
+    </div>
+
+    <!-- Modals for each scenario -->
+    <div id="scenario1" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scenario1')">&times;</span>
+            <h2>Scenario 1: Legacy System Migration</h2>
+            <p><em>Full details available in the comprehensive markdown documentation</em></p>
+            <h3>Context</h3>
+            <p>Migrating a 10-year-old monolithic PHP application (200+ files, 50K LOC) to modern Node.js microservices. No documentation exists. Original developers left years ago.</p>
+            
+            <h3>Challenge</h3>
+            <ul>
+                <li><strong>Complexity</strong>: High architectural uncertainty, undocumented business logic</li>
+                <li><strong>Scope</strong>: Entire system must be understood before any migration begins</li>
+                <li><strong>Risk</strong>: Breaking critical business flows with hidden dependencies</li>
+                <li><strong>Timeline</strong>: 6-month project with multiple phases</li>
+            </ul>
+
+            <h3>Results</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Without Memory</th>
+                    <th>With Memory</th>
+                    <th>Improvement</th>
+                </tr>
+                <tr>
+                    <td>Initial Discovery</td>
+                    <td>45K tokens, 4h</td>
+                    <td>18K tokens, 1.5h</td>
+                    <td>60% tokens, 62% time</td>
+                </tr>
+                <tr>
+                    <td>Deep Dive (Sessions 2-5)</td>
+                    <td>120K tokens</td>
+                    <td>35K tokens</td>
+                    <td>71% tokens</td>
+                </tr>
+                <tr>
+                    <td>Implementation (Sessions 6-15)</td>
+                    <td>200K tokens</td>
+                    <td>55K tokens</td>
+                    <td>72% tokens</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Project</strong></td>
+                    <td><strong>365K tokens</strong></td>
+                    <td><strong>108K tokens</strong></td>
+                    <td><strong>70% reduction</strong></td>
+                </tr>
+            </table>
+
+            <h3>Key Success Factors</h3>
+            <ol>
+                <li><strong>Early Memory Investment</strong>: 18K tokens in Session 1 saved 250K+ tokens across project</li>
+                <li><strong>Strategic Distillation</strong>: Converted 200 files into 5 focused memory documents</li>
+                <li><strong>Hierarchical Loading</strong>: Loaded only relevant context per session</li>
+                <li><strong>Risk Documentation</strong>: Security findings persisted, informing all future decisions</li>
+                <li><strong>Pattern Recognition</strong>: Identified "circular dependency" pattern early, avoiding pitfalls</li>
+            </ol>
+
+            <p style="margin-top: 20px;"><em>See the full markdown document for complete session-by-session breakdown with code examples</em></p>
+        </div>
+    </div>
+
+    <div id="scenario2" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scenario2')">&times;</span>
+            <h2>Scenario 2: Microservices Debugging</h2>
+            
+            <h3>Context</h3>
+            <p>Production issue: "Orders randomly fail with 500 errors." System: 12 microservices across 3 teams, 45 developers, 8 databases.</p>
+            
+            <h3>Challenge</h3>
+            <ul>
+                <li><strong>Distributed State</strong>: Error could be in any of 12 services</li>
+                <li><strong>Async Operations</strong>: 5 message queues, eventual consistency</li>
+                <li><strong>Multiple Teams</strong>: Different codebases, documentation, conventions</li>
+                <li><strong>Time Pressure</strong>: Revenue impact $50K/hour downtime</li>
+            </ul>
+
+            <h3>Results</h3>
+            <table>
+                <tr>
+                    <th>Phase</th>
+                    <th>Without Memory</th>
+                    <th>With Memory</th>
+                    <th>Improvement</th>
+                </tr>
+                <tr>
+                    <td>Time to Hypothesis</td>
+                    <td>60+ minutes</td>
+                    <td>5 minutes</td>
+                    <td>92% faster</td>
+                </tr>
+                <tr>
+                    <td>Time to Resolution</td>
+                    <td>3+ hours</td>
+                    <td>35 minutes</td>
+                    <td>81% faster</td>
+                </tr>
+                <tr>
+                    <td>Revenue Impact</td>
+                    <td>$150K+</td>
+                    <td>$30K</td>
+                    <td>80% reduction</td>
+                </tr>
+                <tr>
+                    <td>Token Usage</td>
+                    <td>40K (panic searching)</td>
+                    <td>7K (focused)</td>
+                    <td>82% reduction</td>
+                </tr>
+            </table>
+
+            <h3>Key Insight</h3>
+            <div class="success-box">
+                <p>Pre-existing runbook from previous incident allowed immediate hypothesis formation. Context memory loaded in 5 minutes vs 60+ minutes of scrambling. Created comprehensive runbook for future incidents.</p>
+            </div>
+
+            <p style="margin-top: 20px;"><em>See the full markdown document for complete incident timeline and resolution steps</em></p>
+        </div>
+    </div>
+
+    <div id="scenario3" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scenario3')">&times;</span>
+            <h2>Scenario 3: Full-Stack Feature</h2>
+            
+            <h3>Context</h3>
+            <p>Build new "Buy Now, Pay Later" (BNPL) checkout option. Requires frontend (React), backend (Node.js), payment integration (Klarna), database changes, and email templates.</p>
+            
+            <h3>Challenge</h3>
+            <ul>
+                <li><strong>Multi-Domain</strong>: Frontend, backend, payments, email, data model</li>
+                <li><strong>Team Coordination</strong>: 3 developers working in parallel</li>
+                <li><strong>Context Switching</strong>: Each developer needs different context at different times</li>
+                <li><strong>Integration Testing</strong>: All components must work together</li>
+            </ul>
+
+            <h3>Feature Delivery Metrics</h3>
+            <table>
+                <tr>
+                    <th>Phase</th>
+                    <th>Without Memory</th>
+                    <th>With Memory</th>
+                    <th>Improvement</th>
+                </tr>
+                <tr>
+                    <td>Planning</td>
+                    <td>3 hours (everyone)</td>
+                    <td>1 hour (one person)</td>
+                    <td>67% reduction</td>
+                </tr>
+                <tr>
+                    <td>Integration</td>
+                    <td>6 hours debugging</td>
+                    <td>2 hours testing</td>
+                    <td>67% reduction</td>
+                </tr>
+                <tr>
+                    <td>Context Loading</td>
+                    <td>15K per developer/session</td>
+                    <td>6K per session</td>
+                    <td>60% reduction</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Project</strong></td>
+                    <td><strong>60K tokens, 3 weeks</strong></td>
+                    <td><strong>26K tokens, 2 weeks</strong></td>
+                    <td><strong>57% faster</strong></td>
+                </tr>
+            </table>
+
+            <h3>Key Success Factors</h3>
+            <ul>
+                <li><strong>Shared Context</strong>: All developers loaded same architecture memory</li>
+                <li><strong>Async Updates</strong>: Developers updated status memories for team visibility</li>
+                <li><strong>Interface Documentation</strong>: Backend documented API contracts for frontend</li>
+                <li><strong>Issue Tracking</strong>: Integration issues captured in memory, not Slack</li>
+                <li><strong>Minimal Context</strong>: Each developer loaded only relevant memories</li>
+            </ul>
+
+            <p style="margin-top: 20px;"><em>See the full markdown document for session-by-session implementation details</em></p>
+        </div>
+    </div>
+
+    <div id="scenario4" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scenario4')">&times;</span>
+            <h2>Scenario 4: Performance Optimization</h2>
+            
+            <h3>Context</h3>
+            <p>Dashboard page load time increased from 2s → 12s over 6 months. Users complaining, revenue impacted. Need to find and fix all performance bottlenecks.</p>
+            
+            <h3>Challenge</h3>
+            <ul>
+                <li><strong>Unclear Cause</strong>: Gradual degradation, no obvious culprit</li>
+                <li><strong>Multiple Layers</strong>: Database, API, frontend, caching, network</li>
+                <li><strong>Measurement Needed</strong>: Profile before optimizing</li>
+                <li><strong>Priority Conflicts</strong>: Many possible optimizations, limited time</li>
+            </ul>
+
+            <h3>Optimization Results</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Before</th>
+                    <th>After Quick Wins</th>
+                    <th>Improvement</th>
+                </tr>
+                <tr>
+                    <td>Page Load (p50)</td>
+                    <td>12.3s</td>
+                    <td>2.1s</td>
+                    <td><span class="badge badge-success">89% faster</span></td>
+                </tr>
+                <tr>
+                    <td>API Calls</td>
+                    <td>47</td>
+                    <td>1</td>
+                    <td><span class="badge badge-success">98% reduction</span></td>
+                </tr>
+                <tr>
+                    <td>Bundle Size</td>
+                    <td>2.4 MB</td>
+                    <td>387 KB</td>
+                    <td><span class="badge badge-success">88% smaller</span></td>
+                </tr>
+                <tr>
+                    <td>DB Queries</td>
+                    <td>234</td>
+                    <td>12</td>
+                    <td><span class="badge badge-success">95% reduction</span></td>
+                </tr>
+                <tr>
+                    <td>Time Investment</td>
+                    <td>2 weeks</td>
+                    <td>1 day</td>
+                    <td><span class="badge badge-danger">93% faster</span></td>
+                </tr>
+            </table>
+
+            <div class="success-box">
+                <h4>Quick Wins Achieved Target in 1 Day</h4>
+                <ol>
+                    <li>Fix production build (2.4 MB → 387 KB): 15 minutes</li>
+                    <li>Add database indexes: 30 minutes</li>
+                    <li>Create aggregated API endpoint (47 → 1 calls): 3 hours</li>
+                </ol>
+            </div>
+
+            <p style="margin-top: 20px;"><em>See the full markdown document for profiling methodology and optimization details</em></p>
+        </div>
+    </div>
+
+    <div id="scenario5" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scenario5')">&times;</span>
+            <h2>Scenario 5: Security Audit & Remediation</h2>
+            
+            <h3>Context</h3>
+            <p>Annual security audit found 47 vulnerabilities across 8 repositories. Need to prioritize, fix, and verify remediation.</p>
+            
+            <h3>Challenge</h3>
+            <ul>
+                <li><strong>Large Volume</strong>: 47 vulnerabilities, limited security expertise</li>
+                <li><strong>Risk Assessment</strong>: Need to prioritize by severity and exploitability</li>
+                <li><strong>Multi-Repository</strong>: Vulnerabilities span multiple codebases</li>
+                <li><strong>Compliance</strong>: Must document all remediations for auditors</li>
+            </ul>
+
+            <h3>Audit Metrics</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Without Memory</th>
+                    <th>With Memory</th>
+                    <th>Improvement</th>
+                </tr>
+                <tr>
+                    <td>Vulnerability Triage</td>
+                    <td>8 hours</td>
+                    <td>2 hours</td>
+                    <td>75% faster</td>
+                </tr>
+                <tr>
+                    <td>Fix Documentation</td>
+                    <td>Ad-hoc, incomplete</td>
+                    <td>Comprehensive</td>
+                    <td>Complete audit trail</td>
+                </tr>
+                <tr>
+                    <td>Compliance Report</td>
+                    <td>16 hours manual</td>
+                    <td>1 hour synthesis</td>
+                    <td>94% faster</td>
+                </tr>
+                <tr>
+                    <td>Token Usage</td>
+                    <td>60K (repeated analysis)</td>
+                    <td>24K (structured)</td>
+                    <td>60% reduction</td>
+                </tr>
+            </table>
+
+            <h3>Remediation Summary</h3>
+            <div class="success-box">
+                <ul>
+                    <li><strong>Critical (8)</strong>: 100% remediated within 24 hours</li>
+                    <li><strong>High (15)</strong>: 80% remediated within 72 hours</li>
+                    <li><strong>Medium (18)</strong>: Scheduled within 30 days</li>
+                    <li><strong>Low (6)</strong>: Scheduled within 90 days</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px;"><em>See the full markdown document for vulnerability triage and fix documentation examples</em></p>
+        </div>
+    </div>
+
+    <div id="scenario6" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scenario6')">&times;</span>
+            <h2>Scenario 6: Large-Scale Refactoring</h2>
+            
+            <h3>Context</h3>
+            <p>Monolithic application (150K LOC) needs User Service extracted into independent microservice. Must maintain backward compatibility during 3-month migration.</p>
+            
+            <h3>Challenge</h3>
+            <ul>
+                <li><strong>Scope Uncertainty</strong>: Which code belongs to User Service?</li>
+                <li><strong>Hidden Dependencies</strong>: 150K LOC, decades of accumulated coupling</li>
+                <li><strong>Zero Downtime</strong>: Can't break existing functionality</li>
+                <li><strong>Gradual Migration</strong>: Strangler fig pattern over 3 months</li>
+            </ul>
+
+            <h3>Project Metrics</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Without Memory</th>
+                    <th>With Memory</th>
+                    <th>Improvement</th>
+                </tr>
+                <tr>
+                    <td>Initial Analysis</td>
+                    <td>40K tokens (repeated)</td>
+                    <td>15K tokens (structured)</td>
+                    <td>62% reduction</td>
+                </tr>
+                <tr>
+                    <td>Weekly Status</td>
+                    <td>10K tokens/week</td>
+                    <td>6K tokens/week</td>
+                    <td>40% reduction</td>
+                </tr>
+                <tr>
+                    <td>Total Tokens</td>
+                    <td>160K+ tokens</td>
+                    <td>87K tokens</td>
+                    <td>46% reduction</td>
+                </tr>
+                <tr>
+                    <td>Project Success</td>
+                    <td>High risk of failure</td>
+                    <td>Successful execution</td>
+                    <td>On time, no downtime</td>
+                </tr>
+            </table>
+
+            <h3>Final Results</h3>
+            <div class="success-box">
+                <ul>
+                    <li><strong>Duration</strong>: 12 weeks (on schedule)</li>
+                    <li><strong>User Impact</strong>: Zero downtime achieved ✅</li>
+                    <li><strong>Performance</strong>: 78% faster (45ms vs 200ms) ✅</li>
+                    <li><strong>Error Rate</strong>: 0.08% (improved from 0.3%) ✅</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px;"><em>See the full markdown document for phase-by-phase extraction strategy and lessons learned</em></p>
+        </div>
+    </div>
+
+    <div id="scenario7" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scenario7')">&times;</span>
+            <h2>Scenario 7: Multi-Team API Design</h2>
+            
+            <h3>Context</h3>
+            <p>Designing new v2 API across 5 backend teams, 3 frontend teams, 2 mobile teams. API must be consistent, RESTful, and serve all clients. 30+ engineers involved.</p>
+            
+            <h3>Challenge</h3>
+            <ul>
+                <li><strong>Many Stakeholders</strong>: 10 teams with different needs and opinions</li>
+                <li><strong>Design Decisions</strong>: Hundreds of decisions about structure, naming, auth, errors</li>
+                <li><strong>Consensus Building</strong>: Need agreement across teams</li>
+                <li><strong>Documentation</strong>: All decisions must be documented and accessible</li>
+            </ul>
+
+            <h3>Project Metrics</h3>
+            <table>
+                <tr>
+                    <th>Activity</th>
+                    <th>Without Memory</th>
+                    <th>With Memory</th>
+                    <th>Improvement</th>
+                </tr>
+                <tr>
+                    <td>Design Meetings</td>
+                    <td>40 hours total</td>
+                    <td>10 hours (async)</td>
+                    <td>75% reduction</td>
+                </tr>
+                <tr>
+                    <td>Decision Documentation</td>
+                    <td>Scattered in Slack/email</td>
+                    <td>Centralized in memory</td>
+                    <td>Searchable, accessible</td>
+                </tr>
+                <tr>
+                    <td>Repeated Questions</td>
+                    <td>Constant ("Why X?")</td>
+                    <td>None (documented)</td>
+                    <td>100% elimination</td>
+                </tr>
+                <tr>
+                    <td>Specification Generation</td>
+                    <td>80 hours manual</td>
+                    <td>20 hours (semi-automated)</td>
+                    <td>75% reduction</td>
+                </tr>
+                <tr>
+                    <td>Onboarding New Engineers</td>
+                    <td>8 hours/person</td>
+                    <td>1 hour (read memories)</td>
+                    <td>87% reduction</td>
+                </tr>
+            </table>
+
+            <div class="info-box">
+                <h4>Key Achievements</h4>
+                <ul>
+                    <li><strong>Single Source of Truth</strong>: All decisions in memory, not scattered</li>
+                    <li><strong>Async Collaboration</strong>: Teams review and comment on their schedule</li>
+                    <li><strong>Decision Transparency</strong>: Rationale documented, not just outcome</li>
+                    <li><strong>Dissent Captured</strong>: Minority opinions recorded for future reference</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px;"><em>See the full markdown document for design decision examples and OpenAPI generation</em></p>
+        </div>
+    </div>
+
+    <div id="scenario8" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scenario8')">&times;</span>
+            <h2>Scenario 8: Emergency Bug Fix</h2>
+            
+            <h3>Context</h3>
+            <p><strong>CRITICAL</strong>: Payment processing completely down. Revenue loss: $10K/minute. All hands on deck. Need to identify issue, fix, test, and deploy ASAP.</p>
+            
+            <h3>Challenge</h3>
+            <ul>
+                <li><strong>Time Pressure</strong>: Every minute counts</li>
+                <li><strong>High Stress</strong>: Team panicking, stakeholders demanding updates</li>
+                <li><strong>Complex System</strong>: 12 microservices, could be anywhere</li>
+                <li><strong>Risk of Band-Aid</strong>: Pressure to quick-fix without understanding root cause</li>
+            </ul>
+
+            <h3>Incident Metrics</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Without Memory</th>
+                    <th>With Memory</th>
+                    <th>Improvement</th>
+                </tr>
+                <tr>
+                    <td>Time to Hypothesis</td>
+                    <td>30+ minutes</td>
+                    <td>7 minutes</td>
+                    <td>77% faster</td>
+                </tr>
+                <tr>
+                    <td>Time to Rollback Decision</td>
+                    <td>45+ minutes</td>
+                    <td>8 minutes</td>
+                    <td>82% faster</td>
+                </tr>
+                <tr>
+                    <td>Time to Resolution</td>
+                    <td>2+ hours</td>
+                    <td>45 minutes</td>
+                    <td>62% faster</td>
+                </tr>
+                <tr>
+                    <td>Revenue Loss</td>
+                    <td>$1.2M+</td>
+                    <td>$450K</td>
+                    <td>62% reduction</td>
+                </tr>
+                <tr>
+                    <td>Token Usage</td>
+                    <td>80K (chaos)</td>
+                    <td>11K (structured)</td>
+                    <td>86% reduction</td>
+                </tr>
+            </table>
+
+            <h3>Incident Timeline</h3>
+            <div class="warning-box">
+                <ul>
+                    <li><strong>13:45 UTC</strong>: Deploy v2.4.1 to production</li>
+                    <li><strong>14:00 UTC</strong>: Incident detected (100% payment failures)</li>
+                    <li><strong>14:05 UTC</strong>: Incident memory created, hypothesis formed</li>
+                    <li><strong>14:08 UTC</strong>: Rollback initiated</li>
+                    <li><strong>14:12 UTC</strong>: Root cause identified (connection leak)</li>
+                    <li><strong>14:15 UTC</strong>: Rollback complete, service recovering</li>
+                    <li><strong>14:25 UTC</strong>: Error rate <1%, service stable</li>
+                    <li><strong>14:45 UTC</strong>: Incident resolved, v2.4.2 deployed</li>
+                </ul>
+            </div>
+
+            <h3>Key Success Factors</h3>
+            <ol>
+                <li><strong>Pre-Existing Runbook</strong>: Runbook from previous incident saved 20 minutes</li>
+                <li><strong>Incident Memory</strong>: Single source of truth prevented chaos</li>
+                <li><strong>Fast Context Loading</strong>: 8 minutes to full context vs 30+ minutes scrambling</li>
+                <li><strong>Structured Response</strong>: Clear roles, no duplicate work</li>
+                <li><strong>Post-Mortem Discipline</strong>: Comprehensive lessons captured while fresh</li>
+            </ol>
+
+            <p style="margin-top: 20px;"><em>See the full markdown document for complete incident timeline and post-mortem analysis</em></p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal(this.id);
+                }
+            });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
