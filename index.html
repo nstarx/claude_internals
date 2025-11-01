@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Context Management</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --bg-color: #ecf0f1;
+            --card-bg: #ffffff;
+            --code-bg: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-color: #2c3e50;
+            --text-muted: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        nav {
+            background: var(--card-bg);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2::after {
+            content: '▼';
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+
+        nav.collapsed h2::after {
+            transform: rotate(-90deg);
+        }
+
+        nav.collapsed ul {
+            display: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        nav ul li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            padding: 12px 16px;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a:hover,
+        nav ul li a:active {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        section {
+            background: var(--card-bg);
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
+
+        h4 {
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: var(--accent-color);
+        }
+
+        pre {
+            background: var(--code-bg);
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary-color);
+            -webkit-overflow-scrolling: touch;
+            word-wrap: normal;
+            white-space: pre;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-color);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--warning-color);
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--success-color);
+            margin: 20px 0;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary-color);
+            margin: 20px 0;
+        }
+
+        .diagram {
+            background: var(--code-bg);
+            padding: 30px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre;
+            margin: 20px 0;
+            overflow-x: auto;
+            border: 2px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table tr:hover {
+            background: var(--bg-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        .badge-primary { background: var(--secondary-color); color: white; }
+        .badge-success { background: var(--success-color); color: white; }
+        .badge-warning { background: var(--warning-color); color: white; }
+        .badge-danger { background: var(--accent-color); color: white; }
+
+        .metric-card {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .metric-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: var(--bg-color);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        .workflow {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .workflow-step {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid var(--success-color);
+        }
+
+        strong {
+            color: var(--primary-color);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            header {
+                padding: 40px 15px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+                line-height: 1.2;
+            }
+
+            header .subtitle {
+                font-size: 1em;
+                padding: 0 10px;
+            }
+
+            nav {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            nav h2 {
+                font-size: 1.1em;
+            }
+
+            nav ul {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            section {
+                padding: 20px 15px;
+                margin: 15px 0;
+            }
+
+            h2 {
+                font-size: 1.6em;
+                margin-bottom: 15px;
+            }
+
+            h3 {
+                font-size: 1.3em;
+                margin: 20px 0 10px 0;
+            }
+
+            h4 {
+                font-size: 1.1em;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            pre {
+                padding: 15px;
+                font-size: 0.85em;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .diagram {
+                padding: 15px;
+                font-size: 0.75em;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                font-size: 0.9em;
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table th,
+            table td {
+                padding: 8px;
+                min-width: 120px;
+            }
+
+            .highlight,
+            .success-box,
+            .error-box,
+            .info-box {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            .metric-card {
+                padding: 15px;
+            }
+
+            .workflow {
+                padding: 15px;
+            }
+
+            .workflow-step {
+                padding: 12px;
+                margin: 8px 0;
+            }
+
+            .badge {
+                display: inline-block;
+                margin: 3px 2px;
+                font-size: 0.8em;
+            }
+
+            .back-to-top {
+                width: 45px;
+                height: 45px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.2em;
+            }
+
+            footer {
+                padding: 20px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            header .subtitle {
+                font-size: 0.9em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            h3 {
+                font-size: 1.2em;
+            }
+
+            section {
+                padding: 15px 10px;
+            }
+
+            .card {
+                padding: 12px;
+            }
+
+            pre {
+                font-size: 0.75em;
+                padding: 12px;
+            }
+
+            .diagram {
+                font-size: 0.65em;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Strategic Context Management</h1>
+            <p class="subtitle">Optimizing information flow, memory utilization, and cognitive resource allocation in AI-assisted development workflows</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <h2>📑 Table of Contents</h2>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#principles">Core Principles</a></li>
+                <li><a href="#patterns">Strategic Patterns</a></li>
+                <li><a href="#tools">Tool Integration</a></li>
+                <li><a href="#metrics">Metrics & Optimization</a></li>
+                <li><a href="#antipatterns">Common Antipatterns</a></li>
+                <li><a href="#advanced">Advanced Techniques</a></li>
+                <li><a href="#integration">Framework Integration</a></li>
+                <li><a href="#workflows">Practical Workflows</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>Strategic Context Management is the systematic approach to optimizing information flow, memory utilization, and cognitive resource allocation in AI-assisted development workflows. It represents the intersection of session persistence, token efficiency, and architectural understanding.</p>
+
+            <div class="info-box">
+                <h3>Core Concept</h3>
+                <p><strong>Definition</strong>: The intelligent curation, prioritization, and persistence of project knowledge to maximize development effectiveness while minimizing cognitive and computational overhead.</p>
+                <p><strong>Goal</strong>: Maintain <span class="badge badge-success">≥90%</span> context relevance across sessions while operating within token budgets and memory constraints.</p>
+            </div>
+
+            <h3>The Context Challenge</h3>
+
+            <h4>Traditional Limitations</h4>
+            <ul>
+                <li><strong>Token Windows</strong>: Fixed context limits (200K tokens) require strategic information selection</li>
+                <li><strong>Session Amnesia</strong>: Lost context between sessions forces repeated discovery</li>
+                <li><strong>Information Overload</strong>: Large codebases exceed immediate comprehension capacity</li>
+                <li><strong>Cognitive Load</strong>: Humans and AI both struggle with excessive simultaneous context</li>
+            </ul>
+
+            <div class="highlight">
+                <h4>Strategic Response</h4>
+                <p>Rather than fighting these constraints, Strategic Context Management treats them as design parameters for building efficient workflows.</p>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>Architecture</h2>
+
+            <h3>Three-Layer Context Model</h3>
+
+            <div class="diagram">┌─────────────────────────────────────────────┐
+│  Layer 1: Persistent Memory (Serena)       │
+│  • Project architecture & patterns          │
+│  • Key decisions & rationale                │
+│  • Long-term knowledge base                 │
+└─────────────────────────────────────────────┘
+           ↓ Retrieval on demand
+┌─────────────────────────────────────────────┐
+│  Layer 2: Session Context (Active Working) │
+│  • Current task scope & objectives          │
+│  • Recently accessed files & symbols        │
+│  • Active decision making                   │
+└─────────────────────────────────────────────┘
+           ↓ Just-in-time loading
+┌─────────────────────────────────────────────┐
+│  Layer 3: Immediate Context (Current Task) │
+│  • Specific files being edited             │
+│  • Focused problem-solving                  │
+│  • Tactical implementation details          │
+└─────────────────────────────────────────────┘</div>
+        </section>
+
+        <section id="principles">
+            <h2>Core Principles</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>1. Lazy Loading of Context</h4>
+                    <p><strong>Principle</strong>: Load information just-in-time, not just-in-case</p>
+                    <ul>
+                        <li>Use <code>get_symbols_overview</code> before reading entire files</li>
+                        <li>Search for specific symbols with <code>find_symbol</code></li>
+                        <li>Load architectural context only when making structural changes</li>
+                        <li>Defer non-critical information until actually needed</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>2. Strategic Memory Persistence</h4>
+                    <p><strong>Principle</strong>: Write once, retrieve many times</p>
+                    <ul>
+                        <li>Document architectural decisions in memory at decision time</li>
+                        <li>Capture pattern discoveries for reuse across sessions</li>
+                        <li>Store complexity maps for navigation efficiency</li>
+                        <li>Record failure patterns to avoid repetition</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>3. Context Hierarchy</h4>
+                    <p><strong>Principle</strong>: Information importance determines retention priority</p>
+                    <ol>
+                        <li><strong>Critical</strong> (Always retain): Core architecture, active task</li>
+                        <li><strong>Important</strong> (Session-level): Current feature context</li>
+                        <li><strong>Reference</strong> (On-demand): Historical context</li>
+                        <li><strong>Transient</strong> (Discard): Temporary debugging output</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h4>4. Intelligent Compression</h4>
+                    <p><strong>Principle</strong>: Maximize information density while preserving semantic value</p>
+                    <ul>
+                        <li><strong>Symbol substitution</strong>: Use tokens (→, ⇒, ∴, ∵)</li>
+                        <li><strong>Domain abbreviations</strong>: cfg, impl, arch</li>
+                        <li><strong>Structured templates</strong>: Pre-formatted outputs</li>
+                        <li><strong>Semantic chunking</strong>: Group related information</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>5. Session Lifecycle Management</h4>
+                    <p><strong>Principle</strong>: Deliberate transitions preserve context across work sessions</p>
+                    <ul>
+                        <li><strong>Start</strong>: <code>/sc:load</code> → load context</li>
+                        <li><strong>Active</strong>: Execute → checkpoint every 30min</li>
+                        <li><strong>End</strong>: <code>/sc:save</code> → persist outcomes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h3>Compression Example</h3>
+                <p><strong>Before (82 tokens)</strong>:</p>
+                <p>"The authentication system has a security vulnerability in the user validation function located at auth.js line 45. This needs immediate attention because it could allow unauthorized access to user accounts."</p>
+
+                <p><strong>After (15 tokens)</strong>:</p>
+                <p><code>auth.js:45 → 🛡️ sec risk: unvalidated user input ∴ 🚨 immediate fix req</code></p>
+
+                <p><span class="badge badge-success">82% reduction</span> <span class="badge badge-primary">100% information preserved</span></p>
+            </div>
+        </section>
+
+        <section id="patterns">
+            <h2>Strategic Patterns</h2>
+
+            <div class="card">
+                <h3>Pattern 1: Exploration → Distillation</h3>
+                <p><strong>Use Case</strong>: Understanding unfamiliar codebases</p>
+
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <strong>1. Explore</strong> (Token-heavy): Discover architecture, patterns, relationships
+                    </div>
+                    <div class="workflow-step">
+                        <strong>2. Distill</strong> (Compression): Extract key insights to memory
+                    </div>
+                    <div class="workflow-step">
+                        <strong>3. Reference</strong> (Token-light): Use distilled memory for future sessions
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h4>Performance Impact</h4>
+                    <p><strong>Session 1</strong>: Exploration (15K tokens consumed)</p>
+                    <p><strong>Session 2+</strong>: Reference (2K tokens consumed)</p>
+                    <p><span class="badge badge-success">87% token efficiency improvement</span></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Pattern 2: Hierarchical Context Loading</h3>
+                <p><strong>Use Case</strong>: Working on features within large systems</p>
+
+                <pre><code>Level 1 - System Context (1-2K tokens):
+  - read_memory("architecture_overview")
+  - Understand high-level system structure
+
+Level 2 - Domain Context (3-5K tokens):
+  - get_symbols_overview for relevant modules
+  - Load domain-specific patterns from memory
+
+Level 3 - Implementation Context (5-10K tokens):
+  - find_symbol for specific targets
+  - Load related symbol bodies only
+  - Read tests for behavior specification</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>Pattern 3: Decision Documentation</h3>
+                <p><strong>Use Case</strong>: Capturing architectural choices for future reference</p>
+
+                <pre><code># Decision: [Title]
+
+## Context
+[What prompted this decision]
+
+## Options Considered
+1. **Option A**: [Approach] → [Trade-offs]
+2. **Option B**: [Approach] → [Trade-offs]
+3. **Option C**: [Approach] → [Trade-offs]
+
+## Decision
+**Chosen**: [Option] ∵ [Rationale]
+
+## Implications
+- Architecture: [Impact on system design]
+- Performance: [Performance considerations]
+- Maintenance: [Long-term maintenance impact]</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>Pattern 4: Progressive Refinement</h3>
+                <p><strong>Use Case</strong>: Iterative improvement of complex systems</p>
+
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <strong>Iteration 1</strong>: Broad Understanding → Improvement hypothesis
+                    </div>
+                    <div class="workflow-step">
+                        <strong>Iteration 2</strong>: Focused Analysis → Improvement plan
+                    </div>
+                    <div class="workflow-step">
+                        <strong>Iteration 3</strong>: Implementation → Improvement results
+                    </div>
+                    <div class="workflow-step">
+                        <strong>Iteration 4</strong>: Integration → Updated patterns
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools">
+            <h2>Tool Integration</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Serena MCP: Memory Backbone</h4>
+                    <p><span class="badge badge-primary">Persistent Knowledge</span></p>
+                    <ul>
+                        <li><code>write_memory()</code>: Store discoveries</li>
+                        <li><code>read_memory()</code>: Retrieve knowledge</li>
+                        <li><code>list_memories()</code>: Discover context</li>
+                        <li><code>delete_memory()</code>: Clean up</li>
+                    </ul>
+                    <p><strong>Strategic Value</strong>: Enables cross-session context without token waste</p>
+                </div>
+
+                <div class="card">
+                    <h4>Sequential MCP: Complex Reasoning</h4>
+                    <p><span class="badge badge-warning">Multi-Step Analysis</span></p>
+                    <ul>
+                        <li>Architectural analysis → Store results</li>
+                        <li>Complex debugging → Document findings</li>
+                        <li>System design → Capture rationale</li>
+                    </ul>
+                    <p><strong>Strategic Value</strong>: Converts computational reasoning into persistent knowledge</p>
+                </div>
+
+                <div class="card">
+                    <h4>Context7 MCP: Official Documentation</h4>
+                    <p><span class="badge badge-success">Framework Patterns</span></p>
+                    <ul>
+                        <li>Resolve library patterns → Store common patterns</li>
+                        <li>Validate against official docs</li>
+                        <li>Version-specific guidance</li>
+                    </ul>
+                    <p><strong>Strategic Value</strong>: Reduces repeated documentation lookups</p>
+                </div>
+
+                <div class="card">
+                    <h4>Morphllm MCP: Bulk Transformations</h4>
+                    <p><span class="badge badge-danger">Pattern Edits</span></p>
+                    <ul>
+                        <li>Execute systematic changes efficiently</li>
+                        <li>Apply style guides across codebase</li>
+                        <li>Enforce architectural patterns</li>
+                    </ul>
+                    <p><strong>Strategic Value</strong>: High-impact changes with minimal token usage</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="metrics">
+            <h2>Metrics & Optimization</h2>
+
+            <h3>Context Efficiency Metrics</h3>
+
+            <div class="grid">
+                <div class="metric-card">
+                    <h4>Token Utilization Rate</h4>
+                    <pre><code>Efficiency = (Relevant Context / Total Context) × 100%
+
+Target: ≥90% relevance</code></pre>
+                </div>
+
+                <div class="metric-card">
+                    <h4>Session Startup Time</h4>
+                    <pre><code>Time to Productive Work = Load Time + Orientation Time
+
+Target: &lt;2 minutes with memory
+        &lt;10 minutes without</code></pre>
+                </div>
+
+                <div class="metric-card">
+                    <h4>Memory ROI</h4>
+                    <pre><code>ROI = (Token Savings Across Sessions) / (Initial Investment)
+
+Break-even: ~3 sessions
+High ROI: 10+ sessions</code></pre>
+                </div>
+            </div>
+
+            <h3>Optimization Strategies</h3>
+
+            <div class="info-box">
+                <h4>When to Optimize</h4>
+                <ul>
+                    <li>Context usage >75% consistently</li>
+                    <li>Repeated information loading across sessions</li>
+                    <li>Slow session startup (>5 minutes orientation)</li>
+                    <li>Difficulty maintaining task focus</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h4>How to Optimize</h4>
+                <ol>
+                    <li><strong>Audit Context Usage</strong>: Identify low-value information</li>
+                    <li><strong>Extract to Memory</strong>: Move repeated context to persistent storage</li>
+                    <li><strong>Compress Patterns</strong>: Use symbols and abbreviations systematically</li>
+                    <li><strong>Lazy Load</strong>: Defer non-critical information retrieval</li>
+                    <li><strong>Measure Impact</strong>: Track token savings and session efficiency</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="antipatterns">
+            <h2>Common Antipatterns</h2>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>❌ Antipattern 1: Over-Loading Context</h4>
+                    <p><strong>Problem</strong>: Loading entire codebase "just to be safe"</p>
+                    <p><strong>Impact</strong>: Token exhaustion, slow performance, cognitive overload</p>
+                    <p><strong>Solution</strong>: Lazy loading with just-in-time retrieval</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Antipattern 2: Session Amnesia</h4>
+                    <p><strong>Problem</strong>: Repeatedly rediscovering same architectural patterns</p>
+                    <p><strong>Impact</strong>: Wasted tokens, slower development, inconsistent understanding</p>
+                    <p><strong>Solution</strong>: Write discoveries to memory immediately upon learning</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Antipattern 3: Ignoring Memory System</h4>
+                    <p><strong>Problem</strong>: Treating each session as fresh start</p>
+                    <p><strong>Impact</strong>: Linear scaling of context cost with project age</p>
+                    <p><strong>Solution</strong>: Systematic <code>/sc:load</code> and <code>/sc:save</code> lifecycle</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Antipattern 4: Premature Abstraction</h4>
+                    <p><strong>Problem</strong>: Creating overly complex memory structures before understanding needs</p>
+                    <p><strong>Impact</strong>: Maintenance burden, low memory utilization</p>
+                    <p><strong>Solution</strong>: Start simple, refine based on actual usage patterns</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Antipattern 5: Stale Memory</h4>
+                    <p><strong>Problem</strong>: Outdated information in persistent memory</p>
+                    <p><strong>Impact</strong>: Incorrect decisions based on obsolete context</p>
+                    <p><strong>Solution</strong>: Memory review cycles, delete obsolete entries, timestamp critical info</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="advanced">
+            <h2>Advanced Techniques</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Technique 1: Context Partitioning</h4>
+                    <p><strong>Strategy</strong>: Separate independent context domains for parallel processing</p>
+                    <pre><code>Project with microservices:
+├─ write_memory("auth_service_context")
+├─ write_memory("payment_service_context")
+├─ write_memory("notification_service_context")
+└─ Load only relevant service context per task</code></pre>
+                    <p><strong>Benefit</strong>: Independent evolution, reduced cross-contamination</p>
+                </div>
+
+                <div class="card">
+                    <h4>Technique 2: Diff-Based Context Updates</h4>
+                    <p><strong>Strategy</strong>: Store only changes rather than complete state</p>
+                    <pre><code># Session 2025-11-01: Auth System Changes
+
+## Modifications
+- Added: OAuth2 provider integration
+- Changed: Token validation logic
+- Removed: Deprecated session middleware
+
+## New Patterns
+- Use OAuth2Service for third-party auth
+- JWT refresh token rotation every 7 days</code></pre>
+                    <p><strong>Benefit</strong>: Lightweight updates, clear change history</p>
+                </div>
+
+                <div class="card">
+                    <h4>Technique 3: Context Forecasting</h4>
+                    <p><strong>Strategy</strong>: Anticipate future context needs based on current task</p>
+                    <pre><code>Current task: Implement user profile page
+Forecasted needs:
+├─ User data model → pre-load schema
+├─ Auth context → load authentication patterns
+├─ UI components → load design system patterns
+└─ API patterns → load endpoint conventions</code></pre>
+                    <p><strong>Benefit</strong>: Proactive loading reduces interruptions</p>
+                </div>
+
+                <div class="card">
+                    <h4>Technique 4: Context Budgeting</h4>
+                    <p><strong>Strategy</strong>: Allocate token budget by task phase</p>
+                    <pre><code>Planning Phase (20% budget)
+Implementation Phase (50% budget)
+Validation Phase (20% budget)
+Reserve (10% budget)</code></pre>
+                    <p><strong>Benefit</strong>: Predictable resource usage, prevents exhaustion</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="integration">
+            <h2>Integration with SuperClaude Framework</h2>
+
+            <h3>Mode Coordination</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Context Strategy</th>
+                        <th>Memory Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Brainstorming</strong></td>
+                        <td>Minimal persistent context (exploration phase)</td>
+                        <td>Light - Distill discoveries post-session</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Task Management</strong></td>
+                        <td>Heavy memory usage for hierarchical planning</td>
+                        <td>Heavy - Progressive context refinement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Introspection</strong></td>
+                        <td>Meta-analysis of context usage patterns</td>
+                        <td>Medium - Optimization opportunity tracking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Orchestration</strong></td>
+                        <td>Context-aware tool selection</td>
+                        <td>Medium - Resource-constrained execution</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Token Efficiency</strong></td>
+                        <td>Maximum compression techniques</td>
+                        <td>Light - Symbol-based communication</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Persona Integration</h3>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Architect Persona</h4>
+                    <ul>
+                        <li>Architectural memory persistence</li>
+                        <li>System-level context management</li>
+                        <li>Long-term pattern documentation</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Analyzer Persona</h4>
+                    <ul>
+                        <li>Deep-dive context for investigation</li>
+                        <li>Temporary high-context usage with cleanup</li>
+                        <li>Discovery → distillation workflows</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Implementer Persona</h4>
+                    <ul>
+                        <li>Focused implementation context</li>
+                        <li>Just-in-time pattern retrieval</li>
+                        <li>Efficient execution with minimal overhead</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Optimizer Persona</h4>
+                    <ul>
+                        <li>Context efficiency analysis</li>
+                        <li>Memory structure optimization</li>
+                        <li>Token usage profiling</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="workflows">
+            <h2>Practical Workflows</h2>
+
+            <div class="workflow">
+                <h3>Workflow 1: Starting New Feature</h3>
+                <pre><code># Session start
+/sc:load
+
+# Load architectural context
+read_memory("architecture_overview")
+read_memory("feature_patterns")
+
+# Understand scope
+think_about_collected_information()
+
+# Create feature plan
+write_memory("feature_user_profiles", "
+## Goal
+Implement user profile management system
+
+## Architecture Integration
+- Extends existing auth system
+- Uses standard CRUD API patterns
+- Follows component design system
+
+## Key Files
+- /api/users/profile.ts (endpoints)
+- /components/UserProfile.tsx (UI)
+- /models/UserProfile.ts (data model)
+
+## Constraints
+- Must maintain auth token standards
+- Profile photos <5MB limit
+- Real-time update sync required
+")
+
+# Begin implementation with focused context</code></pre>
+            </div>
+
+            <div class="workflow">
+                <h3>Workflow 2: Debugging Complex Issue</h3>
+                <pre><code># Load system context
+read_memory("architecture_overview")
+read_memory("known_issues")
+
+# Use Sequential for deep analysis
+Use Sequential MCP for multi-step debugging
+
+# Document findings
+write_memory("bug_race_condition_payment", "
+## Issue
+Payment processing occasionally fails with race condition
+
+## Root Cause
+Order status check → payment process not atomic
+Multiple requests can pass validation simultaneously
+
+## Solution
+Implemented database-level locking on order records
+Added idempotency key validation
+
+## Prevention
+Added integration test for concurrent payment attempts
+Updated payment_patterns.md with atomicity requirements
+")
+
+# Update patterns
+read_memory("payment_patterns") → append new guidance</code></pre>
+            </div>
+
+            <div class="workflow">
+                <h3>Workflow 3: Code Review Integration</h3>
+                <pre><code># Load project standards
+read_memory("code_standards")
+read_memory("architecture_overview")
+
+# Review with context
+for file in changed_files:
+  - Validate against standards
+  - Check architectural alignment
+  - Verify pattern consistency
+
+# Update context if patterns discovered
+write_memory("new_patterns_discovered", findings)
+
+# Provide feedback
+Generate review comments with architectural context</code></pre>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+
+            <p>Strategic Context Management transforms AI-assisted development from a stateless, token-intensive process into an efficient, memory-leveraged workflow. By treating context as a strategic asset to be curated, compressed, and persisted, developers can:</p>
+
+            <div class="grid">
+                <div class="success-box">
+                    <h4>🎯 Reduce Token Costs</h4>
+                    <p><span class="badge badge-success">50-80% reduction</span> through memory reuse</p>
+                </div>
+
+                <div class="success-box">
+                    <h4>⚡ Accelerate Development</h4>
+                    <p><span class="badge badge-success">&lt;2min</span> session startup vs 10+ min rediscovery</p>
+                </div>
+
+                <div class="success-box">
+                    <h4>📊 Improve Consistency</h4>
+                    <p>Architectural decisions persist across sessions</p>
+                </div>
+
+                <div class="success-box">
+                    <h4>📈 Scale Complexity</h4>
+                    <p>Handle large codebases without cognitive overload</p>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3>Key Takeaway</h3>
+                <p>In modern AI-assisted development, effective context management is as important as the code itself. Master the strategic use of memory systems, token efficiency techniques, and session lifecycle management to unlock the full potential of AI collaboration.</p>
+            </div>
+
+            <h3>Further Reading</h3>
+            <ul>
+                <li><strong>MODE_Token_Efficiency.md</strong>: Symbol systems and compression techniques</li>
+                <li><strong>MODE_Task_Management.md</strong>: Hierarchical planning with memory integration</li>
+                <li><strong>MCP_Serena.md</strong>: Memory system operations and project persistence</li>
+                <li><strong>PRINCIPLES.md</strong>: Core engineering philosophy including evidence-based reasoning</li>
+                <li><strong>RULES.md</strong>: Workflow patterns and session lifecycle management</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Strategic Context Management Documentation</p>
+            <p>Part of the SuperClaude Framework</p>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top">↑</a>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const nav = document.querySelector('nav');
+
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // Collapse nav on mobile after clicking
+                    if (window.innerWidth <= 768) {
+                        nav.classList.add('collapsed');
+                    }
+                }
+            });
+        });
+
+        // Show/hide back to top button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        // Toggle navigation on mobile
+        const nav = document.querySelector('nav');
+        const navHeader = document.querySelector('nav h2');
+
+        // Collapse nav by default on mobile
+        if (window.innerWidth <= 768) {
+            nav.classList.add('collapsed');
+        }
+
+        navHeader.addEventListener('click', () => {
+            nav.classList.toggle('collapsed');
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                nav.classList.remove('collapsed');
+            }
+        });
+    </script>
+</body>
+</html>
