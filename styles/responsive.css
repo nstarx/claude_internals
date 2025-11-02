@@ -355,7 +355,8 @@
 
 @media (min-width: 1400px) {
     .container {
-        max-width: 1400px;
+        max-width: 100%;
+        padding: var(--space-4);
     }
 
     header h1 {
