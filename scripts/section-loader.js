@@ -17,6 +17,7 @@
                 'patterns',
                 'tools',
                 'metrics',
+                'simulators',
                 'without-tools',
                 'antipatterns',
                 'advanced',
@@ -156,6 +157,9 @@
                 window.initializeInteractiveElements(container);
             }
 
+            // Initialize simulators if they exist in the loaded content
+            this.initializeSimulators(container);
+
             // Add copy buttons to code blocks
             if (window.CopyToClipboard) {
                 container.querySelectorAll('pre').forEach(pre => {
@@ -163,6 +167,41 @@
                         // Add copy button logic here if needed
                     }
                 });
+            }
+        },
+
+        /**
+         * Initialize simulators in the loaded content
+         */
+        initializeSimulators: function(container) {
+            // Token Calculator
+            if (container.querySelector('#token-calculator-container') && window.TokenCalculator) {
+                console.log('Initializing Token Calculator...');
+                window.TokenCalculator.init('token-calculator-container');
+            }
+
+            // Context Window Visualizer
+            if (container.querySelector('#context-window-container') && window.ContextWindowVisualizer) {
+                console.log('Initializing Context Window Visualizer...');
+                window.ContextWindowVisualizer.init('context-window-container');
+            }
+
+            // Memory Simulator
+            if (container.querySelector('#memory-simulator-container') && window.MemorySimulator) {
+                console.log('Initializing Memory Simulator...');
+                window.MemorySimulator.init('memory-simulator-container');
+            }
+
+            // Cognitive Load Simulator
+            if (container.querySelector('#cognitive-load-container') && window.CognitiveLoadCalculator) {
+                console.log('Initializing Cognitive Load Calculator...');
+                window.CognitiveLoadCalculator.init('cognitive-load-container');
+            }
+
+            // Decay Simulator
+            if (container.querySelector('#decay-simulator-container') && window.DecaySimulator) {
+                console.log('Initializing Decay Simulator...');
+                window.DecaySimulator.init('decay-simulator-container');
             }
         },
 
