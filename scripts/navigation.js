@@ -18,44 +18,69 @@
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
 
-                const target = document.querySelector(targetId);
-                const nav = document.querySelector('nav');
+                // Helper function to scroll to target
+                const scrollToTarget = () => {
+                    const target = document.querySelector(targetId);
+                    const nav = document.querySelector('nav');
 
-                if (target) {
-                    // Calculate offset for sticky nav
-                    const navHeight = nav ? nav.offsetHeight : 0;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                    const offsetPosition = targetPosition - navHeight - 20;
+                    if (target) {
+                        // Calculate offset for sticky nav
+                        const navHeight = nav ? nav.offsetHeight : 0;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = targetPosition - navHeight - 20;
 
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
 
-                    // Update active link
-                    updateActiveLink(this);
-
-                    // Collapse nav on mobile after clicking
-                    // Check if this is a nav link (inside nav element)
-                    // Use visualViewport if available (works with DevTools responsive mode)
-                    const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
-                    const isMobile = viewportWidth <= 768;
-                    const isNavLink = this.closest('nav') !== null;
-
-                    if (isMobile && isNavLink && nav) {
-                        // Small delay to ensure smooth scroll starts first
-                        setTimeout(() => {
-                            nav.classList.add('collapsed');
-                            const navHeader = nav.querySelector('h2');
-                            if (navHeader) {
-                                navHeader.setAttribute('aria-expanded', 'false');
-                            }
-                        }, 300);
+                        return true;
                     }
+                    return false;
+                };
 
-                    // Update URL without jumping
-                    history.pushState(null, null, targetId);
+                // Try to scroll immediately
+                if (!scrollToTarget()) {
+                    // If target not found, wait for section to load
+                    const sectionName = targetId.substring(1); // Remove #
+
+                    // Check if section loader is available and section is not loaded
+                    if (window.SectionLoader && !window.SectionLoader.config.loadedSections.has(sectionName)) {
+                        // Wait for section to load, then scroll
+                        const checkInterval = setInterval(() => {
+                            if (scrollToTarget()) {
+                                clearInterval(checkInterval);
+                            }
+                        }, 100);
+
+                        // Clear interval after 2 seconds to prevent infinite loop
+                        setTimeout(() => clearInterval(checkInterval), 2000);
+                    }
                 }
+
+                // Update active link
+                updateActiveLink(this);
+
+                // Collapse nav on mobile after clicking
+                // Check if this is a nav link (inside nav element)
+                // Use visualViewport if available (works with DevTools responsive mode)
+                const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+                const isMobile = viewportWidth <= 768;
+                const isNavLink = this.closest('nav') !== null;
+
+                if (isMobile && isNavLink && nav) {
+                    // Small delay to ensure smooth scroll starts first
+                    setTimeout(() => {
+                        nav.classList.add('collapsed');
+                        const navHeader = nav.querySelector('h2');
+                        if (navHeader) {
+                            navHeader.setAttribute('aria-expanded', 'false');
+                        }
+                    }, 300);
+                }
+
+                // Update URL without jumping
+                history.pushState(null, null, targetId);
             });
         });
     }
