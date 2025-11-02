@@ -70,6 +70,10 @@
     nav {
         padding: var(--space-3);
         margin: var(--space-3) 0;
+        position: sticky;
+        top: 0;
+        z-index: var(--z-sticky);
+        max-width: 100%;
     }
 
     nav h2 {
@@ -79,6 +83,8 @@
     nav ul {
         grid-template-columns: 1fr;
         gap: var(--space-1);
+        max-height: 70vh;
+        overflow-y: auto;
     }
 
     nav ul li a {
