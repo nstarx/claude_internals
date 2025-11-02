@@ -1,0 +1,475 @@
+/**
+ * SuperClaude Framework - Navigation Styles
+ * Sticky navigation, collapsible menus, breadcrumbs, and scroll behavior
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   PRIMARY NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+
+nav {
+    background: var(--card-bg);
+    padding: var(--space-4);
+    margin: var(--space-5) 0;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-base);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    transition: all var(--transition-base);
+}
+
+/* Sticky nav shadow enhancement */
+nav.scrolled {
+    box-shadow: var(--shadow-lg);
+}
+
+nav h2 {
+    color: var(--primary-color);
+    margin-bottom: var(--space-3);
+    font-size: var(--font-size-xl);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2);
+    border-radius: var(--radius-base);
+    transition: background var(--transition-fast);
+    border-bottom: none;
+}
+
+nav h2:hover {
+    background: var(--bg-secondary);
+}
+
+nav h2:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Chevron icon for collapsible nav */
+nav h2::after {
+    content: '▼';
+    font-size: 0.8em;
+    transition: transform var(--transition-base);
+    color: var(--secondary-color);
+}
+
+nav.collapsed h2::after {
+    transform: rotate(-90deg);
+}
+
+/* Navigation list */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-2);
+    transition: all var(--transition-base);
+    overflow: hidden;
+}
+
+nav.collapsed ul {
+    display: none;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    border-radius: var(--radius-base);
+    transition: all var(--transition-fast);
+    min-height: 44px;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    background: var(--secondary-color);
+    color: var(--text-inverse);
+    transform: translateX(5px);
+    text-decoration: none;
+}
+
+nav ul li a:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Active link state */
+nav ul li a.active {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    font-weight: 600;
+}
+
+/* Icon in nav links (for PrimeVue icons) */
+nav ul li a .icon {
+    font-size: var(--font-size-lg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BREADCRUMBS
+   ═══════════════════════════════════════════════════════════════ */
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin: var(--space-4) 0;
+    padding: var(--space-2) var(--space-4);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-sm);
+    flex-wrap: wrap;
+}
+
+.breadcrumbs a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.breadcrumbs a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.breadcrumbs .separator {
+    color: var(--text-muted);
+    margin: 0 var(--space-1);
+    user-select: none;
+}
+
+.breadcrumbs .current {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SKIP LINKS (Accessibility)
+   ═══════════════════════════════════════════════════════════════ */
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    padding: var(--space-2) var(--space-4);
+    text-decoration: none;
+    z-index: var(--z-modal);
+    border-radius: 0 0 var(--radius-base) 0;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 2px solid var(--text-inverse);
+    outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION NAVIGATION (Anchor Links)
+   ═══════════════════════════════════════════════════════════════ */
+
+.section-nav {
+    background: var(--bg-secondary);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    margin: var(--space-4) 0;
+    border: 1px solid var(--border-light);
+}
+
+.section-nav h3 {
+    margin-top: 0;
+    font-size: var(--font-size-lg);
+    color: var(--primary-color);
+}
+
+.section-nav ul {
+    list-style: none;
+    margin: var(--space-2) 0 0 0;
+    padding: 0;
+}
+
+.section-nav ul li {
+    margin: var(--space-1) 0;
+}
+
+.section-nav ul li a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    padding: var(--space-1) var(--space-2);
+    display: inline-block;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.section-nav ul li a:hover {
+    background: var(--card-bg);
+    transform: translateX(3px);
+}
+
+/* Nested section navigation */
+.section-nav ul ul {
+    margin-left: var(--space-4);
+    margin-top: var(--space-1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGINATION
+   ═══════════════════════════════════════════════════════════════ */
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+    padding: var(--space-4);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-base);
+}
+
+.pagination-prev,
+.pagination-next {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: var(--secondary-color);
+    color: var(--text-inverse);
+    text-decoration: none;
+    border-radius: var(--radius-base);
+    transition: all var(--transition-fast);
+    font-weight: 600;
+    min-height: 44px;
+}
+
+.pagination-prev:hover,
+.pagination-next:hover {
+    background: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.pagination-prev:focus,
+.pagination-next:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.pagination-prev.disabled,
+.pagination-next.disabled {
+    background: var(--border-color);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.pagination-info {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+    text-align: center;
+}
+
+/* Chunk navigation (for large documents split into parts) */
+.chunk-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    margin: var(--space-4) 0;
+    border: 2px solid var(--secondary-color);
+}
+
+.chunk-nav-header {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: var(--space-2);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.chunk-nav-links {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.chunk-nav-links a {
+    padding: var(--space-2) var(--space-3);
+    background: var(--card-bg);
+    color: var(--secondary-color);
+    text-decoration: none;
+    border-radius: var(--radius-base);
+    transition: all var(--transition-fast);
+    font-weight: 500;
+    border: 1px solid var(--border-light);
+}
+
+.chunk-nav-links a:hover {
+    background: var(--secondary-color);
+    color: var(--text-inverse);
+}
+
+.chunk-nav-links a.current {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TABLE OF CONTENTS (TOC)
+   ═══════════════════════════════════════════════════════════════ */
+
+.toc {
+    background: var(--bg-secondary);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    margin: var(--space-4) 0;
+    border: 1px solid var(--border-light);
+}
+
+.toc-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: var(--space-3);
+}
+
+.toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toc ul li {
+    margin: var(--space-1) 0;
+}
+
+.toc ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: var(--space-1) var(--space-2);
+    display: block;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.toc ul li a:hover {
+    background: var(--card-bg);
+    color: var(--secondary-color);
+    transform: translateX(3px);
+}
+
+.toc ul ul {
+    margin-left: var(--space-4);
+    margin-top: var(--space-1);
+}
+
+/* Sticky TOC for long documents */
+.toc-sticky {
+    position: sticky;
+    top: calc(var(--space-8) + 20px);
+    max-height: calc(100vh - var(--space-8) - 40px);
+    overflow-y: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HAMBURGER MENU (Mobile)
+   ═══════════════════════════════════════════════════════════════ */
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: var(--font-size-2xl);
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: var(--space-2);
+    border-radius: var(--radius-base);
+    transition: background var(--transition-fast);
+}
+
+.menu-toggle:hover {
+    background: var(--bg-secondary);
+}
+
+.menu-toggle:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Hamburger icon animation */
+.hamburger {
+    width: 25px;
+    height: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--primary-color);
+    position: absolute;
+    left: 0;
+    transition: all var(--transition-base);
+}
+
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.hamburger span:nth-child(3) { bottom: 0; }
+
+.menu-toggle.active .hamburger span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.menu-toggle.active .hamburger span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .hamburger span:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL INDICATORS
+   ═══════════════════════════════════════════════════════════════ */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+    z-index: var(--z-modal);
+    transition: width 0.1s linear;
+}
+
+/* Smooth scroll offset for anchor links */
+:target {
+    scroll-margin-top: 100px;
+}
