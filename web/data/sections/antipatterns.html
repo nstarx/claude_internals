@@ -1,0 +1,40 @@
+        <section id="antipatterns">
+            <h2>Common Antipatterns</h2>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>❌ Antipattern 1: Over-Loading Context</h4>
+                    <p><strong>Problem</strong>: Loading entire codebase "just to be safe"</p>
+                    <p><strong>Impact</strong>: Token exhaustion, slow performance, cognitive overload</p>
+                    <p><strong>Solution</strong>: Lazy loading with just-in-time retrieval</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Antipattern 2: Session Amnesia</h4>
+                    <p><strong>Problem</strong>: Repeatedly rediscovering same architectural patterns</p>
+                    <p><strong>Impact</strong>: Wasted tokens, slower development, inconsistent understanding</p>
+                    <p><strong>Solution</strong>: Write discoveries to memory immediately upon learning</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Antipattern 3: Ignoring Memory System</h4>
+                    <p><strong>Problem</strong>: Treating each session as fresh start</p>
+                    <p><strong>Impact</strong>: Linear scaling of context cost with project age</p>
+                    <p><strong>Solution</strong>: Systematic <code>/sc:load</code> and <code>/sc:save</code> lifecycle</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Antipattern 4: Premature Abstraction</h4>
+                    <p><strong>Problem</strong>: Creating overly complex memory structures before understanding needs</p>
+                    <p><strong>Impact</strong>: Maintenance burden, low memory utilization</p>
+                    <p><strong>Solution</strong>: Start simple, refine based on actual usage patterns</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Antipattern 5: Stale Memory</h4>
+                    <p><strong>Problem</strong>: Outdated information in persistent memory</p>
+                    <p><strong>Impact</strong>: Incorrect decisions based on obsolete context</p>
+                    <p><strong>Solution</strong>: Memory review cycles, delete obsolete entries, timestamp critical info</p>
+                </div>
+            </div>
+        </section>

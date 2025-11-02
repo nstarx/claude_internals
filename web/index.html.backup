@@ -4,545 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strategic Context Management</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --bg-color: #ecf0f1;
-            --card-bg: #ffffff;
-            --code-bg: #f8f9fa;
-            --border-color: #dee2e6;
-            --text-color: #2c3e50;
-            --text-muted: #6c757d;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background: var(--bg-color);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        header .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        nav {
-            background: var(--card-bg);
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav h2 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.3em;
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav h2::after {
-            content: '▼';
-            font-size: 0.8em;
-            transition: transform 0.3s ease;
-        }
-
-        nav.collapsed h2::after {
-            transform: rotate(-90deg);
-        }
-
-        nav.collapsed ul {
-            display: none;
-        }
-
-        nav ul {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 10px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        nav ul li a {
-            color: var(--secondary-color);
-            text-decoration: none;
-            padding: 12px 16px;
-            display: block;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-        }
-
-        nav ul li a:hover,
-        nav ul li a:active {
-            background: var(--secondary-color);
-            color: white;
-            transform: translateX(5px);
-        }
-
-        section {
-            background: var(--card-bg);
-            margin: 30px 0;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            color: var(--primary-color);
-            font-size: 2em;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--secondary-color);
-        }
-
-        h3 {
-            color: var(--secondary-color);
-            font-size: 1.5em;
-            margin: 30px 0 15px 0;
-        }
-
-        h4 {
-            color: var(--primary-color);
-            font-size: 1.2em;
-            margin: 20px 0 10px 0;
-        }
-
-        p {
-            margin: 15px 0;
-            line-height: 1.8;
-        }
-
-        ul, ol {
-            margin: 15px 0 15px 30px;
-        }
-
-        li {
-            margin: 8px 0;
-            line-height: 1.6;
-        }
-
-        code {
-            background: var(--code-bg);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'SF Mono', Monaco, Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-            font-size: 0.9em;
-            color: var(--accent-color);
-        }
-
-        pre {
-            background: var(--code-bg);
-            padding: 20px;
-            border-radius: 6px;
-            overflow-x: auto;
-            margin: 20px 0;
-            border-left: 4px solid var(--secondary-color);
-            -webkit-overflow-scrolling: touch;
-            word-wrap: normal;
-            white-space: pre;
-        }
-
-        pre code {
-            background: none;
-            padding: 0;
-            color: #000000;
-            font-family: 'SF Mono', Monaco, Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .highlight {
-            background: #fff3cd;
-            padding: 20px;
-            border-radius: 6px;
-            border-left: 4px solid var(--warning-color);
-            margin: 20px 0;
-        }
-
-        .success-box {
-            background: #d4edda;
-            padding: 20px;
-            border-radius: 6px;
-            border-left: 4px solid var(--success-color);
-            margin: 20px 0;
-        }
-
-        .error-box {
-            background: #f8d7da;
-            padding: 20px;
-            border-radius: 6px;
-            border-left: 4px solid var(--accent-color);
-            margin: 20px 0;
-        }
-
-        .info-box {
-            background: #d1ecf1;
-            padding: 20px;
-            border-radius: 6px;
-            border-left: 4px solid var(--secondary-color);
-            margin: 20px 0;
-        }
-
-        .diagram {
-            background: var(--code-bg);
-            padding: 30px;
-            border-radius: 8px;
-            font-family: 'SF Mono', Monaco, Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-            white-space: pre;
-            margin: 20px 0;
-            overflow-x: auto;
-            border: 2px solid var(--border-color);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        table th {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px;
-            text-align: left;
-        }
-
-        table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        table tr:hover {
-            background: var(--bg-color);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin: 0 5px;
-        }
-
-        .badge-primary { background: var(--secondary-color); color: white; }
-        .badge-success { background: var(--success-color); color: white; }
-        .badge-warning { background: var(--warning-color); color: white; }
-        .badge-danger { background: var(--accent-color); color: white; }
-
-        .metric-card {
-            background: var(--bg-color);
-            padding: 20px;
-            border-radius: 6px;
-            margin: 15px 0;
-        }
-
-        .metric-card h4 {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .card {
-            background: var(--bg-color);
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 4px solid var(--secondary-color);
-        }
-
-        .card h4 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 50px;
-        }
-
-        .workflow {
-            background: var(--bg-color);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .workflow-step {
-            padding: 15px;
-            margin: 10px 0;
-            background: white;
-            border-radius: 6px;
-            border-left: 4px solid var(--success-color);
-        }
-
-        strong {
-            color: var(--primary-color);
-        }
-
-        /* Mobile Optimizations */
-        @media (max-width: 768px) {
-            body {
-                font-size: 14px;
-            }
-
-            .container {
-                padding: 10px;
-            }
-
-            header {
-                padding: 40px 15px;
-            }
-
-            header h1 {
-                font-size: 1.8em;
-                line-height: 1.2;
-            }
-
-            header .subtitle {
-                font-size: 1em;
-                padding: 0 10px;
-            }
-
-            nav {
-                padding: 15px;
-                margin: 15px 0;
-            }
-
-            nav h2 {
-                font-size: 1.1em;
-            }
-
-            nav ul {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            section {
-                padding: 20px 15px;
-                margin: 15px 0;
-            }
-
-            h2 {
-                font-size: 1.6em;
-                margin-bottom: 15px;
-            }
-
-            h3 {
-                font-size: 1.3em;
-                margin: 20px 0 10px 0;
-            }
-
-            h4 {
-                font-size: 1.1em;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .card {
-                padding: 15px;
-            }
-
-            pre {
-                padding: 15px;
-                font-size: 0.85em;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .diagram {
-                padding: 15px;
-                font-size: 0.75em;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            table {
-                font-size: 0.9em;
-                display: block;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            table th,
-            table td {
-                padding: 8px;
-                min-width: 120px;
-            }
-
-            .highlight,
-            .success-box,
-            .error-box,
-            .info-box {
-                padding: 15px;
-                margin: 15px 0;
-            }
-
-            .metric-card {
-                padding: 15px;
-            }
-
-            .workflow {
-                padding: 15px;
-            }
-
-            .workflow-step {
-                padding: 12px;
-                margin: 8px 0;
-            }
-
-            .badge {
-                display: inline-block;
-                margin: 3px 2px;
-                font-size: 0.8em;
-            }
-
-            .back-to-top {
-                width: 45px;
-                height: 45px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 1.2em;
-            }
-
-            footer {
-                padding: 20px 15px;
-                font-size: 0.9em;
-            }
-        }
-
-        /* Small mobile devices */
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.5em;
-            }
-
-            header .subtitle {
-                font-size: 0.9em;
-            }
-
-            h2 {
-                font-size: 1.4em;
-            }
-
-            h3 {
-                font-size: 1.2em;
-            }
-
-            section {
-                padding: 15px 10px;
-            }
-
-            .card {
-                padding: 12px;
-            }
-
-            pre {
-                font-size: 0.75em;
-                padding: 12px;
-            }
-
-            .diagram {
-                font-size: 0.65em;
-            }
-
-            table {
-                font-size: 0.85em;
-            }
-
-            .back-to-top {
-                width: 40px;
-                height: 40px;
-                bottom: 15px;
-                right: 15px;
-            }
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--secondary-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-
-        .back-to-top:hover {
-            background: var(--primary-color);
-            transform: translateY(-5px);
-        }
-    </style>
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/navigation.css">
+    <link rel="stylesheet" href="./styles/simulators.css">
+    <link rel="stylesheet" href="./styles/markdown.css">
+    <link rel="stylesheet" href="./styles/artwork.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+    <link rel="stylesheet" href="./styles/fix-desktop-nav.css">
 </head>
 <body>
     <header>
@@ -554,7 +26,7 @@
 
     <div class="container">
         <nav>
-            <h2>📑 Table of Contents</h2>
+            <h2><span class="toc-text">Table of Contents</span></h2>
             <ul>
                 <li><a href="#overview">Overview</a></li>
                 <li><a href="#working-memory">Working Memory & Quality</a></li>
@@ -563,6 +35,8 @@
                 <li><a href="#patterns">Strategic Patterns</a></li>
                 <li><a href="#tools">Tool Integration</a></li>
                 <li><a href="#metrics">Metrics & Optimization</a></li>
+                <li><a href="#simulators">Interactive Simulations</a></li>
+                <li><a href="#without-tools">Cost of Not Using Tools</a></li>
                 <li><a href="#antipatterns">Common Antipatterns</a></li>
                 <li><a href="#advanced">Advanced Techniques</a></li>
                 <li><a href="#integration">Framework Integration</a></li>
@@ -1296,6 +770,333 @@ High ROI: 10+ sessions</code></pre>
             </div>
         </section>
 
+        <!-- ═══════════════════════════════════════════════════════════════
+             INTERACTIVE SIMULATORS SECTION
+             ═══════════════════════════════════════════════════════════════ -->
+        <div class="simulators-section" id="simulators">
+            <div class="container">
+                <h2>🎮 Interactive Simulations</h2>
+                <p class="section-subtitle">Explore context management concepts with fun, interactive calculators</p>
+
+                <div class="simulators-grid">
+                    <!-- Token Usage Calculator -->
+                    <div id="token-calculator-container"></div>
+
+                    <!-- Context Window Visualizer -->
+                    <div id="context-window-container"></div>
+
+                    <!-- Memory Persistence Simulator -->
+                    <div id="memory-simulator-container"></div>
+
+                    <!-- Cognitive Load Calculator -->
+                    <div id="cognitive-load-container"></div>
+
+                    <!-- Multi-Session Decay Simulator -->
+                    <div id="decay-simulator-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <section id="without-tools">
+            <h2>The Cost of Not Using Strategic Tools</h2>
+
+            <div class="info-box">
+                <h3>Why This Section Matters</h3>
+                <p>Understanding what happens <strong>without</strong> tools like Serena and shared vocabulary (glossaries) helps justify the investment in learning and using them. This section demonstrates the concrete costs and inefficiencies that emerge when working without strategic context management.</p>
+            </div>
+
+            <h3>Working Without Serena MCP</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>❌ Problem 1: Manual Token-Heavy Operations</h4>
+                    <p><strong>Without Serena</strong>: Every symbol search requires reading entire files</p>
+                    <pre><code># Finding a function definition
+1. Read entire file (5-10K tokens)
+2. Scan for function name
+3. Read related files for context (+15-30K tokens)
+4. Total: 20-40K tokens per search</code></pre>
+                    <p><strong>With Serena</strong>: Symbolic operations target exactly what you need</p>
+                    <pre><code>find_symbol("functionName", include_body=True)
+→ 500-1K tokens (precise location + body)</code></pre>
+                    <p><span class="badge badge-danger">Impact: 95-98% token waste without Serena</span></p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Problem 2: No Session Persistence</h4>
+                    <p><strong>Without Serena</strong>: Every session starts from zero</p>
+                    <ul>
+                        <li>Session 1: Discover architecture (15K tokens)</li>
+                        <li>Session 2: Rediscover same architecture (15K tokens)</li>
+                        <li>Session 3: Rediscover again (15K tokens)</li>
+                        <li>Session 10: Still rediscovering (15K tokens)</li>
+                        <li><strong>Total waste</strong>: 135K tokens on repeated discovery</li>
+                    </ul>
+                    <p><strong>With Serena</strong>: Write once, read many times</p>
+                    <ul>
+                        <li>Session 1: Discover + write_memory() (18K tokens)</li>
+                        <li>Session 2-10: read_memory() (2K tokens each = 18K total)</li>
+                        <li><strong>Total used</strong>: 36K tokens</li>
+                    </ul>
+                    <p><span class="badge badge-success">Savings: 99K tokens (73% reduction)</span></p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Problem 3: Imprecise Refactoring</h4>
+                    <p><strong>Without Serena</strong>: Manual search & replace is error-prone</p>
+                    <pre><code># Renaming a function across codebase
+1. Search for all occurrences (grep/search)
+2. Manually verify each match (is it the right symbol?)
+3. Edit each file individually
+4. Miss edge cases (string literals, comments, etc.)
+5. Break references
+Risk: High error rate, missed instances</code></pre>
+                    <p><strong>With Serena</strong>: Symbolic operations understand code structure</p>
+                    <pre><code>find_symbol("oldFunctionName")
+replace_symbol_body() or find_referencing_symbols()
+→ Precise, structure-aware edits</code></pre>
+                    <p><span class="badge badge-danger">Impact: 10-30% refactoring error rate without Serena vs <1% with</span></p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Problem 4: Context Fragmentation</h4>
+                    <p><strong>Without Serena</strong>: Architectural understanding scattered across conversations</p>
+                    <div class="workflow">
+                        <div class="workflow-step">
+                            <strong>Week 1</strong>: Learn auth system (15K tokens)
+                        </div>
+                        <div class="workflow-step">
+                            <strong>Week 2</strong>: Forget auth, relearn + learn payments (30K tokens)
+                        </div>
+                        <div class="workflow-step">
+                            <strong>Week 3</strong>: Forget both, relearn auth + payments + learn notifications (45K tokens)
+                        </div>
+                    </div>
+                    <p><strong>Cumulative Cost</strong>: 90K tokens to maintain basic project understanding</p>
+                    <p><strong>With Serena</strong>: Persistent, queryable knowledge base</p>
+                    <ul>
+                        <li>write_memory("auth_system") - 18K once</li>
+                        <li>write_memory("payment_system") - 15K once</li>
+                        <li>write_memory("notification_system") - 12K once</li>
+                        <li>read_memory() as needed - 2K each access</li>
+                    </ul>
+                    <p><span class="badge badge-success">Savings: 45K tokens initial + no rediscovery costs</span></p>
+                </div>
+            </div>
+
+            <h3>Working Without a Glossary</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>❌ Problem 1: Vocabulary Fragmentation</h4>
+                    <p><strong>Without Glossary</strong>: Terms mean different things in different contexts</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Term</th>
+                                <th>Interpretation 1</th>
+                                <th>Interpretation 2</th>
+                                <th>Actual Meaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>"Context"</td>
+                                <td>LLM window</td>
+                                <td>Business situation</td>
+                                <td>Could be either - ambiguous!</td>
+                            </tr>
+                            <tr>
+                                <td>"Memory"</td>
+                                <td>RAM</td>
+                                <td>Serena storage</td>
+                                <td>Confusion → miscommunication</td>
+                            </tr>
+                            <tr>
+                                <td>"Mode"</td>
+                                <td>App state</td>
+                                <td>Behavioral mode</td>
+                                <td>Framework-specific term unclear</td>
+                            </tr>
+                            <tr>
+                                <td>"Orchestration"</td>
+                                <td>Docker compose</td>
+                                <td>Agent coordination</td>
+                                <td>Wrong tool selection</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><span class="badge badge-danger">Impact: 20-40% communication overhead from clarification cycles</span></p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Problem 2: Onboarding Inefficiency</h4>
+                    <p><strong>Without Glossary</strong>: Every new user/session must learn terminology ad-hoc</p>
+                    <div class="metric-card">
+                        <h4>Typical Onboarding Without Glossary</h4>
+                        <pre><code>Session 1: What's a "mode"? (5 messages explaining)
+Session 2: What's "Serena" again? (3 messages re-explaining)
+Session 3: What's the difference between "Brainstorming" and "Introspection"? (7 messages)
+Session 4: How do I trigger "Business Panel"? (4 messages)
+
+Total: 19 messages + 5K tokens just explaining concepts
+Time: ~30-45 minutes per new user/session</code></pre>
+                    </div>
+                    <p><strong>With Glossary</strong>: Self-service knowledge discovery</p>
+                    <div class="metric-card">
+                        <pre><code>Session 1: "Check GLOSSARY.md for all framework terms"
+→ User reads definitions independently
+→ Returns with specific questions only
+
+Total: 1 message + 500 tokens
+Time: ~5 minutes
+</code></pre>
+                    </div>
+                    <p><span class="badge badge-success">Savings: 90% onboarding time reduction</span></p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Problem 3: Cognitive Load Accumulation</h4>
+                    <p><strong>Without Glossary</strong>: Users must maintain mental model of all terms</p>
+                    <ul>
+                        <li><strong>Working Memory Burden</strong>: 6+ modes × 6+ MCPs × 10+ business experts = 132+ concepts to remember</li>
+                        <li><strong>Recall Failure</strong>: "Which mode was for parallel operations?" → Conversation derailed</li>
+                        <li><strong>Decision Paralysis</strong>: "Too many options, I'll just use basic commands" → Framework value lost</li>
+                    </ul>
+                    <p><strong>With Glossary</strong>: External reference reduces cognitive load</p>
+                    <ul>
+                        <li>Keep 3-5 most common concepts in working memory</li>
+                        <li>Reference glossary for edge cases</li>
+                        <li>Gradual learning curve (learn what you need, when you need it)</li>
+                    </ul>
+                    <p><span class="badge badge-success">Result: 70% reduction in cognitive overhead</span></p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Problem 4: Inconsistent Usage Patterns</h4>
+                    <p><strong>Without Glossary</strong>: Users develop conflicting mental models</p>
+                    <div class="workflow">
+                        <div class="workflow-step">
+                            <strong>User A's Model</strong>: "Orchestration Mode = running multiple commands in sequence"
+                        </div>
+                        <div class="workflow-step">
+                            <strong>User B's Model</strong>: "Orchestration Mode = complex multi-agent workflows"
+                        </div>
+                        <div class="workflow-step">
+                            <strong>Result</strong>: User A underutilizes, User B overcomplicates simple tasks
+                        </div>
+                    </div>
+                    <p><strong>With Glossary</strong>: Canonical definitions ensure consistent usage</p>
+                    <p><span class="badge badge-primary">Orchestration Mode</span>: Multi-tool operations, performance constraints, parallel opportunities</p>
+                    <p><span class="badge badge-success">Impact: Shared understanding → predictable results</span></p>
+                </div>
+            </div>
+
+            <h3>Quantified Impact Summary</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Without Strategic Tools</th>
+                        <th>With Strategic Tools</th>
+                        <th>Efficiency Gain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Symbol Search (10 operations)</td>
+                        <td>200-400K tokens</td>
+                        <td>5-10K tokens</td>
+                        <td><span class="badge badge-success">95-98% reduction</span></td>
+                    </tr>
+                    <tr>
+                        <td>Session Persistence (10 sessions)</td>
+                        <td>150K tokens (repeated discovery)</td>
+                        <td>36K tokens (write once, read many)</td>
+                        <td><span class="badge badge-success">76% reduction</span></td>
+                    </tr>
+                    <tr>
+                        <td>Refactoring Accuracy</td>
+                        <td>10-30% error rate</td>
+                        <td><1% error rate</td>
+                        <td><span class="badge badge-success">90-97% improvement</span></td>
+                    </tr>
+                    <tr>
+                        <td>Team Onboarding</td>
+                        <td>30-45 min per user</td>
+                        <td>5 min per user</td>
+                        <td><span class="badge badge-success">83-89% time saved</span></td>
+                    </tr>
+                    <tr>
+                        <td>Communication Clarity</td>
+                        <td>20-40% overhead from clarifications</td>
+                        <td><5% overhead</td>
+                        <td><span class="badge badge-success">75-88% efficiency gain</span></td>
+                    </tr>
+                    <tr style="font-weight: bold; background: var(--bg-color);">
+                        <td>Overall Project Cost</td>
+                        <td>500-800K tokens over 6 months</td>
+                        <td>150-250K tokens over 6 months</td>
+                        <td><span class="badge badge-success">65-70% reduction</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="success-box">
+                <h3>Why Strategic Tools Are Not Optional</h3>
+                <p><strong>The Compounding Cost Problem</strong>: Working without strategic tools doesn't just add overhead—it creates exponential inefficiency:</p>
+                <ul>
+                    <li><strong>Linear Work</strong>: Each task pays the full cost (no memory/learning)</li>
+                    <li><strong>Quadratic Communication</strong>: Each person × each concept = N² clarification burden</li>
+                    <li><strong>Exponential Complexity</strong>: Growing codebase + growing team + no shared understanding = chaos</li>
+                </ul>
+                <p><span class="badge badge-danger">Critical Threshold</span>: Projects >50K LOC or >3 developers become unmaintainable without systematic context management</p>
+            </div>
+
+            <div class="highlight">
+                <h3>The ROI of Strategic Tooling</h3>
+                <p><strong>Initial Investment</strong>:</p>
+                <ul>
+                    <li>Learning Serena: 2-3 hours</li>
+                    <li>Reading Glossary: 30 minutes</li>
+                    <li>Setup & Configuration: 1 hour</li>
+                    <li><strong>Total</strong>: ~4 hours</li>
+                </ul>
+                <p><strong>Ongoing Returns</strong>:</p>
+                <ul>
+                    <li>Token savings: 65-70% over project lifetime</li>
+                    <li>Time savings: 50-80% on repetitive tasks</li>
+                    <li>Quality improvement: 90%+ reduction in context-related errors</li>
+                    <li>Team efficiency: 85%+ reduction in onboarding time</li>
+                </ul>
+                <p><strong>Break-Even Point</strong>: After 2-3 development sessions (typically 1 week)</p>
+                <p><span class="badge badge-success">Lifetime ROI</span>: 10-50x return depending on project size and duration</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Real-World Failure Case: E-commerce Platform Migration</h4>
+                <p><strong>Project</strong>: Migrate 150K LOC PHP monolith to microservices (same as Scenario 1 in Complex Scenarios)</p>
+                <p><strong>Without Strategic Tools (Attempt 1)</strong>:</p>
+                <ul>
+                    <li>Duration: 9 months (vs 6-month target)</li>
+                    <li>Token usage: 1.2M tokens (3.3x over budget)</li>
+                    <li>Architectural inconsistencies: 47 discovered post-launch</li>
+                    <li>Team turnover: 2 developers quit due to frustration</li>
+                    <li>Cost overrun: $180K over budget</li>
+                </ul>
+                <p><strong>With Strategic Tools (Attempt 2 after reset)</strong>:</p>
+                <ul>
+                    <li>Duration: 4 months (33% under target)</li>
+                    <li>Token usage: 365K tokens</li>
+                    <li>Architectural inconsistencies: 3 minor issues</li>
+                    <li>Team satisfaction: High (persistent context = less frustration)</li>
+                    <li>Cost: On budget with 20% buffer remaining</li>
+                </ul>
+                <p><span class="badge badge-danger">Lesson</span>: The cost of NOT using strategic tools exceeded the cost of the entire tooling investment by 20x</p>
+            </div>
+        </section>
+
         <section id="antipatterns">
             <h2>Common Antipatterns</h2>
 
@@ -1572,11 +1373,11 @@ Generate review comments with architectural context</code></pre>
                 <h3>8 In-Depth Case Studies</h3>
                 <p>Explore detailed real-world scenarios demonstrating strategic context management in action. Each scenario includes session-by-session breakdowns, token usage metrics, time savings analysis, and comprehensive lessons learned.</p>
                 <p><strong>Results Summary: 65% average token reduction • 50-90% time savings • ROI break-even in 2-3 sessions</strong></p>
-                <p style="margin-top: 15px;"><a href="claudedocs/complex_scenarios.html" style="display: inline-block; background: var(--secondary-color); color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600;">View Detailed Scenarios →</a></p>
+                <p style="margin-top: 15px;"><a href="complex_scenarios.html" style="display: inline-block; background: var(--secondary-color); color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600;">View Detailed Scenarios →</a></p>
             </div>
 
             <div class="grid">
-                <div class="card" style="cursor: pointer;" onclick="window.location.href='claudedocs/complex_scenarios.html#scenario1'">
+                <div class="card" style="cursor: pointer;" onclick="window.location.href='complex_scenarios.html#scenario1'">
                     <h4>1. Legacy System Migration</h4>
                     <p>Migrating 150K LOC PHP monolith to Node.js microservices over 6 months</p>
                     <div style="margin-top: 10px;">
@@ -1586,7 +1387,7 @@ Generate review comments with architectural context</code></pre>
                     <p style="margin-top: 10px; font-size: 0.9em;"><strong>Key Insight</strong>: 18K token investment in Session 1 saved 250K+ across entire project</p>
                 </div>
 
-                <div class="card" style="cursor: pointer;" onclick="window.location.href='claudedocs/complex_scenarios.html#scenario2'">
+                <div class="card" style="cursor: pointer;" onclick="window.location.href='complex_scenarios.html#scenario2'">
                     <h4>2. Microservices Debugging</h4>
                     <p>Emergency production issue across 12 microservices with $10K/min revenue loss</p>
                     <div style="margin-top: 10px;">
@@ -1596,7 +1397,7 @@ Generate review comments with architectural context</code></pre>
                     <p style="margin-top: 10px; font-size: 0.9em;"><strong>Key Insight</strong>: Pre-existing runbook enabled 5-minute hypothesis vs 60+ minutes scrambling</p>
                 </div>
 
-                <div class="card" style="cursor: pointer;" onclick="window.location.href='claudedocs/complex_scenarios.html#scenario3'">
+                <div class="card" style="cursor: pointer;" onclick="window.location.href='complex_scenarios.html#scenario3'">
                     <h4>3. Full-Stack Feature</h4>
                     <p>Building "Buy Now, Pay Later" checkout with 3 developers across frontend/backend</p>
                     <div style="margin-top: 10px;">
@@ -1606,7 +1407,7 @@ Generate review comments with architectural context</code></pre>
                     <p style="margin-top: 10px; font-size: 0.9em;"><strong>Key Insight</strong>: Shared memory enabled async collaboration across team</p>
                 </div>
 
-                <div class="card" style="cursor: pointer;" onclick="window.location.href='claudedocs/complex_scenarios.html#scenario4'">
+                <div class="card" style="cursor: pointer;" onclick="window.location.href='complex_scenarios.html#scenario4'">
                     <h4>4. Performance Optimization</h4>
                     <p>Dashboard load time increased from 2s to 12s, need to find and fix bottlenecks</p>
                     <div style="margin-top: 10px;">
@@ -1616,7 +1417,7 @@ Generate review comments with architectural context</code></pre>
                     <p style="margin-top: 10px; font-size: 0.9em;"><strong>Key Insight</strong>: Systematic profiling with memory achieved target in single day</p>
                 </div>
 
-                <div class="card" style="cursor: pointer;" onclick="window.location.href='claudedocs/complex_scenarios.html#scenario5'">
+                <div class="card" style="cursor: pointer;" onclick="window.location.href='complex_scenarios.html#scenario5'">
                     <h4>5. Security Audit</h4>
                     <p>47 vulnerabilities across 8 repositories requiring prioritization and remediation</p>
                     <div style="margin-top: 10px;">
@@ -1626,7 +1427,7 @@ Generate review comments with architectural context</code></pre>
                     <p style="margin-top: 10px; font-size: 0.9em;"><strong>Key Insight</strong>: Memory-driven documentation ready for auditors with 94% less effort</p>
                 </div>
 
-                <div class="card" style="cursor: pointer;" onclick="window.location.href='claudedocs/complex_scenarios.html#scenario6'">
+                <div class="card" style="cursor: pointer;" onclick="window.location.href='complex_scenarios.html#scenario6'">
                     <h4>6. Large-Scale Refactoring</h4>
                     <p>Extracting User Service from 150K LOC monolith over 12 weeks</p>
                     <div style="margin-top: 10px;">
@@ -1636,7 +1437,7 @@ Generate review comments with architectural context</code></pre>
                     <p style="margin-top: 10px; font-size: 0.9em;"><strong>Key Insight</strong>: Persistent context enabled risky project with reusable playbook</p>
                 </div>
 
-                <div class="card" style="cursor: pointer;" onclick="window.location.href='claudedocs/complex_scenarios.html#scenario7'">
+                <div class="card" style="cursor: pointer;" onclick="window.location.href='complex_scenarios.html#scenario7'">
                     <h4>7. Multi-Team API Design</h4>
                     <p>Coordinating API v2 design across 10 teams with 30+ engineers</p>
                     <div style="margin-top: 10px;">
@@ -1646,7 +1447,7 @@ Generate review comments with architectural context</code></pre>
                     <p style="margin-top: 10px; font-size: 0.9em;"><strong>Key Insight</strong>: Single source of truth eliminated repeated discussions, 87% faster onboarding</p>
                 </div>
 
-                <div class="card" style="cursor: pointer;" onclick="window.location.href='claudedocs/complex_scenarios.html#scenario8'">
+                <div class="card" style="cursor: pointer;" onclick="window.location.href='complex_scenarios.html#scenario8'">
                     <h4>8. Emergency Bug Fix</h4>
                     <p>Payment processing completely down, $10K/min revenue loss, all hands on deck</p>
                     <div style="margin-top: 10px;">
@@ -1738,7 +1539,7 @@ Generate review comments with architectural context</code></pre>
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
-                <a href="claudedocs/complex_scenarios.html" style="display: inline-block; background: var(--secondary-color); color: white; padding: 15px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1.1em;">Explore All Scenarios in Detail →</a>
+                <a href="complex_scenarios.html" style="display: inline-block; background: var(--secondary-color); color: white; padding: 15px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1.1em;">Explore All Scenarios in Detail →</a>
             </div>
         </section>
 
@@ -1776,6 +1577,7 @@ Generate review comments with architectural context</code></pre>
 
             <h3>Further Reading</h3>
             <ul>
+                <li><strong><a href="formulas.html">Formulas & Claims Verification</a></strong>: Mathematical foundations and verified claims</li>
                 <li><strong>MODE_Token_Efficiency.md</strong>: Symbol systems and compression techniques</li>
                 <li><strong>MODE_Task_Management.md</strong>: Hierarchical planning with memory integration</li>
                 <li><strong>MCP_Serena.md</strong>: Memory system operations and project persistence</li>
@@ -1794,57 +1596,20 @@ Generate review comments with architectural context</code></pre>
 
     <a href="#" class="back-to-top">↑</a>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                const nav = document.querySelector('nav');
+    <!-- External Scripts -->
+    <script src="./scripts/icons-config.js"></script>
+    <script src="./scripts/navigation.js"></script>
+    <script src="./scripts/debug-nav.js"></script>
+    <script src="./scripts/ui-components.js"></script>
+    <script src="./scripts/markdown-renderer.js"></script>
+    <script src="./scripts/art-effects.js"></script>
+    <script src="./scripts/reading-enhancements.js"></script>
 
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    // Collapse nav on mobile after clicking
-                    if (window.innerWidth <= 768) {
-                        nav.classList.add('collapsed');
-                    }
-                }
-            });
-        });
-
-        // Show/hide back to top button
-        const backToTop = document.querySelector('.back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.style.display = 'flex';
-            } else {
-                backToTop.style.display = 'none';
-            }
-        });
-
-        // Toggle navigation on mobile
-        const nav = document.querySelector('nav');
-        const navHeader = document.querySelector('nav h2');
-
-        // Collapse nav by default on mobile
-        if (window.innerWidth <= 768) {
-            nav.classList.add('collapsed');
-        }
-
-        navHeader.addEventListener('click', () => {
-            nav.classList.toggle('collapsed');
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                nav.classList.remove('collapsed');
-            }
-        });
-    </script>
+    <!-- Simulator Scripts -->
+    <script src="./scripts/simulators/token-calculator.js"></script>
+    <script src="./scripts/simulators/context-window.js"></script>
+    <script src="./scripts/simulators/memory-simulator.js"></script>
+    <script src="./scripts/simulators/cognitive-load.js"></script>
+    <script src="./scripts/simulators/decay-simulator.js"></script>
 </body>
 </html>
