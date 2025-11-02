@@ -1,0 +1,532 @@
+/**
+ * SuperClaude Framework - Responsive Styles
+ * Mobile-first responsive design for all screen sizes
+ *
+ * Breakpoints:
+ * - Small mobile: 0-480px
+ * - Mobile: 481-768px
+ * - Tablet: 769-1024px
+ * - Desktop: 1025px+
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   TABLET AND BELOW (≤1024px)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    .container {
+        padding: var(--space-3);
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--space-3);
+    }
+
+    header h1 {
+        font-size: var(--font-size-3xl);
+    }
+
+    section {
+        padding: var(--space-5);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE (≤768px)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    /* Base font size adjustment */
+    html {
+        font-size: 14px;
+    }
+
+    /* Layout adjustments */
+    body {
+        font-size: var(--font-size-base);
+    }
+
+    .container {
+        padding: var(--space-2);
+    }
+
+    /* Header */
+    header {
+        padding: var(--space-6) var(--space-3);
+    }
+
+    header h1 {
+        font-size: var(--font-size-2xl);
+        line-height: var(--line-height-tight);
+    }
+
+    header .subtitle {
+        font-size: var(--font-size-base);
+        padding: 0 var(--space-2);
+    }
+
+    /* Navigation */
+    nav {
+        padding: var(--space-3);
+        margin: var(--space-3) 0;
+    }
+
+    nav h2 {
+        font-size: var(--font-size-lg);
+    }
+
+    nav ul {
+        grid-template-columns: 1fr;
+        gap: var(--space-1);
+    }
+
+    nav ul li a {
+        padding: var(--space-2) var(--space-3);
+    }
+
+    /* Show hamburger menu toggle */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Sections */
+    section {
+        padding: var(--space-4) var(--space-3);
+        margin: var(--space-3) 0;
+    }
+
+    /* Typography */
+    h2 {
+        font-size: var(--font-size-2xl);
+        margin-bottom: var(--space-3);
+    }
+
+    h3 {
+        font-size: var(--font-size-xl);
+        margin: var(--space-4) 0 var(--space-2) 0;
+    }
+
+    h4 {
+        font-size: var(--font-size-lg);
+    }
+
+    /* Grid layouts */
+    .grid,
+    .grid-2,
+    .grid-3 {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+
+    .scenario-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+
+    /* Cards */
+    .card,
+    .metric-card {
+        padding: var(--space-3);
+    }
+
+    /* Code blocks */
+    pre {
+        padding: var(--space-3);
+        font-size: 0.85em;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .diagram {
+        padding: var(--space-3);
+        font-size: 0.75em;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Tables */
+    table {
+        font-size: var(--font-size-sm);
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table th,
+    table td {
+        padding: var(--space-2);
+        min-width: 120px;
+    }
+
+    /* Alert boxes */
+    .info-box,
+    .success-box,
+    .warning-box,
+    .error-box,
+    .highlight {
+        padding: var(--space-3);
+        margin: var(--space-3) 0;
+    }
+
+    /* Workflow */
+    .workflow {
+        padding: var(--space-3);
+    }
+
+    .workflow-step {
+        padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
+        margin: var(--space-2) 0;
+    }
+
+    /* Badges */
+    .badge {
+        display: inline-block;
+        margin: var(--space-1) 0.25rem;
+        font-size: var(--font-size-xs);
+    }
+
+    /* Back to top button */
+    .back-to-top {
+        width: 45px;
+        height: 45px;
+        bottom: var(--space-3);
+        right: var(--space-3);
+        font-size: var(--font-size-lg);
+    }
+
+    /* Footer */
+    footer {
+        padding: var(--space-4) var(--space-3);
+        font-size: var(--font-size-sm);
+    }
+
+    /* Modal */
+    .modal {
+        padding: var(--space-2);
+    }
+
+    .modal-content {
+        padding: var(--space-4);
+        margin: var(--space-2) auto;
+    }
+
+    .modal-close {
+        top: var(--space-2);
+        right: var(--space-2);
+        font-size: var(--font-size-2xl);
+    }
+
+    /* Pagination */
+    .pagination {
+        flex-direction: column;
+        gap: var(--space-2);
+        padding: var(--space-3);
+    }
+
+    .pagination-prev,
+    .pagination-next {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+        padding: var(--space-2);
+        font-size: var(--font-size-xs);
+    }
+
+    /* TOC - make it non-sticky on mobile */
+    .toc-sticky {
+        position: static;
+        max-height: none;
+    }
+
+    /* Chunk navigation */
+    .chunk-nav {
+        padding: var(--space-3);
+    }
+
+    .chunk-nav-links {
+        flex-direction: column;
+    }
+
+    .chunk-nav-links a {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SMALL MOBILE (≤480px)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+    /* Further reduce font sizes */
+    html {
+        font-size: 13px;
+    }
+
+    /* Header */
+    header h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    header .subtitle {
+        font-size: var(--font-size-sm);
+    }
+
+    /* Typography */
+    h2 {
+        font-size: var(--font-size-xl);
+    }
+
+    h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    h4 {
+        font-size: var(--font-size-base);
+    }
+
+    /* Sections - tighter spacing */
+    section {
+        padding: var(--space-3) var(--space-2);
+    }
+
+    /* Cards - minimal padding */
+    .card {
+        padding: var(--space-2);
+    }
+
+    /* Code blocks - smaller font */
+    pre {
+        font-size: 0.75em;
+        padding: var(--space-2);
+    }
+
+    .diagram {
+        font-size: 0.65em;
+        padding: var(--space-2);
+    }
+
+    /* Tables - very compact */
+    table {
+        font-size: 0.85em;
+    }
+
+    table th,
+    table td {
+        padding: var(--space-1);
+    }
+
+    /* Back to top - smaller */
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: var(--space-2);
+        right: var(--space-2);
+        font-size: var(--font-size-base);
+    }
+
+    /* Buttons - full width for better touch targets */
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Modal - full width */
+    .modal-content {
+        padding: var(--space-3);
+        margin: var(--space-1) auto;
+        border-radius: var(--radius-base);
+    }
+
+    /* Badges - smaller */
+    .badge {
+        font-size: 0.7em;
+        padding: 0.2rem 0.5rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LARGE DESKTOP (≥1400px)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+
+    header h1 {
+        font-size: var(--font-size-4xl);
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
+    section {
+        padding: var(--space-8);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOUCH DEVICE OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets */
+    a,
+    button,
+    .btn,
+    nav ul li a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Remove hover effects on touch devices */
+    nav ul li a:hover,
+    .card:hover {
+        transform: none;
+    }
+
+    /* Improve scrolling performance */
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Disable hover-only tooltips */
+    .tooltip:hover .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LANDSCAPE ORIENTATION (Mobile)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    header {
+        padding: var(--space-4) var(--space-3);
+    }
+
+    header h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    nav {
+        position: relative;
+    }
+
+    section {
+        padding: var(--space-4);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HIGH DPI DISPLAYS (Retina)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Sharper borders and shadows */
+    .card,
+    section,
+    nav {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Thinner borders look better on retina */
+    pre,
+    .diagram {
+        border-width: 1px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION (Accessibility)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .back-to-top:hover,
+    .card:hover,
+    nav ul li a:hover {
+        transform: none;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRINT MEDIA QUERIES
+   ═══════════════════════════════════════════════════════════════ */
+
+@media print {
+    /* Reset responsive styles for printing */
+    html {
+        font-size: 12pt;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    /* Hide interactive elements */
+    nav,
+    .back-to-top,
+    .menu-toggle,
+    .modal,
+    footer,
+    .breadcrumbs {
+        display: none !important;
+    }
+
+    /* Adjust spacing for print */
+    section {
+        margin: 1cm 0;
+        padding: 0;
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    /* Ensure links show URLs */
+    a::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+
+    /* Code blocks should not break */
+    pre,
+    code,
+    .diagram {
+        page-break-inside: avoid;
+        border: 1px solid #ccc;
+    }
+
+    /* Tables should not break */
+    table {
+        page-break-inside: avoid;
+    }
+}

@@ -1,0 +1,88 @@
+        <section id="patterns">
+            <h2>Strategic Patterns</h2>
+
+            <div class="card">
+                <h3>Pattern 1: Exploration → Distillation</h3>
+                <p><strong>Use Case</strong>: Understanding unfamiliar codebases</p>
+
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <strong>1. Explore</strong> (Token-heavy): Discover architecture, patterns, relationships
+                    </div>
+                    <div class="workflow-step">
+                        <strong>2. Distill</strong> (Compression): Extract key insights to memory
+                    </div>
+                    <div class="workflow-step">
+                        <strong>3. Reference</strong> (Token-light): Use distilled memory for future sessions
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h4>Performance Impact</h4>
+                    <p><strong>Session 1</strong>: Exploration (15K tokens consumed)</p>
+                    <p><strong>Session 2+</strong>: Reference (2K tokens consumed)</p>
+                    <p><span class="badge badge-success">87% token efficiency improvement</span></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Pattern 2: Hierarchical Context Loading</h3>
+                <p><strong>Use Case</strong>: Working on features within large systems</p>
+
+                <pre><code>Level 1 - System Context (1-2K tokens):
+  - read_memory("architecture_overview")
+  - Understand high-level system structure
+
+Level 2 - Domain Context (3-5K tokens):
+  - get_symbols_overview for relevant modules
+  - Load domain-specific patterns from memory
+
+Level 3 - Implementation Context (5-10K tokens):
+  - find_symbol for specific targets
+  - Load related symbol bodies only
+  - Read tests for behavior specification</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>Pattern 3: Decision Documentation</h3>
+                <p><strong>Use Case</strong>: Capturing architectural choices for future reference</p>
+
+                <pre><code># Decision: [Title]
+
+## Context
+[What prompted this decision]
+
+## Options Considered
+1. **Option A**: [Approach] → [Trade-offs]
+2. **Option B**: [Approach] → [Trade-offs]
+3. **Option C**: [Approach] → [Trade-offs]
+
+## Decision
+**Chosen**: [Option] ∵ [Rationale]
+
+## Implications
+- Architecture: [Impact on system design]
+- Performance: [Performance considerations]
+- Maintenance: [Long-term maintenance impact]</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>Pattern 4: Progressive Refinement</h3>
+                <p><strong>Use Case</strong>: Iterative improvement of complex systems</p>
+
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <strong>Iteration 1</strong>: Broad Understanding → Improvement hypothesis
+                    </div>
+                    <div class="workflow-step">
+                        <strong>Iteration 2</strong>: Focused Analysis → Improvement plan
+                    </div>
+                    <div class="workflow-step">
+                        <strong>Iteration 3</strong>: Implementation → Improvement results
+                    </div>
+                    <div class="workflow-step">
+                        <strong>Iteration 4</strong>: Integration → Updated patterns
+                    </div>
+                </div>
+            </div>
+        </section>

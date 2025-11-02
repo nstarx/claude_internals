@@ -1,0 +1,54 @@
+        <section id="advanced">
+            <h2>Advanced Techniques</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Technique 1: Context Partitioning</h4>
+                    <p><strong>Strategy</strong>: Separate independent context domains for parallel processing</p>
+                    <pre><code>Project with microservices:
+├─ write_memory("auth_service_context")
+├─ write_memory("payment_service_context")
+├─ write_memory("notification_service_context")
+└─ Load only relevant service context per task</code></pre>
+                    <p><strong>Benefit</strong>: Independent evolution, reduced cross-contamination</p>
+                </div>
+
+                <div class="card">
+                    <h4>Technique 2: Diff-Based Context Updates</h4>
+                    <p><strong>Strategy</strong>: Store only changes rather than complete state</p>
+                    <pre><code># Session 2025-11-01: Auth System Changes
+
+## Modifications
+- Added: OAuth2 provider integration
+- Changed: Token validation logic
+- Removed: Deprecated session middleware
+
+## New Patterns
+- Use OAuth2Service for third-party auth
+- JWT refresh token rotation every 7 days</code></pre>
+                    <p><strong>Benefit</strong>: Lightweight updates, clear change history</p>
+                </div>
+
+                <div class="card">
+                    <h4>Technique 3: Context Forecasting</h4>
+                    <p><strong>Strategy</strong>: Anticipate future context needs based on current task</p>
+                    <pre><code>Current task: Implement user profile page
+Forecasted needs:
+├─ User data model → pre-load schema
+├─ Auth context → load authentication patterns
+├─ UI components → load design system patterns
+└─ API patterns → load endpoint conventions</code></pre>
+                    <p><strong>Benefit</strong>: Proactive loading reduces interruptions</p>
+                </div>
+
+                <div class="card">
+                    <h4>Technique 4: Context Budgeting</h4>
+                    <p><strong>Strategy</strong>: Allocate token budget by task phase</p>
+                    <pre><code>Planning Phase (20% budget)
+Implementation Phase (50% budget)
+Validation Phase (20% budget)
+Reserve (10% budget)</code></pre>
+                    <p><strong>Benefit</strong>: Predictable resource usage, prevents exhaustion</p>
+                </div>
+            </div>
+        </section>

@@ -1,0 +1,405 @@
+        <section id="working-memory">
+            <h2>Working Memory on Big Problems</h2>
+
+            <h3>The Working Memory Challenge</h3>
+            <p>When tackling large-scale problems—migrating legacy systems, debugging distributed architectures, coordinating multi-team projects—the working context required often exceeds available capacity by orders of magnitude. Understanding how context works and degrades is critical to managing complex work effectively.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Context Window Mechanics</h4>
+                    <p><strong>Fixed Capacity</strong>: 200K tokens (~150K words)</p>
+                    <ul>
+                        <li>Entire conversation history included</li>
+                        <li>All tool outputs consume capacity</li>
+                        <li>File reads, search results, memory retrievals add up</li>
+                        <li>Once full, oldest context gets dropped</li>
+                    </ul>
+                    <p><span class="badge badge-warning">Reality Check</span>: A 150K LOC codebase = ~37.5M tokens if fully loaded (188x the limit)</p>
+                </div>
+
+                <div class="card">
+                    <h4>The Information Selection Problem</h4>
+                    <p><strong>Core Challenge</strong>: What to load vs. what to defer</p>
+                    <ul>
+                        <li>Load too little → missing critical context → errors</li>
+                        <li>Load too much → context pollution → slower reasoning</li>
+                        <li>Wrong information → wasted capacity → need to reload</li>
+                        <li>Stale information → incorrect decisions → rework</li>
+                    </ul>
+                    <p><span class="badge badge-danger">Impact</span>: 30% irrelevant context = 30% less capacity for actual problem-solving</p>
+                </div>
+
+                <div class="card">
+                    <h4>Multi-Session Persistence</h4>
+                    <p><strong>Cross-Session Challenge</strong>: Context doesn't persist between sessions</p>
+                    <ul>
+                        <li>Each new session starts empty (except memory)</li>
+                        <li>Repeated file reads waste tokens</li>
+                        <li>Rediscovery of patterns is expensive</li>
+                        <li>Architectural understanding must be rebuilt</li>
+                    </ul>
+                    <p><span class="badge badge-success">Solution</span>: Strategic memory persistence reduces session startup from 15K tokens to 2K</p>
+                </div>
+
+                <div class="card">
+                    <h4>Quality as Context Currency</h4>
+                    <p><strong>Critical Insight</strong>: Not all context is equally valuable</p>
+                    <ul>
+                        <li>High-quality context = dense, relevant, actionable</li>
+                        <li>Low-quality context = verbose, tangential, obsolete</li>
+                        <li>Quality multiplier: 1 token of high-quality context > 10 tokens of noise</li>
+                        <li>Context degradation accelerates with pollution</li>
+                    </ul>
+                    <p><span class="badge badge-primary">Principle</span>: Optimize for signal-to-noise ratio, not raw information volume</p>
+                </div>
+            </div>
+
+            <h3>How Quality Affects Context Performance</h3>
+
+            <div class="metric-card">
+                <h4>Quality Dimension 1: Relevance</h4>
+                <p><strong>Definition</strong>: How directly information supports the current task</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Relevance Level</th>
+                            <th>Example</th>
+                            <th>Token Value</th>
+                            <th>Decision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-success">Critical (100%)</span></td>
+                            <td>Exact function being debugged</td>
+                            <td>100% useful</td>
+                            <td>Always load</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-primary">High (70-90%)</span></td>
+                            <td>Related functions, callers, dependencies</td>
+                            <td>70-90% useful</td>
+                            <td>Load proactively</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-warning">Medium (40-60%)</span></td>
+                            <td>Same module, architectural context</td>
+                            <td>40-60% useful</td>
+                            <td>Load on-demand</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-danger">Low (10-30%)</span></td>
+                            <td>Tangentially related code</td>
+                            <td>10-30% useful</td>
+                            <td>Defer or skip</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-danger">Noise (&lt;10%)</span></td>
+                            <td>Unrelated code, obsolete patterns</td>
+                            <td>Negative value</td>
+                            <td>Actively avoid</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="metric-card">
+                <h4>Quality Dimension 2: Information Density</h4>
+                <p><strong>Definition</strong>: Useful information per token consumed</p>
+
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <strong>Low Density (Verbose Documentation)</strong>
+                        <pre><code>// This function takes a user object as input and processes it
+// by validating all the fields and then transforming the data
+// into a format that can be saved to the database
+// @param user - the user object to process
+// @returns the processed user object ready for database insertion
+function processUser(user) { ... }</code></pre>
+                        <p>Token cost: ~80 tokens for minimal insight</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>High Density (Compressed + Symbolic)</strong>
+                        <pre><code>auth.js:45 → 🛡️ user validation
+∵ missing input sanitization
+∴ XSS risk (CVE-2024-1234)
+Fix: validator.escape(user.input)</code></pre>
+                        <p>Token cost: ~15 tokens for actionable security insight</p>
+                        <p><span class="badge badge-success">5.3x more efficient</span></p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>Density Formula</strong>:</p>
+                    <pre><code>Information Density = (Actionable Insights × Relevance) / Token Cost
+
+High Density (>2.0):  Critical architecture decisions, root cause findings
+Medium Density (0.5-2.0): Standard code context, module overviews
+Low Density (<0.5): Verbose docs, redundant explanations, outdated info</code></pre>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <h4>Quality Dimension 3: Temporal Validity</h4>
+                <p><strong>Definition</strong>: How long information remains accurate and useful</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Validity Period</th>
+                            <th>Information Type</th>
+                            <th>Memory Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-success">Long-term (months+)</span></td>
+                            <td>Architectural decisions, core patterns, domain models</td>
+                            <td>Persist indefinitely, update on change</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-primary">Medium-term (weeks)</span></td>
+                            <td>Current feature context, active decisions, implementation patterns</td>
+                            <td>Persist for project duration, archive after</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-warning">Short-term (days)</span></td>
+                            <td>Debugging hypotheses, temporary findings, session state</td>
+                            <td>Session-only, checkpoint for continuation</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-danger">Transient (session)</span></td>
+                            <td>Debug output, temporary variables, exploratory reads</td>
+                            <td>Never persist, discard immediately</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>⚠️ Stale Context Problem</h4>
+                    <p><strong>Impact of Outdated Information</strong>:</p>
+                    <ul>
+                        <li><strong>Incorrect Decisions</strong>: Basing changes on obsolete architecture → bugs</li>
+                        <li><strong>Wasted Effort</strong>: Implementing features that already exist → rework</li>
+                        <li><strong>False Understanding</strong>: Believing old patterns still apply → technical debt</li>
+                        <li><strong>Compounding Errors</strong>: Each decision based on stale context creates more problems</li>
+                    </ul>
+                    <p><span class="badge badge-danger">Critical</span>: Timestamp all architectural decisions and validate currency before use</p>
+                </div>
+            </div>
+
+            <h3>Context Quality Degradation Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>❌ Pattern 1: Context Pollution</h4>
+                    <p><strong>Cause</strong>: Loading too much irrelevant information</p>
+                    <p><strong>Symptom</strong>: Slower reasoning, missing obvious solutions, context overflow</p>
+                    <p><strong>Example</strong>: Loading entire codebase when debugging single function</p>
+                    <p><strong>Token Impact</strong>: 50K tokens → 5K useful (10% efficiency)</p>
+                    <p><strong>Recovery</strong>: Clear context, reload only essentials</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Pattern 2: Context Fragmentation</h4>
+                    <p><strong>Cause</strong>: Loading related information across multiple non-contiguous sessions</p>
+                    <p><strong>Symptom</strong>: Losing thread of investigation, repeated rediscovery</p>
+                    <p><strong>Example</strong>: Session 1 finds A, Session 2 finds B, but loses A context</p>
+                    <p><strong>Token Impact</strong>: 3x token cost from repeated loading</p>
+                    <p><strong>Recovery</strong>: Checkpoint synthesis after each discovery phase</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Pattern 3: Context Drift</h4>
+                    <p><strong>Cause</strong>: Gradual accumulation of tangential information</p>
+                    <p><strong>Symptom</strong>: Losing focus, solving wrong problem</p>
+                    <p><strong>Example</strong>: Debugging auth bug → investigating logging → optimizing logging → forgot auth bug</p>
+                    <p><strong>Token Impact</strong>: 40% of tokens on tangential exploration</p>
+                    <p><strong>Recovery</strong>: Regular think_about_task_adherence() validation</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>❌ Pattern 4: Context Staleness</h4>
+                    <p><strong>Cause</strong>: Using outdated information from memory or previous sessions</p>
+                    <p><strong>Symptom</strong>: Solutions don't work, confusion about current state</p>
+                    <p><strong>Example</strong>: Using architectural memory from before major refactor</p>
+                    <p><strong>Token Impact</strong>: 100% waste + additional cost to correct misunderstanding</p>
+                    <p><strong>Recovery</strong>: Validate memory timestamps, refresh architectural context</p>
+                </div>
+            </div>
+
+            <h3>Quality Gates for Context Management</h3>
+
+            <div class="success-box">
+                <h4>Pre-Load Quality Gate: "Should I load this?"</h4>
+                <pre><code>Decision Matrix:
+✅ Load if:
+   - Directly relevant to current task (relevance >70%)
+   - High information density (>1.5 insights/100 tokens)
+   - Temporal validity confirmed (updated within relevance period)
+   - Not already in context (avoid duplication)
+
+⚠️ Defer if:
+   - Medium relevance (40-70%) and not immediately needed
+   - Available on-demand (can load just-in-time)
+   - Large token cost (>10K) without proportional value
+
+❌ Skip if:
+   - Low relevance (<40%)
+   - Poor information density (<0.5)
+   - Stale (outdated and not refreshed)
+   - Speculative (might need, probably won't)</code></pre>
+            </div>
+
+            <div class="success-box">
+                <h4>Post-Load Quality Gate: "Should I persist this?"</h4>
+                <pre><code>Persistence Decision Matrix:
+💾 Persist to memory if:
+   - Will be reused across sessions (>3 session value)
+   - Expensive to rediscover (>5K tokens to regenerate)
+   - Long-term validity (useful for weeks/months)
+   - Architectural significance (affects system understanding)
+
+📋 Checkpoint if:
+   - Session-specific but continuation likely
+   - Intermediate findings in multi-session investigation
+   - Context for async collaboration
+
+🗑️ Discard if:
+   - Single-use information
+   - Debug output, temporary exploration
+   - Already persisted elsewhere (avoid duplication)
+   - Low quality (verbose, low-density)</code></pre>
+            </div>
+
+            <h3>Quality Metrics for Big Problems</h3>
+
+            <div class="metric-card">
+                <h4>Context Efficiency Score (CES)</h4>
+                <pre><code>CES = (Relevant Tokens / Total Tokens) × (Insights Generated / Tokens Loaded)
+
+Target: CES > 0.8 (80% efficiency)
+
+Example 1 - High Quality Context:
+- Total tokens: 15K
+- Relevant tokens: 13K (87% relevance)
+- Insights generated: 12 actionable findings
+→ CES = 0.87 × (12/15000) = 0.000696 → Normalized: 0.87 (Good)
+
+Example 2 - Low Quality Context:
+- Total tokens: 50K
+- Relevant tokens: 15K (30% relevance)
+- Insights generated: 8 actionable findings
+→ CES = 0.30 × (8/50000) = 0.000048 → Normalized: 0.30 (Poor)
+
+Interpretation:
+>0.8: Excellent context quality
+0.5-0.8: Good, room for optimization
+0.3-0.5: Poor, significant waste
+<0.3: Critical inefficiency, reset context</code></pre>
+            </div>
+
+            <div class="metric-card">
+                <h4>Memory ROI on Large Problems</h4>
+                <p><strong>Investment vs. Returns Analysis</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Problem Size</th>
+                            <th>Initial Investment</th>
+                            <th>Per-Session Savings</th>
+                            <th>Break-Even</th>
+                            <th>10-Session ROI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Small (10-50K LOC)</td>
+                            <td>5K tokens</td>
+                            <td>2K tokens</td>
+                            <td>Session 3</td>
+                            <td>300% (15K saved)</td>
+                        </tr>
+                        <tr>
+                            <td>Medium (50-150K LOC)</td>
+                            <td>15K tokens</td>
+                            <td>8K tokens</td>
+                            <td>Session 2</td>
+                            <td>533% (80K saved)</td>
+                        </tr>
+                        <tr>
+                            <td>Large (150K+ LOC)</td>
+                            <td>25K tokens</td>
+                            <td>20K tokens</td>
+                            <td>Session 2</td>
+                            <td>800% (200K saved)</td>
+                        </tr>
+                        <tr style="font-weight: bold; background: var(--bg);">
+                            <td>Average</td>
+                            <td>15K tokens</td>
+                            <td>10K tokens/session</td>
+                            <td>Session 2-3</td>
+                            <td>544% ROI</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top: 15px;"><strong>Key Insight</strong>: Larger problems = faster ROI because per-session savings scale with complexity, but initial investment stays relatively fixed.</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Quality Compounds Over Time</h4>
+                <p>In multi-session projects, quality decisions compound:</p>
+                <ul>
+                    <li><strong>Good Quality Path</strong>: Session 1 (15K investment) → Session 2 (5K maintenance) → Session 3 (3K) → ... → Decreasing cost</li>
+                    <li><strong>Poor Quality Path</strong>: Session 1 (20K waste) → Session 2 (25K rediscovery) → Session 3 (30K confusion) → ... → Increasing cost</li>
+                </ul>
+                <p><span class="badge badge-success">Result</span>: Quality decisions in Session 1 determine whether project becomes easier or harder over time</p>
+            </div>
+
+            <h3>Practical Quality Checklist</h3>
+
+            <div class="workflow">
+                <div class="workflow-step">
+                    <strong>Before Loading Context (Pre-Flight Check)</strong>
+                    <ul>
+                        <li>☐ Do I know exactly what I need this information for?</li>
+                        <li>☐ Is this the minimum necessary to proceed?</li>
+                        <li>☐ Will I use >70% of what I'm about to load?</li>
+                        <li>☐ Is this information current (validated within relevance period)?</li>
+                        <li>☐ Have I checked memory for existing knowledge first?</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <strong>During Work (Quality Monitoring)</strong>
+                    <ul>
+                        <li>☐ Am I using the loaded context or is it sitting idle?</li>
+                        <li>☐ Is my reasoning getting faster (good) or slower (context pollution)?</li>
+                        <li>☐ Am I finding insights or drowning in information?</li>
+                        <li>☐ Is the current context still relevant to my task?</li>
+                        <li>☐ Should I checkpoint current progress before continuing?</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <strong>Before Persisting (Persistence Quality Gate)</strong>
+                    <ul>
+                        <li>☐ Will I need this in future sessions? (Reuse test)</li>
+                        <li>☐ Is this expensive to regenerate? (Investment test)</li>
+                        <li>☐ Is this still accurate? (Validity test)</li>
+                        <li>☐ Is this well-organized? (Structure test)</li>
+                        <li>☐ Have I compressed and symbolized for efficiency? (Density test)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3>Core Principle: Quality Over Quantity</h3>
+                <p>On big problems, <strong>the quality of context matters more than the quantity</strong>. A well-curated 10K token context with 90% relevance outperforms a sprawling 50K token context with 30% relevance by 2.7x efficiency (0.9 vs 0.3 CES) while using 5x fewer resources.</p>
+                <p><strong>Strategic Implication</strong>: Time spent on quality gates (relevance checking, density optimization, temporal validation) has exponential returns on multi-session projects.</p>
+            </div>
+        </section>
