@@ -603,8 +603,8 @@ Strategic Context Management transforms AI-assisted development from a stateless
 
 ## Further Reading
 
-- **MODE_Token_Efficiency.md**: Symbol systems and compression techniques
-- **MODE_Task_Management.md**: Hierarchical planning with memory integration
-- **MCP_Serena.md**: Memory system operations and project persistence
-- **PRINCIPLES.md**: Core engineering philosophy including evidence-based reasoning
-- **RULES.md**: Workflow patterns and session lifecycle management
+- **modes/Token_Efficiency.md**: Symbol systems and compression techniques
+- **modes/Task_Management.md**: Hierarchical planning with memory integration
+- **mcp/Serena.md**: Memory system operations and project persistence (to be moved)
+- **core/PRINCIPLES.md**: Core engineering philosophy including evidence-based reasoning
+- **core/RULES.md**: Workflow patterns and session lifecycle management
