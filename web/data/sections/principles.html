@@ -1,0 +1,70 @@
+        <section id="principles">
+            <h2>Core Principles</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>1. Lazy Loading of Context</h4>
+                    <p><strong>Principle</strong>: Load information just-in-time, not just-in-case</p>
+                    <ul>
+                        <li>Use <code>get_symbols_overview</code> before reading entire files</li>
+                        <li>Search for specific symbols with <code>find_symbol</code></li>
+                        <li>Load architectural context only when making structural changes</li>
+                        <li>Defer non-critical information until actually needed</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>2. Strategic Memory Persistence</h4>
+                    <p><strong>Principle</strong>: Write once, retrieve many times</p>
+                    <ul>
+                        <li>Document architectural decisions in memory at decision time</li>
+                        <li>Capture pattern discoveries for reuse across sessions</li>
+                        <li>Store complexity maps for navigation efficiency</li>
+                        <li>Record failure patterns to avoid repetition</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>3. Context Hierarchy</h4>
+                    <p><strong>Principle</strong>: Information importance determines retention priority</p>
+                    <ol>
+                        <li><strong>Critical</strong> (Always retain): Core architecture, active task</li>
+                        <li><strong>Important</strong> (Session-level): Current feature context</li>
+                        <li><strong>Reference</strong> (On-demand): Historical context</li>
+                        <li><strong>Transient</strong> (Discard): Temporary debugging output</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h4>4. Intelligent Compression</h4>
+                    <p><strong>Principle</strong>: Maximize information density while preserving semantic value</p>
+                    <ul>
+                        <li><strong>Symbol substitution</strong>: Use tokens (→, ⇒, ∴, ∵)</li>
+                        <li><strong>Domain abbreviations</strong>: cfg, impl, arch</li>
+                        <li><strong>Structured templates</strong>: Pre-formatted outputs</li>
+                        <li><strong>Semantic chunking</strong>: Group related information</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>5. Session Lifecycle Management</h4>
+                    <p><strong>Principle</strong>: Deliberate transitions preserve context across work sessions</p>
+                    <ul>
+                        <li><strong>Start</strong>: <code>/sc:load</code> → load context</li>
+                        <li><strong>Active</strong>: Execute → checkpoint every 30min</li>
+                        <li><strong>End</strong>: <code>/sc:save</code> → persist outcomes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h3>Compression Example</h3>
+                <p><strong>Before (82 tokens)</strong>:</p>
+                <p>"The authentication system has a security vulnerability in the user validation function located at auth.js line 45. This needs immediate attention because it could allow unauthorized access to user accounts."</p>
+
+                <p><strong>After (15 tokens)</strong>:</p>
+                <p><code>auth.js:45 → 🛡️ sec risk: unvalidated user input ∴ 🚨 immediate fix req</code></p>
+
+                <p><span class="badge badge-success">82% reduction</span> <span class="badge badge-primary">100% information preserved</span></p>
+            </div>
+        </section>

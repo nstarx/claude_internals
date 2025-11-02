@@ -16,7 +16,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
-    transition: all var(--transition-base);
+    transition: all var(--transition-base), width 0.3s ease, max-width 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
 }
 
 /* Sticky nav shadow enhancement */
@@ -58,6 +58,53 @@ nav h2::after {
 
 nav.collapsed h2::after {
     transform: rotate(-90deg);
+}
+
+/* Collapsed nav as compact icon */
+nav.collapsed {
+    width: auto;
+    max-width: fit-content;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-base);
+    box-shadow: var(--shadow-md);
+}
+
+nav.collapsed h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    white-space: nowrap;
+    gap: var(--space-2);
+    font-size: var(--font-size-base);
+    padding: var(--space-1);
+}
+
+nav.collapsed h2:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+nav.collapsed h2::after {
+    font-size: 1em;
+}
+
+/* Hide full text when collapsed, show only icon and TOC */
+nav.collapsed h2 {
+    font-size: var(--font-size-lg);
+}
+
+nav.collapsed h2::before {
+    content: '📑 TOC';
+    font-weight: 600;
+}
+
+nav h2 .toc-text {
+    display: inline;
+}
+
+nav.collapsed h2 .toc-text {
+    display: none;
 }
 
 /* Navigation list */

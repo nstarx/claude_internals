@@ -1,0 +1,575 @@
+/**
+ * Markdown Content Styling
+ * Styles for dynamically rendered markdown content
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   MARKDOWN CONTAINERS
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container {
+    line-height: 1.8;
+    color: #1f2937;
+}
+
+.md-loading-state {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.md-loading {
+    font-size: 1.2rem;
+    color: #6b7280;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.md-error {
+    background: #fee2e2;
+    border: 2px solid #ef4444;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.md-error strong {
+    color: #dc2626;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.md-error code {
+    background: #fecaca;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.md-error .error-detail {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #7f1d1d;
+    font-family: monospace;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MARKDOWN TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container h1 {
+    font-size: 2.5rem;
+    margin: 2rem 0 1rem 0;
+    color: #111827;
+    font-weight: 700;
+    position: relative;
+}
+
+.md-container h2 {
+    font-size: 2rem;
+    margin: 2rem 0 1rem 0;
+    color: #1f2937;
+    font-weight: 600;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+.md-container h3 {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 0.75rem 0;
+    color: #374151;
+    font-weight: 600;
+    position: relative;
+}
+
+.md-container h4 {
+    font-size: 1.25rem;
+    margin: 1.25rem 0 0.5rem 0;
+    color: #4b5563;
+    font-weight: 600;
+    position: relative;
+}
+
+.md-container h5,
+.md-container h6 {
+    font-size: 1rem;
+    margin: 1rem 0 0.5rem 0;
+    color: #6b7280;
+    font-weight: 600;
+    position: relative;
+}
+
+.md-container p {
+    margin: 1rem 0;
+    line-height: 1.8;
+}
+
+.md-container strong {
+    font-weight: 600;
+    color: #111827;
+}
+
+.md-container em {
+    font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HEADING ANCHORS
+   ═══════════════════════════════════════════════════════════════ */
+
+.heading-anchor {
+    opacity: 0;
+    margin-left: 0.5rem;
+    font-size: 0.8em;
+    color: #667eea;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.md-container h1:hover .heading-anchor,
+.md-container h2:hover .heading-anchor,
+.md-container h3:hover .heading-anchor,
+.md-container h4:hover .heading-anchor,
+.md-container h5:hover .heading-anchor,
+.md-container h6:hover .heading-anchor {
+    opacity: 1;
+}
+
+.heading-anchor:hover {
+    color: #5568d3;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LISTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container ul,
+.md-container ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.md-container ul {
+    list-style-type: disc;
+}
+
+.md-container ol {
+    list-style-type: decimal;
+}
+
+.md-container li {
+    margin: 0.5rem 0;
+    line-height: 1.8;
+}
+
+.md-container li > ul,
+.md-container li > ol {
+    margin: 0.5rem 0;
+}
+
+.md-container li > p {
+    margin: 0.25rem 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LINKS
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container a {
+    color: #667eea;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.md-container a:hover {
+    color: #5568d3;
+    border-bottom-color: #5568d3;
+}
+
+.md-container a[target="_blank"]::after {
+    content: " ↗";
+    font-size: 0.8em;
+    opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CODE BLOCKS
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container code {
+    background: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+    color: #1f2937;
+}
+
+.md-container pre {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.md-container pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Copy Button */
+.copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.copy-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.copy-button.copied {
+    background: #10b981;
+    border-color: #059669;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BLOCKQUOTES
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container blockquote {
+    border-left: 4px solid #667eea;
+    background: #f9fafb;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.md-container blockquote p {
+    margin: 0.5rem 0;
+}
+
+.md-container blockquote p:first-child {
+    margin-top: 0;
+}
+
+.md-container blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TABLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.md-container thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.md-container th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.md-container td {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.md-container tbody tr:hover {
+    background: #f9fafb;
+}
+
+.md-container tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HORIZONTAL RULES
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+    margin: 2rem 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   IMAGES
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TASK LISTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container .task-list-item {
+    list-style-type: none;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.md-container .task-list-item input[type="checkbox"] {
+    position: absolute;
+    left: 0;
+    top: 0.4rem;
+}
+
+.md-container .task-list-item input[type="checkbox"]:checked + span {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DEFINITION LISTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container dl {
+    margin: 1.5rem 0;
+}
+
+.md-container dt {
+    font-weight: 600;
+    color: #111827;
+    margin-top: 1rem;
+}
+
+.md-container dd {
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+    color: #4b5563;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DETAILS/SUMMARY
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container details {
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.md-container summary {
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.md-container summary:hover {
+    color: #667eea;
+}
+
+.md-container details[open] summary {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BADGES & INLINE ELEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.md-container .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0 0.25rem;
+}
+
+.md-container .badge-success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.md-container .badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.md-container .badge-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.md-container .badge-info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .md-container h1 {
+        font-size: 2rem;
+    }
+
+    .md-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .md-container h3 {
+        font-size: 1.25rem;
+    }
+
+    .md-container pre {
+        padding: 1rem;
+        border-radius: 6px;
+    }
+
+    .md-container pre code {
+        font-size: 0.85rem;
+    }
+
+    .copy-button {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .md-container table {
+        font-size: 0.9rem;
+    }
+
+    .md-container th,
+    .md-container td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .md-container blockquote {
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DARK MODE SUPPORT (Optional)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+    .md-container {
+        color: #f9fafb;
+    }
+
+    .md-container h1,
+    .md-container h2,
+    .md-container h3,
+    .md-container h4 {
+        color: #f9fafb;
+    }
+
+    .md-container h2 {
+        border-bottom-color: #374151;
+    }
+
+    .md-container code {
+        background: #374151;
+        color: #f9fafb;
+    }
+
+    .md-container blockquote {
+        background: #1f2937;
+        border-left-color: #667eea;
+    }
+
+    .md-container table th {
+        background: linear-gradient(135deg, #4338ca 0%, #6b21a8 100%);
+    }
+
+    .md-container table td {
+        border-bottom-color: #374151;
+    }
+
+    .md-container tbody tr:hover {
+        background: #1f2937;
+    }
+
+    .md-error {
+        background: #450a0a;
+        border-color: #7f1d1d;
+    }
+
+    .md-error strong {
+        color: #fca5a5;
+    }
+
+    .md-error code {
+        background: #7f1d1d;
+        color: #fecaca;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+@media print {
+    .md-container pre {
+        background: white;
+        color: black;
+        border: 1px solid #e5e7eb;
+    }
+
+    .copy-button {
+        display: none;
+    }
+
+    .heading-anchor {
+        display: none;
+    }
+
+    .md-container a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+}

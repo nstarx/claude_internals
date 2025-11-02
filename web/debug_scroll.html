@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug-info { background: #f0f0f0; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .test-links { margin: 20px 0; padding: 10px; background: #e0e0e0; }
+        .test-links a { margin-right: 15px; color: blue; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Scroll Behavior Debugger</h1>
+
+    <div class="debug-info">
+        <h2>Debug Information</h2>
+        <div id="debug-output"></div>
+    </div>
+
+    <div class="test-links">
+        <h3>Test Links:</h3>
+        <a href="../index.html#overview">Go to Overview</a>
+        <a href="../index.html#working-memory">Go to Working Memory</a>
+        <a href="../index.html#architecture">Go to Architecture</a>
+    </div>
+
+    <button onclick="runTests()">Run Tests</button>
+
+    <script>
+        function runTests() {
+            const output = document.getElementById('debug-output');
+            let results = '<h3>Test Results:</h3>';
+
+            // Open index.html in a new window
+            const win = window.open('../index.html', '_blank');
+
+            setTimeout(() => {
+                try {
+                    // Test if elements exist
+                    const workingMemory = win.document.querySelector('#working-memory');
+                    const architecture = win.document.querySelector('#architecture');
+                    const overview = win.document.querySelector('#overview');
+
+                    results += '<p><strong>Element Existence:</strong></p><ul>';
+                    results += `<li>Overview section: ${overview ? '✓ EXISTS' : '✗ NOT FOUND'}</li>`;
+                    results += `<li>Working Memory section: ${workingMemory ? '✓ EXISTS' : '✗ NOT FOUND'}</li>`;
+                    results += `<li>Architecture section: ${architecture ? '✓ EXISTS' : '✗ NOT FOUND'}</li>`;
+                    results += '</ul>';
+
+                    if (workingMemory) {
+                        const rect = workingMemory.getBoundingClientRect();
+                        const style = win.getComputedStyle(workingMemory);
+                        results += '<p><strong>Working Memory Section Details:</strong></p><ul>';
+                        results += `<li>Position: top=${rect.top}, left=${rect.left}</li>`;
+                        results += `<li>Size: width=${rect.width}, height=${rect.height}</li>`;
+                        results += `<li>Display: ${style.display}</li>`;
+                        results += `<li>Visibility: ${style.visibility}</li>`;
+                        results += `<li>Opacity: ${style.opacity}</li>`;
+                        results += `<li>Z-index: ${style.zIndex}</li>`;
+                        results += `<li>Offset from top: ${workingMemory.offsetTop}px</li>`;
+                        results += '</ul>';
+                    }
+
+                    // Test navigation link
+                    const link = win.document.querySelector('a[href="#working-memory"]');
+                    if (link) {
+                        results += '<p><strong>Navigation Link:</strong></p><ul>';
+                        results += `<li>Link exists: ✓</li>`;
+                        results += `<li>Link text: "${link.textContent}"</li>`;
+                        results += `<li>Href: "${link.getAttribute('href')}"</li>`;
+                        results += '</ul>';
+                    }
+
+                    output.innerHTML = results;
+                } catch (e) {
+                    output.innerHTML = '<p style="color: red;">Error: ' + e.message + '</p>';
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

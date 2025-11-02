@@ -36,8 +36,21 @@
                     updateActiveLink(this);
 
                     // Collapse nav on mobile after clicking
-                    if (window.innerWidth <= 768 && nav) {
-                        nav.classList.add('collapsed');
+                    // Check if this is a nav link (inside nav element)
+                    // Use visualViewport if available (works with DevTools responsive mode)
+                    const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+                    const isMobile = viewportWidth <= 768;
+                    const isNavLink = this.closest('nav') !== null;
+
+                    if (isMobile && isNavLink && nav) {
+                        // Small delay to ensure smooth scroll starts first
+                        setTimeout(() => {
+                            nav.classList.add('collapsed');
+                            const navHeader = nav.querySelector('h2');
+                            if (navHeader) {
+                                navHeader.setAttribute('aria-expanded', 'false');
+                            }
+                        }, 300);
                     }
 
                     // Update URL without jumping
@@ -99,14 +112,21 @@
 
         if (!nav || !navHeader) return;
 
+        // Helper function to check if mobile
+        const isMobileView = () => {
+            const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+            return viewportWidth <= 768;
+        };
+
         // Collapse nav by default on mobile
-        if (window.innerWidth <= 768) {
+        if (isMobileView()) {
             nav.classList.add('collapsed');
         }
 
-        // Toggle navigation on click
+        // Toggle navigation on click (works on both mobile and desktop)
         navHeader.addEventListener('click', () => {
             nav.classList.toggle('collapsed');
+            navHeader.setAttribute('aria-expanded', !nav.classList.contains('collapsed'));
         });
 
         // Make nav header keyboard accessible
@@ -117,6 +137,7 @@
         navHeader.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
+                // Allow collapse on both mobile and desktop
                 nav.classList.toggle('collapsed');
                 navHeader.setAttribute('aria-expanded', !nav.classList.contains('collapsed'));
             }
@@ -124,7 +145,8 @@
 
         // Handle window resize
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
+            if (!isMobileView()) {
+                // Always remove collapsed class on desktop
                 nav.classList.remove('collapsed');
                 navHeader.setAttribute('aria-expanded', 'true');
             } else if (!nav.classList.contains('collapsed')) {

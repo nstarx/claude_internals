@@ -126,6 +126,21 @@
     letter-spacing: 0.05em;
 }
 
+.metric-card pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: var(--space-2) 0;
+    font-size: 0.85em;
+    line-height: 1.6;
+}
+
+.metric-card code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 /* Scenario Card (for complex_scenarios.html) */
 .scenario-card {
     background: var(--card-bg);

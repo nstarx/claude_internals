@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Without Tools Link</title>
+</head>
+<body>
+    <h1>Testing "Cost of Not Using Tools" Section</h1>
+    <p><a href="index.html#without-tools">Click here to go to "Cost of Not Using Tools"</a></p>
+    
+    <script>
+        setTimeout(() => {
+            console.log('Testing navigation to #without-tools');
+            const section = document.querySelector('#without-tools');
+            if (section) {
+                console.log('Section exists in this page');
+            } else {
+                console.log('Opening index.html...');
+                window.location.href = 'index.html#without-tools';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

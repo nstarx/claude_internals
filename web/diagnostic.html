@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Page</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #f5f5f5; }
+        .test { margin: 20px 0; padding: 15px; background: white; border-radius: 5px; }
+        .pass { border-left: 4px solid #22c55e; }
+        .fail { border-left: 4px solid #ef4444; }
+        .warn { border-left: 4px solid #f59e0b; }
+        h3 { margin-top: 0; }
+        pre { background: #1f2937; color: #10b981; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #667eea; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Index.html Diagnostic Tool</h1>
+
+    <div id="results"></div>
+
+    <button onclick="runTests()">Run Diagnostic Tests</button>
+    <button onclick="window.location.href='index.html#working-memory'">Navigate to Working Memory</button>
+
+    <script>
+        function runTests() {
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+
+            // Test 1: Check if index.html is accessible
+            addTest('Loading index.html', async () => {
+                const response = await fetch('index.html');
+                return {
+                    pass: response.ok,
+                    message: `Status: ${response.status} ${response.statusText}`
+                };
+            });
+
+            // Test 2: Parse HTML and find working-memory section
+            addTest('Finding #working-memory in HTML', async () => {
+                const response = await fetch('index.html');
+                const html = await response.text();
+                const matches = html.match(/id="working-memory"/g);
+                const sectionMatch = html.match(/<section id="working-memory">[\s\S]*?<\/section>/);
+
+                return {
+                    pass: matches && matches.length === 1,
+                    message: `Found ${matches ? matches.length : 0} instance(s) of id="working-memory"<br>Section length: ${sectionMatch ? sectionMatch[0].length : 0} characters`
+                };
+            });
+
+            // Test 3: Check if element exists in DOM
+            addTest('Checking DOM for #working-memory', async () => {
+                const iframe = document.createElement('iframe');
+                iframe.src = 'index.html';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+
+                return new Promise((resolve) => {
+                    iframe.onload = () => {
+                        const doc = iframe.contentDocument || iframe.contentWindow.document;
+                        const section = doc.querySelector('#working-memory');
+                        const allSections = doc.querySelectorAll('#working-memory');
+
+                        const computedStyle = section ? window.getComputedStyle(section) : null;
+
+                        resolve({
+                            pass: section !== null && allSections.length === 1,
+                            message: `
+                                Elements with id="working-memory": ${allSections.length}<br>
+                                Section exists: ${section !== null}<br>
+                                ${section ? `
+                                    Display: ${computedStyle.display}<br>
+                                    Visibility: ${computedStyle.visibility}<br>
+                                    Opacity: ${computedStyle.opacity}<br>
+                                    Height: ${section.offsetHeight}px<br>
+                                    Position: ${section.offsetTop}px from top
+                                ` : ''}
+                            `
+                        });
+
+                        document.body.removeChild(iframe);
+                    };
+                });
+            });
+
+            // Test 4: Check navigation link
+            addTest('Checking navigation link', async () => {
+                const response = await fetch('index.html');
+                const html = await response.text();
+                const linkMatch = html.match(/href="#working-memory"/);
+
+                return {
+                    pass: linkMatch !== null,
+                    message: `Navigation link found: ${linkMatch !== null}`
+                };
+            });
+
+            // Test 5: Check for JavaScript errors
+            addTest('Checking for JavaScript that might interfere', async () => {
+                const scripts = [
+                    'scripts/navigation.js',
+                    'scripts/ui-components.js',
+                    'scripts/reading-enhancements.js',
+                    'scripts/markdown-renderer.js'
+                ];
+
+                let allExist = true;
+                let details = '';
+
+                for (const script of scripts) {
+                    try {
+                        const response = await fetch(script);
+                        const exists = response.ok;
+                        allExist = allExist && exists;
+                        details += `${script}: ${exists ? '✓' : '✗'}<br>`;
+                    } catch (e) {
+                        allExist = false;
+                        details += `${script}: ERROR<br>`;
+                    }
+                }
+
+                return {
+                    pass: allExist,
+                    warn: !allExist,
+                    message: details
+                };
+            });
+        }
+
+        async function addTest(name, testFn) {
+            const results = document.getElementById('results');
+            const testDiv = document.createElement('div');
+            testDiv.className = 'test';
+            testDiv.innerHTML = `<h3>${name}</h3><p>Running...</p>`;
+            results.appendChild(testDiv);
+
+            try {
+                const result = await testFn();
+                testDiv.className = `test ${result.pass ? 'pass' : (result.warn ? 'warn' : 'fail')}`;
+                testDiv.innerHTML = `
+                    <h3>${result.pass ? '✅' : (result.warn ? '⚠️' : '❌')} ${name}</h3>
+                    <div>${result.message}</div>
+                `;
+            } catch (error) {
+                testDiv.className = 'test fail';
+                testDiv.innerHTML = `
+                    <h3>❌ ${name}</h3>
+                    <div>Error: ${error.message}</div>
+                    <pre>${error.stack}</pre>
+                `;
+            }
+        }
+
+        // Auto-run on load
+        window.addEventListener('load', runTests);
+    </script>
+</body>
+</html>

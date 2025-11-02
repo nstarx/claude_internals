@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Link Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        section { min-height: 600px; padding: 40px; margin: 20px 0; border: 2px solid #ddd; }
+        #working-memory { background: #fff3cd; }
+        #architecture { background: #d1ecf1; }
+    </style>
+</head>
+<body>
+    <h1>Direct Link Test</h1>
+    <p>Click the link below, it should scroll to Working Memory section and stay there:</p>
+    <a href="#working-memory" style="font-size: 18px; color: blue;">Go to Working Memory</a>
+    <br><br>
+    <a href="#architecture" style="font-size: 18px; color: blue;">Go to Architecture</a>
+
+    <section id="overview">
+        <h2>Overview</h2>
+        <p>This is the overview section with some content.</p>
+    </section>
+
+    <section id="working-memory">
+        <h2>Working Memory & Quality</h2>
+        <p>This is the Working Memory section. If you can see this, the link worked!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </section>
+
+    <section id="architecture">
+        <h2>Architecture</h2>
+        <p>This is the Architecture section.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </section>
+
+    <script>
+        // Log all clicks on links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                console.log('Link clicked:', this.getAttribute('href'));
+                console.log('Target element:', document.querySelector(this.getAttribute('href')));
+            });
+        });
+
+        // Log when hash changes
+        window.addEventListener('hashchange', function() {
+            console.log('Hash changed to:', window.location.hash);
+            console.log('Target element exists:', !!document.querySelector(window.location.hash));
+        });
+    </script>
+</body>
+</html>
