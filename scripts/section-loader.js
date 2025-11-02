@@ -36,14 +36,14 @@
         init: function() {
             console.log('📦 Initializing Section Loader...');
 
-            // Load initial section based on hash or load all
+            // Load initial section based on hash, or load first section only
             const hash = window.location.hash.substring(1);
 
             if (hash && this.config.sections.includes(hash)) {
                 this.loadSection(hash);
             } else {
-                // Load all sections on initial page load
-                this.loadAllSections();
+                // Load only the first section (overview) on initial page load
+                this.loadSection('overview');
             }
 
             // Listen for hash changes

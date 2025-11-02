@@ -17,72 +17,60 @@
 
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
+                const sectionName = targetId.substring(1); // Remove #
 
-                // Helper function to scroll to target
-                const scrollToTarget = () => {
-                    const target = document.querySelector(targetId);
-                    const nav = document.querySelector('nav');
-
-                    if (target) {
-                        // Calculate offset for sticky nav
-                        const navHeight = nav ? nav.offsetHeight : 0;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                        const offsetPosition = targetPosition - navHeight - 20;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
+                // Load the section and wait for it to appear
+                if (window.SectionLoader) {
+                    // Check if we need to load the section
+                    if (!window.SectionLoader.config.loadedSections.has(sectionName)) {
+                        console.log(`Loading section: ${sectionName}`);
+                        window.SectionLoader.loadSection(sectionName).then(() => {
+                            console.log(`Section loaded: ${sectionName}`);
+                            // Scroll to the newly loaded section
+                            scrollToSection(targetId);
                         });
-
-                        return true;
-                    }
-                    return false;
-                };
-
-                // Try to scroll immediately
-                if (!scrollToTarget()) {
-                    // If target not found, wait for section to load
-                    const sectionName = targetId.substring(1); // Remove #
-
-                    // Check if section loader is available and section is not loaded
-                    if (window.SectionLoader && !window.SectionLoader.config.loadedSections.has(sectionName)) {
-                        // Wait for section to load, then scroll
-                        const checkInterval = setInterval(() => {
-                            if (scrollToTarget()) {
-                                clearInterval(checkInterval);
-                            }
-                        }, 100);
-
-                        // Clear interval after 2 seconds to prevent infinite loop
-                        setTimeout(() => clearInterval(checkInterval), 2000);
+                    } else {
+                        console.log(`Section already loaded: ${sectionName}`);
+                        // Section already exists, just scroll to it
+                        scrollToSection(targetId);
                     }
                 }
 
                 // Update active link
                 updateActiveLink(this);
 
-                // Collapse nav on mobile after clicking
-                // Check if this is a nav link (inside nav element)
-                // Use visualViewport if available (works with DevTools responsive mode)
-                const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
-                const isMobile = viewportWidth <= 768;
+                // Collapse nav after clicking (mobile and desktop)
+                const nav = document.querySelector('nav');
                 const isNavLink = this.closest('nav') !== null;
 
-                if (isMobile && isNavLink && nav) {
-                    // Small delay to ensure smooth scroll starts first
-                    setTimeout(() => {
-                        nav.classList.add('collapsed');
-                        const navHeader = nav.querySelector('h2');
-                        if (navHeader) {
-                            navHeader.setAttribute('aria-expanded', 'false');
-                        }
-                    }, 300);
+                if (isNavLink && nav) {
+                    nav.classList.add('collapsed');
+                    const navHeader = nav.querySelector('h2');
+                    if (navHeader) {
+                        navHeader.setAttribute('aria-expanded', 'false');
+                    }
                 }
 
                 // Update URL without jumping
                 history.pushState(null, null, targetId);
             });
         });
+    }
+
+    // Helper function to scroll to a section
+    function scrollToSection(targetId) {
+        const target = document.querySelector(targetId);
+        if (target) {
+            const nav = document.querySelector('nav');
+            const navHeight = nav ? nav.offsetHeight : 0;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = targetPosition - navHeight - 20;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -143,10 +131,8 @@
             return viewportWidth <= 768;
         };
 
-        // Collapse nav by default on mobile
-        if (isMobileView()) {
-            nav.classList.add('collapsed');
-        }
+        // Collapse nav by default on all devices
+        nav.classList.add('collapsed');
 
         // Toggle navigation on click (works on both mobile and desktop)
         navHeader.addEventListener('click', () => {
@@ -168,17 +154,10 @@
             }
         });
 
-        // Handle window resize
+        // Handle window resize - maintain collapsed state
         window.addEventListener('resize', () => {
-            if (!isMobileView()) {
-                // Always remove collapsed class on desktop
-                nav.classList.remove('collapsed');
-                navHeader.setAttribute('aria-expanded', 'true');
-            } else if (!nav.classList.contains('collapsed')) {
-                navHeader.setAttribute('aria-expanded', 'true');
-            } else {
-                navHeader.setAttribute('aria-expanded', 'false');
-            }
+            // Update aria-expanded to match current state
+            navHeader.setAttribute('aria-expanded', !nav.classList.contains('collapsed'));
         });
     }
 
