@@ -1,0 +1,559 @@
+/**
+ * SuperClaude Framework - Component Styles
+ * Reusable UI components: badges, cards, boxes, buttons, modals
+ *
+ * Design Note: NO left borders on panels per project requirements
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   BADGES
+   ═══════════════════════════════════════════════════════════════ */
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border-radius: 20px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin: 0 0.25rem;
+    vertical-align: middle;
+}
+
+.badge-primary {
+    background: var(--secondary-color);
+    color: var(--text-inverse);
+}
+
+.badge-success {
+    background: var(--success-color);
+    color: var(--text-inverse);
+}
+
+.badge-warning {
+    background: var(--warning-color);
+    color: var(--text-inverse);
+}
+
+.badge-danger {
+    background: var(--danger-color);
+    color: var(--text-inverse);
+}
+
+.badge-info {
+    background: var(--info-color);
+    color: var(--text-inverse);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════════════════════════ */
+
+.card {
+    background: var(--bg-secondary);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    /* NO left border per requirements */
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.card h4 {
+    color: var(--primary-color);
+    margin-bottom: var(--space-2);
+    margin-top: 0;
+}
+
+.card p:last-child {
+    margin-bottom: 0;
+}
+
+/* Card Variants */
+.card-primary {
+    border-top: 4px solid var(--primary-color);
+}
+
+.card-secondary {
+    border-top: 4px solid var(--secondary-color);
+}
+
+.card-success {
+    border-top: 4px solid var(--success-color);
+}
+
+.card-warning {
+    border-top: 4px solid var(--warning-color);
+}
+
+.card-danger {
+    border-top: 4px solid var(--danger-color);
+}
+
+/* Metric Card */
+.metric-card {
+    background: var(--bg-secondary);
+    padding: var(--space-4);
+    border-radius: var(--radius-base);
+    margin: var(--space-2) 0;
+    border: 1px solid var(--border-light);
+}
+
+.metric-card h4 {
+    color: var(--secondary-color);
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-lg);
+}
+
+.metric-card .value {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: var(--space-1) 0;
+}
+
+.metric-card .label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.metric-card pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: var(--space-2) 0;
+    font-size: 0.85em;
+    line-height: 1.6;
+}
+
+.metric-card code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Scenario Card (for complex_scenarios.html) */
+.scenario-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-base);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    /* NO left border per requirements - using bottom border instead */
+    border-bottom: 4px solid var(--secondary-color);
+}
+
+.scenario-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.scenario-card:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+.scenario-card h3 {
+    color: var(--secondary-color);
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--font-size-xl);
+}
+
+.scenario-card p {
+    color: var(--text-muted);
+    margin: var(--space-1) 0;
+    font-size: var(--font-size-sm);
+}
+
+.scenario-card .metrics {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-5) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ALERT BOXES (Info, Success, Warning, Error)
+   ═══════════════════════════════════════════════════════════════ */
+
+.info-box,
+.success-box,
+.warning-box,
+.error-box,
+.highlight {
+    padding: var(--space-4);
+    border-radius: var(--radius-base);
+    margin: var(--space-4) 0;
+    /* NO left border per requirements - using top border instead */
+    border-top: 4px solid;
+    box-shadow: var(--shadow-sm);
+}
+
+.info-box {
+    background: #d1ecf1;
+    border-top-color: var(--info-color);
+    color: #0c5460;
+}
+
+.success-box {
+    background: #d4edda;
+    border-top-color: var(--success-color);
+    color: #155724;
+}
+
+.warning-box,
+.highlight {
+    background: #fff3cd;
+    border-top-color: var(--warning-color);
+    color: #856404;
+}
+
+.error-box {
+    background: #f8d7da;
+    border-top-color: var(--danger-color);
+    color: #721c24;
+}
+
+/* Box titles */
+.info-box strong,
+.success-box strong,
+.warning-box strong,
+.error-box strong {
+    display: block;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WORKFLOW COMPONENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.workflow {
+    background: var(--bg-secondary);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    margin: var(--space-4) 0;
+    border: 1px solid var(--border-light);
+}
+
+.workflow-step {
+    padding: var(--space-3);
+    margin: var(--space-2) 0;
+    background: var(--card-bg);
+    border-radius: var(--radius-base);
+    /* NO left border per requirements - using indicator dot instead */
+    position: relative;
+    padding-left: var(--space-6);
+    box-shadow: var(--shadow-sm);
+}
+
+.workflow-step::before {
+    content: '';
+    position: absolute;
+    left: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--success-color);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+}
+
+.workflow-step h4 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════════ */
+
+.btn {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--radius-base);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+.btn-primary:hover {
+    background: #1a252f;
+}
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: var(--text-inverse);
+}
+
+.btn-secondary:hover {
+    background: #2980b9;
+}
+
+.btn-success {
+    background: var(--success-color);
+    color: var(--text-inverse);
+}
+
+.btn-success:hover {
+    background: #229954;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: var(--space-5);
+    right: var(--space-5);
+    background: var(--secondary-color);
+    color: var(--text-inverse);
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
+    z-index: var(--z-fixed);
+    opacity: 0;
+    visibility: hidden;
+    font-size: var(--font-size-xl);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.back-to-top:focus {
+    outline: 2px solid var(--text-inverse);
+    outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════════════════════════ */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: var(--z-modal-backdrop);
+    overflow-y: auto;
+    padding: var(--space-4);
+}
+
+.modal.active {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: var(--space-8);
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: var(--space-6);
+    max-width: 900px;
+    width: 100%;
+    border-radius: var(--radius-lg);
+    position: relative;
+    box-shadow: var(--shadow-xl);
+    margin: var(--space-4) auto;
+    animation: modalSlideIn var(--transition-base);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    font-size: var(--font-size-3xl);
+    cursor: pointer;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    padding: var(--space-1);
+    line-height: 1;
+    transition: color var(--transition-fast);
+    border-radius: var(--radius-sm);
+}
+
+.modal-close:hover {
+    color: var(--primary-color);
+    background: var(--bg-secondary);
+}
+
+.modal-close:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LOADING STATES
+   ═══════════════════════════════════════════════════════════════ */
+
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--border-light);
+    border-top-color: var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border-light) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-base);
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 1em;
+    margin: var(--space-2) 0;
+}
+
+.skeleton-heading {
+    height: 2em;
+    margin: var(--space-3) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOOLTIPS (Future Enhancement)
+   ═══════════════════════════════════════════════════════════════ */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: var(--primary-color);
+    color: var(--text-inverse);
+    text-align: center;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-base);
+    position: absolute;
+    z-index: var(--z-tooltip);
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: var(--font-size-sm);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--primary-color) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text,
+.tooltip:focus .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

@@ -1,0 +1,89 @@
+        <section id="workflows">
+            <h2>Practical Workflows</h2>
+
+            <div class="workflow">
+                <h3>Workflow 1: Starting New Feature</h3>
+                <pre><code># Session start
+/sc:load
+
+# Load architectural context
+read_memory("architecture_overview")
+read_memory("feature_patterns")
+
+# Understand scope
+think_about_collected_information()
+
+# Create feature plan
+write_memory("feature_user_profiles", "
+## Goal
+Implement user profile management system
+
+## Architecture Integration
+- Extends existing auth system
+- Uses standard CRUD API patterns
+- Follows component design system
+
+## Key Files
+- /api/users/profile.ts (endpoints)
+- /components/UserProfile.tsx (UI)
+- /models/UserProfile.ts (data model)
+
+## Constraints
+- Must maintain auth token standards
+- Profile photos <5MB limit
+- Real-time update sync required
+")
+
+# Begin implementation with focused context</code></pre>
+            </div>
+
+            <div class="workflow">
+                <h3>Workflow 2: Debugging Complex Issue</h3>
+                <pre><code># Load system context
+read_memory("architecture_overview")
+read_memory("known_issues")
+
+# Use Sequential for deep analysis
+Use Sequential MCP for multi-step debugging
+
+# Document findings
+write_memory("bug_race_condition_payment", "
+## Issue
+Payment processing occasionally fails with race condition
+
+## Root Cause
+Order status check → payment process not atomic
+Multiple requests can pass validation simultaneously
+
+## Solution
+Implemented database-level locking on order records
+Added idempotency key validation
+
+## Prevention
+Added integration test for concurrent payment attempts
+Updated payment_patterns.md with atomicity requirements
+")
+
+# Update patterns
+read_memory("payment_patterns") → append new guidance</code></pre>
+            </div>
+
+            <div class="workflow">
+                <h3>Workflow 3: Code Review Integration</h3>
+                <pre><code># Load project standards
+read_memory("code_standards")
+read_memory("architecture_overview")
+
+# Review with context
+for file in changed_files:
+  - Validate against standards
+  - Check architectural alignment
+  - Verify pattern consistency
+
+# Update context if patterns discovered
+write_memory("new_patterns_discovered", findings)
+
+# Provide feedback
+Generate review comments with architectural context</code></pre>
+            </div>
+        </section>

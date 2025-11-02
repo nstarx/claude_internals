@@ -1,0 +1,16 @@
+/**
+ * Fix for desktop navigation issue
+ * Ensures sections are visible with proper scroll margin
+ */
+
+/* Ensure sections have proper spacing below sticky nav */
+section {
+    scroll-margin-top: 150px;
+}
+
+/* Force all main sections to be visible */
+section[id] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
