@@ -29,7 +29,7 @@
 
 .simulators-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
     gap: 2rem;
     padding: 0 2rem;
 }
@@ -1057,11 +1057,13 @@
 
 .fog-particle {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    background: radial-gradient(circle, rgba(156, 163, 175, 0.3) 0%, transparent 70%);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(156, 163, 175, 0.6) 0%, rgba(107, 114, 128, 0.3) 40%, transparent 70%);
     border-radius: 50%;
     animation: float-fog 10s infinite;
+    filter: blur(8px);
+    will-change: transform, opacity;
 }
 
 .fog-particle:nth-child(odd) {
@@ -1079,6 +1081,17 @@
     25% { transform: translate(30px, -20px); }
     50% { transform: translate(-20px, 20px); }
     75% { transform: translate(-30px, -10px); }
+}
+
+@keyframes pulse-decay {
+    0%, 100% {
+        stroke-width: 3;
+        opacity: 1;
+    }
+    50% {
+        stroke-width: 5;
+        opacity: 0.6;
+    }
 }
 
 .decay-stats-grid {
@@ -1205,6 +1218,18 @@
         margin-bottom: 2rem;
     }
 
+    .simulator-header {
+        padding: 1.5rem;
+    }
+
+    .simulator-header h3 {
+        font-size: 1.4rem;
+    }
+
+    .simulator-body {
+        padding: 1rem;
+    }
+
     .blocks-container {
         grid-template-columns: repeat(5, 1fr);
     }
@@ -1218,24 +1243,182 @@
         justify-content: center;
     }
 
+    /* Race Track Mobile Fixes */
     .race-lane {
         flex-direction: column;
         align-items: stretch;
+        gap: 0.5rem;
     }
 
     .lane-label {
         min-width: auto;
+        margin-bottom: 0.5rem;
+    }
+
+    .track-container {
+        min-height: 50px;
+        margin: 0.5rem 0;
     }
 
     .lane-time {
         text-align: center;
+        margin-top: 0.5rem;
     }
 
+    .race-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .race-header h4 {
+        text-align: center;
+    }
+
+    /* Cognitive Load Mobile Fixes */
+    .brain-container {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .brain-svg {
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .capacity-breakdown {
+        padding: 1rem;
+    }
+
+    .capacity-bar {
+        flex-direction: row;
+        min-height: 60px;
+    }
+
+    .capacity-segment {
+        font-size: 0.85rem;
+    }
+
+    .capacity-segment .segment-label,
+    .capacity-segment .segment-value {
+        display: block;
+        text-align: center;
+    }
+
+    .capacity-stats {
+        gap: 0.75rem;
+    }
+
+    .stat-item {
+        padding: 0.75rem;
+    }
+
+    /* Stats Comparison Mobile */
     .stats-comparison,
     .stats-grid,
     .capacity-stats,
     .decay-stats-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .comparison-card {
+        padding: 1rem;
+    }
+
+    .stat-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Input Groups Mobile */
+    .input-group {
+        padding: 0.75rem;
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+    }
+
+    input[type="number"],
+    input[type="range"] {
+        font-size: 0.9rem;
+    }
+
+    /* Recommendations Mobile */
+    .recommendation-item {
+        padding: 0.75rem;
+    }
+
+    .rec-content {
+        font-size: 0.9rem;
+    }
+
+    /* Savings Card Mobile */
+    .savings-content {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .saving-item {
+        padding: 0.75rem;
+    }
+}
+
+/* Extra small devices (phones, less than 480px) */
+@media (max-width: 480px) {
+    .simulators-grid {
+        padding: 0 0.5rem;
+        gap: 1.5rem;
+    }
+
+    .simulator-header {
+        padding: 1rem;
+    }
+
+    .simulator-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .simulator-header i {
+        font-size: 2rem;
+    }
+
+    .simulator-body {
+        padding: 0.75rem;
+    }
+
+    /* Make brain visualization smaller on very small screens */
+    .brain-svg {
+        max-width: 250px;
+    }
+
+    /* Reduce font sizes */
+    .capacity-segment {
+        font-size: 0.75rem;
+        padding: 0.25rem;
+    }
+
+    .stat-item {
+        font-size: 0.85rem;
+    }
+
+    .rec-title {
+        font-size: 0.9rem;
+    }
+
+    .rec-text {
+        font-size: 0.8rem;
+    }
+
+    /* Overflow protection */
+    .track-container,
+    .race-track,
+    .capacity-bar,
+    .brain-container {
+        overflow-x: hidden;
     }
 }
 

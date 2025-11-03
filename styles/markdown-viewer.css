@@ -1,0 +1,297 @@
+/**
+ * Markdown Viewer Modal Styles
+ * Provides a clean, readable interface for viewing .md files
+ */
+
+/* Overlay */
+.md-viewer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.md-viewer-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal */
+.md-viewer-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.md-viewer-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Header */
+.md-viewer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid #e0e0e0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.md-viewer-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+}
+
+.md-viewer-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.md-viewer-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.md-viewer-close:active {
+    transform: scale(0.95);
+}
+
+/* Content */
+.md-viewer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 0 0 12px 12px;
+}
+
+/* Loading state */
+.md-viewer-content .md-loading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.25rem;
+    color: #666;
+}
+
+/* Error state */
+.md-viewer-content .md-error {
+    background: #fee;
+    border: 2px solid #fcc;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.md-viewer-content .md-error p {
+    margin: 0.5rem 0;
+}
+
+.md-viewer-content .md-error .error-detail {
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* Markdown content styling */
+.md-viewer-content.md-loaded {
+    line-height: 1.7;
+}
+
+.md-viewer-content.md-loaded h1,
+.md-viewer-content.md-loaded h2,
+.md-viewer-content.md-loaded h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.md-viewer-content.md-loaded h1 {
+    font-size: 2rem;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+.md-viewer-content.md-loaded h2 {
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+.md-viewer-content.md-loaded h3 {
+    font-size: 1.25rem;
+}
+
+.md-viewer-content.md-loaded p {
+    margin: 1rem 0;
+}
+
+.md-viewer-content.md-loaded ul,
+.md-viewer-content.md-loaded ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.md-viewer-content.md-loaded li {
+    margin: 0.5rem 0;
+}
+
+.md-viewer-content.md-loaded code {
+    background: #f5f5f5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.md-viewer-content.md-loaded pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.md-viewer-content.md-loaded pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+.md-viewer-content.md-loaded blockquote {
+    border-left: 4px solid #667eea;
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    color: #666;
+    font-style: italic;
+}
+
+.md-viewer-content.md-loaded table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.md-viewer-content.md-loaded th,
+.md-viewer-content.md-loaded td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.md-viewer-content.md-loaded th {
+    background: #f5f5f5;
+    font-weight: 600;
+}
+
+/* Scrollbar styling */
+.md-viewer-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.md-viewer-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 0 0 12px 0;
+}
+
+.md-viewer-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.md-viewer-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .md-viewer-modal {
+        width: 95%;
+        max-height: 85vh;
+    }
+
+    .md-viewer-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .md-viewer-header h2 {
+        font-size: 1rem;
+    }
+
+    .md-viewer-content {
+        padding: 1.5rem;
+    }
+}
+
+/* Link styling inside markdown */
+.md-viewer-content.md-loaded a {
+    color: #667eea;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.md-viewer-content.md-loaded a:hover {
+    border-bottom-color: #667eea;
+}
+
+/* Copy button styling in modal */
+.md-viewer-content .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.md-viewer-content .copy-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.md-viewer-content .copy-button.copied {
+    background: rgba(76, 175, 80, 0.3);
+}

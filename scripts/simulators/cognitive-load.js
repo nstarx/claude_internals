@@ -147,7 +147,8 @@
                 </div>
             `;
 
-            this.brainSegments = document.querySelectorAll('.brain-segment');
+            this.brainSegments = this.container.querySelectorAll('.brain-segment');
+            console.log('Brain segments found:', this.brainSegments.length);
         },
 
         // Attach event listeners
@@ -155,24 +156,25 @@
             this.syncInput('irrelevant-context', 'irrelevant-slider');
             this.syncInput('task-complexity', 'complexity-slider');
             this.syncInput('multitasking', 'multitask-slider');
-
-            ['irrelevant-context', 'task-complexity', 'multitasking'].forEach(id => {
-                document.getElementById(id).addEventListener('input', () => {
-                    this.calculate();
-                });
-            });
         },
 
         syncInput: function(inputId, sliderId) {
             const input = document.getElementById(inputId);
             const slider = document.getElementById(sliderId);
 
+            if (!input || !slider) {
+                console.error(`Elements not found: ${inputId} or ${sliderId}`);
+                return;
+            }
+
             input.addEventListener('input', (e) => {
                 slider.value = e.target.value;
+                this.calculate();
             });
 
             slider.addEventListener('input', (e) => {
                 input.value = e.target.value;
+                this.calculate();
             });
         },
 
@@ -182,12 +184,16 @@
             const complexity = parseInt(document.getElementById('task-complexity').value) || 5;
             const multitasking = parseInt(document.getElementById('multitasking').value) || 1;
 
+            console.log('Calculating cognitive load:', { irrelevantPercent, complexity, multitasking });
+
             // Formula: Effective Capacity = 100% - irrelevant% - (complexity penalty) - (multitasking penalty)
             const complexityPenalty = (complexity - 5) * 2; // 0-10% penalty
             const multitaskingPenalty = (multitasking - 1) * 5; // 0-45% penalty
 
             const effectiveCapacity = Math.max(5, 100 - irrelevantPercent - complexityPenalty - multitaskingPenalty);
             const wastedCapacity = 100 - effectiveCapacity;
+
+            console.log('Calculated capacities:', { effectiveCapacity, wastedCapacity });
 
             // Processing power calculation
             const processingPower = effectiveCapacity * (1 - (complexity / 20));
@@ -248,6 +254,12 @@
         updateBrain: function(effectiveCapacity) {
             const activeSegments = Math.round((effectiveCapacity / 100) * this.brainSegments.length);
 
+            console.log('Updating brain:', {
+                effectiveCapacity,
+                activeSegments,
+                totalSegments: this.brainSegments.length
+            });
+
             // Update brain segments
             this.brainSegments.forEach((segment, index) => {
                 if (index < activeSegments) {
@@ -260,8 +272,13 @@
             });
 
             // Update brain status
-            const statusIcon = document.querySelector('.status-icon');
-            const statusText = document.querySelector('.status-text');
+            const statusIcon = this.container.querySelector('.status-icon');
+            const statusText = this.container.querySelector('.status-text');
+
+            if (!statusIcon || !statusText) {
+                console.error('Status elements not found');
+                return;
+            }
 
             if (effectiveCapacity > 80) {
                 statusIcon.textContent = '🧠✨';
