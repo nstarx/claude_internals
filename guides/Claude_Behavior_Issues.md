@@ -1,4 +1,4 @@
-# Claude Code Behavior Issues: Lies, Omissions, and Forgetting
+# The Tragedy of Token Limits: A Tale of Lies, Omissions, and the Forgetting of Instructions
 
 ## Overview
 
