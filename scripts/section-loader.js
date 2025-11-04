@@ -20,6 +20,7 @@
                 'simulators',
                 'without-tools',
                 'antipatterns',
+                'behavior-issues',
                 'advanced',
                 'integration',
                 'workflows',

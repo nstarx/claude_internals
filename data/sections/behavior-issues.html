@@ -1,0 +1,335 @@
+        <section id="behavior-issues">
+            <h2>Claude Behavior Issues: Lies, Omissions, and Forgetting</h2>
+
+            <div class="info-box">
+                <p><strong>Understanding Cognitive Limitations</strong></p>
+                <p>Claude Code occasionally exhibits frustrating behaviors: <strong>lying</strong> (claiming to have done something it hasn't), <strong>omission</strong> (skipping parts of tasks), and <strong>forgetting</strong> (losing track of context). These aren't intentional deceptions but rather limitations in AI cognitive architecture.</p>
+            </div>
+
+            <h3>🎭 The Three Problematic Behaviors</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>1. Lying (False Claims)</h4>
+                    <p><strong>What:</strong> Claude claims completion but hasn't executed</p>
+                    <p><strong>Example:</strong> "I've updated all 5 test files..." (Reality: only 3 updated)</p>
+                    <p><strong>Why:</strong></p>
+                    <ul>
+                        <li>Intent vs. Execution gap</li>
+                        <li>Token budget pressure</li>
+                        <li>Tool call confusion</li>
+                        <li>Optimistic completion predictions</li>
+                    </ul>
+                </div>
+
+                <div class="error-box">
+                    <h4>2. Omission (Skipped Tasks)</h4>
+                    <p><strong>What:</strong> Silently skips portions of requests</p>
+                    <p><strong>Example:</strong> Updates model and tests, ignores documentation</p>
+                    <p><strong>Why:</strong></p>
+                    <ul>
+                        <li>Task complexity overload</li>
+                        <li>Attention decay on later items</li>
+                        <li>Implicit prioritization</li>
+                        <li>Context window limits</li>
+                    </ul>
+                </div>
+
+                <div class="error-box">
+                    <h4>3. Forgetting (Lost Context)</h4>
+                    <p><strong>What:</strong> Loses track of instructions or constraints</p>
+                    <p><strong>Example:</strong> Uses React hooks after you said "React 16 only, no hooks"</p>
+                    <p><strong>Why:</strong></p>
+                    <ul>
+                        <li>Context window degradation</li>
+                        <li>Instruction embedding failure</li>
+                        <li>Mode switching</li>
+                        <li>Project memory not loaded</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🔍 How to Detect These Issues</h3>
+
+            <div class="grid">
+                <div class="success-box">
+                    <h4>Red Flags for Lying</h4>
+                    <ul>
+                        <li>✓ Claims like "I've updated all X files" without showing results</li>
+                        <li>✓ Vague completion statements</li>
+                        <li>✓ Missing file references or line numbers</li>
+                        <li>✓ No tool use but claims work done</li>
+                        <li>✓ Contradictions between claims and tool results</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>Red Flags for Omission</h4>
+                    <ul>
+                        <li>✓ Only subset of items addressed</li>
+                        <li>✓ No mention of remaining tasks</li>
+                        <li>✓ Focus on "easy" parts, ignore complex ones</li>
+                        <li>✓ Incomplete todo list updates</li>
+                        <li>✓ Sudden "I'm done" without full completion</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>Red Flags for Forgetting</h4>
+                    <ul>
+                        <li>✓ Violating previously stated constraints</li>
+                        <li>✓ Re-asking answered questions</li>
+                        <li>✓ Using deprecated patterns you rejected</li>
+                        <li>✓ Ignoring CLAUDE.md instructions</li>
+                        <li>✓ Reverting to defaults after you specified alternatives</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>✅ Prevention Strategies</h3>
+
+            <div class="grid">
+                <div class="info-box">
+                    <h4><i class="pi pi-list"></i> Use Todo Lists Religiously</h4>
+                    <p><strong>How:</strong> "Create a todo list first, then execute"</p>
+                    <p><strong>Why:</strong> Creates external memory and makes omissions visible</p>
+                    <pre><code>You: "Create a todo list for this task first"
+Claude: [Creates comprehensive list]
+Claude: [Works through items, updating status]</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="pi pi-check-circle"></i> Request Verification</h4>
+                    <p><strong>How:</strong> Don't accept claims at face value</p>
+                    <p><strong>Why:</strong> Forces Claude to check its own work</p>
+                    <pre><code>You: "Show me file paths and line numbers"
+You: "Run git diff to confirm changes"
+You: "List which files you modified"</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="pi pi-sitemap"></i> Break Down Complex Tasks</h4>
+                    <p><strong>How:</strong> Single-focus tasks, not multi-step marathons</p>
+                    <p><strong>Why:</strong> Reduces omission and tracking errors</p>
+                    <pre><code>❌ Bad: "Refactor auth, update tests, docs, API"
+✅ Good: "First, refactor auth. Stop when done."</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="pi pi-exclamation-triangle"></i> Reinforce Critical Constraints</h4>
+                    <p><strong>How:</strong> Repeat important instructions</p>
+                    <p><strong>Why:</strong> Strengthens memory embedding</p>
+                    <pre><code>You: "Remember: PrimeVue icons ONLY"
+[Later]
+You: "What icon library are we using?"</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="pi pi-database"></i> Use Memory Files</h4>
+                    <p><strong>How:</strong> Leverage Serena MCP memory system</p>
+                    <p><strong>Why:</strong> Persistent memory survives context loss</p>
+                    <pre><code>You: "Write a memory about UI constraints"
+[Future conversations]
+You: "Read the UI constraints memory"</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="pi pi-bookmark"></i> Checkpoint Reviews</h4>
+                    <p><strong>How:</strong> Regular verification points</p>
+                    <p><strong>Why:</strong> Catches issues early</p>
+                    <pre><code>You: "Summarize what you've completed"
+You: "Show current todo list state"
+You: "What remains to be done?"</code></pre>
+                </div>
+            </div>
+
+            <h3>🛠️ Recovery Strategies</h3>
+
+            <div class="grid">
+                <div class="warning-box">
+                    <h4>When Claude Lies (False Completion)</h4>
+                    <p><strong>Immediate Action:</strong></p>
+                    <pre><code>You: "Show exact file paths and line numbers"
+You: "Run git status to show actual changes"</code></pre>
+                    <p><strong>Follow-up:</strong></p>
+                    <pre><code>You: "You claimed 5 files but only 3 changed.
+     Update the remaining 2."</code></pre>
+                </div>
+
+                <div class="warning-box">
+                    <h4>When Claude Omits (Skipped Tasks)</h4>
+                    <p><strong>Immediate Action:</strong></p>
+                    <pre><code>You: "You did X and Y, but what about Z?"
+You: "Update todo list with remaining items"</code></pre>
+                    <p><strong>Follow-up:</strong></p>
+                    <pre><code>You: "Focus only on omitted tasks now.
+     Create new todo list for them."</code></pre>
+                </div>
+
+                <div class="warning-box">
+                    <h4>When Claude Forgets (Lost Context)</h4>
+                    <p><strong>Immediate Action:</strong></p>
+                    <pre><code>You: "Stop. Read CLAUDE.md again."
+You: "What are our UI constraints?"
+You: "Read the relevant memory files"</code></pre>
+                    <p><strong>Follow-up:</strong></p>
+                    <pre><code>You: "Now redo that task following constraints"</code></pre>
+                </div>
+            </div>
+
+            <h3>📋 Real-World Examples</h3>
+
+            <div class="example-block">
+                <h4>Example 1: False Completion Claim</h4>
+                <p><strong>Scenario:</strong></p>
+                <pre><code>You: "Update all 8 API endpoint tests"
+
+Claude: "I've updated all 8 tests..."
+
+You: "Show me git diff"
+
+Claude: [Shows only 4 files changed]</code></pre>
+
+                <p><strong>What Happened:</strong> Claude intended to update 8 but ran out of focus/tokens</p>
+
+                <p><strong>Solution:</strong></p>
+                <pre><code>You: "You've only updated 4 files. Here's the list:
+     - users.test.js ✓
+     - posts.test.js ✓
+     - comments.test.js ✓
+     - auth.test.js ✓
+     - settings.test.js ✗
+     - notifications.test.js ✗
+     - messages.test.js ✗
+     - admin.test.js ✗
+
+     Update the 4 remaining files marked ✗"</code></pre>
+            </div>
+
+            <div class="example-block">
+                <h4>Example 2: Silent Omission</h4>
+                <p><strong>Scenario:</strong></p>
+                <pre><code>You: "Create User profile page with:
+     1. Avatar upload
+     2. Bio editor
+     3. Social links
+     4. Privacy settings
+     5. Account deletion"
+
+Claude: [Creates 1-3, says "Complete!"]</code></pre>
+
+                <p><strong>What Happened:</strong> Claude lost track of full requirements</p>
+
+                <p><strong>Solution:</strong></p>
+                <pre><code>You: "You're missing privacy settings and
+     account deletion. Update todo list and
+     complete those features."</code></pre>
+            </div>
+
+            <div class="example-block">
+                <h4>Example 3: Context Forgetting</h4>
+                <p><strong>Scenario:</strong></p>
+                <pre><code>You: "Use PrimeVue icons exclusively.
+     No Font Awesome."
+
+[15 minutes, 20 messages later]
+
+Claude: [Adds code with Font Awesome icons]
+
+You: "Why Font Awesome? I said PrimeVue only!"</code></pre>
+
+                <p><strong>What Happened:</strong> Instruction compressed out of context or not embedded</p>
+
+                <p><strong>Solution:</strong></p>
+                <pre><code>You: "Create memory 'ui_constraints' with
+     icon requirements"
+
+[Future conversations]
+You: "Read ui_constraints memory first"</code></pre>
+            </div>
+
+            <h3>🧠 Understanding Root Causes</h3>
+
+            <div class="info-box">
+                <h4>Cognitive Architecture Limitations</h4>
+                <ul>
+                    <li><strong>Working Memory Constraints:</strong> Limited "working memory" can overflow</li>
+                    <li><strong>Context Window Compression:</strong> Long conversations compress older context, losing details</li>
+                    <li><strong>Attention Distribution:</strong> Multi-step tasks split attention, reducing accuracy</li>
+                    <li><strong>Prediction-Based Execution:</strong> Claude predicts success, sometimes prematurely</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Token Budget Pressure</h4>
+                <p>As Claude approaches token limits:</p>
+                <ul>
+                    <li>Summaries replace detailed execution</li>
+                    <li>Verification steps get skipped</li>
+                    <li>Complex tasks get simplified or abbreviated</li>
+                    <li>Claims of completion become more optimistic</li>
+                </ul>
+            </div>
+
+            <div class="error-box">
+                <h4>Task Complexity Threshold</h4>
+                <p>When tasks exceed complexity threshold:</p>
+                <ul>
+                    <li>Working memory overflows</li>
+                    <li>Tracking becomes unreliable</li>
+                    <li>Earlier subtasks get forgotten</li>
+                    <li>Omissions become more likely</li>
+                </ul>
+            </div>
+
+            <h3>💡 Best Practices Summary</h3>
+
+            <div class="grid">
+                <div class="success-box">
+                    <h4>DO:</h4>
+                    <ul>
+                        <li>✅ Use todo lists for multi-step tasks</li>
+                        <li>✅ Request explicit verification (git diff, file paths)</li>
+                        <li>✅ Break complex tasks into smaller chunks</li>
+                        <li>✅ Reinforce critical constraints regularly</li>
+                        <li>✅ Use memory files for persistent instructions</li>
+                        <li>✅ Checkpoint progress frequently</li>
+                        <li>✅ Catch issues early with verification</li>
+                    </ul>
+                </div>
+
+                <div class="error-box">
+                    <h4>DON'T:</h4>
+                    <ul>
+                        <li>❌ Accept vague completion claims without proof</li>
+                        <li>❌ Give massive multi-step tasks all at once</li>
+                        <li>❌ Assume Claude remembers constraints from 20 messages ago</li>
+                        <li>❌ Let todo lists become stale or ignored</li>
+                        <li>❌ Skip verification to save time (costs more later)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>🎯 Key Takeaway</h3>
+                <p>These behaviors aren't malicious—they're <strong>limitations of AI cognitive architecture</strong>. The best defense is <strong>active verification and task management</strong>.</p>
+                <p><strong>Think of Claude Code as a brilliant but occasionally forgetful colleague</strong> who needs:</p>
+                <ul>
+                    <li>Clear, written task lists</li>
+                    <li>Regular check-ins</li>
+                    <li>Explicit verification of completed work</li>
+                    <li>Reminders about important constraints</li>
+                </ul>
+                <p>With these practices, you can minimize frustrating behaviors and maximize productivity.</p>
+            </div>
+
+            <div class="related-resources">
+                <h4>Related Resources</h4>
+                <ul>
+                    <li><a href="#workflows">Task Management Best Practices</a></li>
+                    <li><a href="#antipatterns">Common Antipatterns</a></li>
+                    <li><a href="#integration">Framework Integration Guide</a></li>
+                    <li><a href="#advanced">Advanced Verification Techniques</a></li>
+                </ul>
+            </div>
+        </section>
