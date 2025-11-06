@@ -1,0 +1,329 @@
+        <section id="things-to-avoid">
+            <h2>Things to Avoid When Working with Claude Code</h2>
+            <p class="subtitle-section">Common pitfalls and anti-patterns that can derail your workflow</p>
+
+            <div class="info-box">
+                <p><strong>Prevention is Better Than Cure</strong></p>
+                <p>This section highlights specific anti-patterns that lead to poor outcomes when working with Claude Code. Understanding what NOT to do is often as important as knowing best practices.</p>
+            </div>
+
+            <h3>🚫 Context Management Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Reading Entire Codebases</h4>
+                    <p><strong>❌ Bad:</strong> "Read all files in src/ so you understand the project"</p>
+                    <p><strong>✅ Good:</strong> "Search for authentication-related files, then read only those"</p>
+                    <p><strong>Impact:</strong> Wastes 50-100K tokens, leaving little room for actual work.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Repeatedly Reading Same Files</h4>
+                    <p><strong>❌ Bad:</strong> Read auth.js → Edit auth.js → Read auth.js again → Edit again</p>
+                    <p><strong>✅ Good:</strong> Read auth.js once → Make all planned edits in sequence</p>
+                    <p><strong>Impact:</strong> Duplicates context usage unnecessarily.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Not Monitoring Token Usage</h4>
+                    <p><strong>❌ Bad:</strong> Ignoring token warnings until you hit 95%+ usage</p>
+                    <p><strong>✅ Good:</strong> Checking token percentage and adjusting strategy at 75%</p>
+                    <p><strong>Impact:</strong> Suddenly running out of context mid-task.</p>
+                </div>
+            </div>
+
+            <h3>🚫 Task Management Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Vague, Open-Ended Requests</h4>
+                    <div class="code-comparison">
+                        <pre><code>❌ Bad:
+"Make the app better"
+"Fix all bugs"
+"Optimize everything"
+
+✅ Good:
+"Fix the login timeout bug in auth.js line 45"
+"Optimize the database query in UserController.findAll()"</code></pre>
+                    </div>
+                    <p><strong>Impact:</strong> Claude can't determine scope or success criteria.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Massive Multi-Step Tasks Without Planning</h4>
+                    <div class="code-comparison">
+                        <pre><code>❌ Bad:
+"Refactor the entire auth system, migrate to OAuth2,
+ update all tests, update documentation, and deploy to staging"
+
+✅ Good:
+"Create a todo list for migrating to OAuth2,
+ then we'll execute step by step"</code></pre>
+                    </div>
+                    <p><strong>Impact:</strong> Leads to omissions, false completions, overwhelmed context.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Accepting Completion Claims Without Verification</h4>
+                    <div class="code-comparison">
+                        <pre><code>❌ Bad:
+Claude: "I've updated all 10 files"
+You: "Great, thanks!"
+
+✅ Good:
+Claude: "I've updated all 10 files"
+You: "Show me the git diff and list the file paths"</code></pre>
+                    </div>
+                    <p><strong>Impact:</strong> Discovering incomplete work much later in the process.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Not Using Todo Lists for Complex Tasks</h4>
+                    <p><strong>❌ Bad:</strong> Starting 5-step task without explicit tracking</p>
+                    <p><strong>✅ Good:</strong> "Create a todo list first, then execute with status updates"</p>
+                    <p><strong>Impact:</strong> Lost track of progress, forgotten subtasks, unclear completion state.</p>
+                </div>
+            </div>
+
+            <h3>🚫 Code Quality Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Blindly Accepting Generated Code</h4>
+                    <p><strong>❌ Bad:</strong> Accepting code without review or testing</p>
+                    <p><strong>✅ Good:</strong> Review changes, run tests, verify behavior</p>
+                    <p><strong>Impact:</strong> Security vulnerabilities, bugs, breaking changes.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Skipping Tests to Make Things "Work"</h4>
+                    <div class="code-comparison">
+                        <pre><code>❌ Bad:
+"The tests are failing, just comment them out
+ so the build passes"
+
+✅ Good:
+"The tests are failing. Let's debug why and
+ fix the root cause"</code></pre>
+                    </div>
+                    <p><strong>Impact:</strong> Broken functionality hidden by disabled tests.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Not Testing Edge Cases</h4>
+                    <p><strong>❌ Bad:</strong> "The happy path works, ship it!"</p>
+                    <p><strong>✅ Good:</strong> "Test with null inputs, empty arrays, malformed data, etc."</p>
+                    <p><strong>Impact:</strong> Production crashes from unhandled edge cases.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Creating Unnecessary Files</h4>
+                    <p><strong>❌ Bad:</strong> Creating new files for every small utility or component</p>
+                    <p><strong>✅ Good:</strong> Adding to existing files or consolidating related code</p>
+                    <p><strong>Impact:</strong> Codebase bloat, harder maintenance, scattered logic.</p>
+                </div>
+            </div>
+
+            <h3>🚫 Git Workflow Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Working Directly on Main/Master</h4>
+                    <p><strong>❌ Bad:</strong> Making changes directly on the main branch</p>
+                    <p><strong>✅ Good:</strong> Create feature branch → Work → PR → Review → Merge</p>
+                    <p><strong>Impact:</strong> Broken main branch, difficult rollbacks, messy history.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Committing Without Testing</h4>
+                    <p><strong>❌ Bad:</strong> Edit files → git commit → git push (without running tests)</p>
+                    <p><strong>✅ Good:</strong> Edit files → Run tests → Fix issues → git commit → git push</p>
+                    <p><strong>Impact:</strong> Breaking the build for your entire team.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Vague Commit Messages</h4>
+                    <p><strong>❌ Bad:</strong> "fixed stuff", "updates", "changes"</p>
+                    <p><strong>✅ Good:</strong> "Fix authentication timeout in UserService.login()"</p>
+                    <p><strong>Impact:</strong> Impossible to understand project history or debug regressions.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Committing Secrets or Credentials</h4>
+                    <p><strong>❌ Bad:</strong> Committing .env files, API keys, credentials.json</p>
+                    <p><strong>✅ Good:</strong> Using .gitignore, environment variables, secret management</p>
+                    <p><strong>Impact:</strong> Security breaches, exposed credentials.</p>
+                </div>
+            </div>
+
+            <h3>🚫 Communication Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Assuming Claude Remembers Everything</h4>
+                    <div class="code-comparison">
+                        <pre><code>❌ Bad:
+[Message 1] "Use React 16 only"
+[Message 50] Assuming Claude still remembers
+
+✅ Good:
+Repeating critical constraints or using memory files</code></pre>
+                    </div>
+                    <p><strong>Impact:</strong> Claude violates constraints it forgot about.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Not Clarifying Ambiguity</h4>
+                    <p><strong>❌ Bad:</strong> Proceeding when requirements are unclear</p>
+                    <p><strong>✅ Good:</strong> "Before I start, should I use JWT or session-based auth?"</p>
+                    <p><strong>Impact:</strong> Building the wrong thing, wasted effort.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Batch Questions Instead of Progressive</h4>
+                    <p><strong>❌ Bad:</strong> "Answer these 10 questions about the codebase all at once"</p>
+                    <p><strong>✅ Good:</strong> "First, explain the auth flow. [wait] Now explain error handling."</p>
+                    <p><strong>Impact:</strong> Shallow answers, missed nuance, context overload.</p>
+                </div>
+            </div>
+
+            <h3>🚫 Tool Usage Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Using Bash for File Operations</h4>
+                    <p><strong>❌ Bad:</strong> Bash "cat file.js" or Bash "echo 'code' > file.js"</p>
+                    <p><strong>✅ Good:</strong> Read file.js or Write file.js</p>
+                    <p><strong>Impact:</strong> Slower, less reliable, worse formatting.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Sequential Operations That Could Be Parallel</h4>
+                    <p><strong>❌ Bad:</strong> Read file1.js → [wait] → Read file2.js → [wait] → Read file3.js</p>
+                    <p><strong>✅ Good:</strong> [Read file1.js + Read file2.js + Read file3.js in one message]</p>
+                    <p><strong>Impact:</strong> 3x slower execution, wasted time.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Not Using Specialized Agents</h4>
+                    <p><strong>❌ Bad:</strong> Manually searching through 50 files for a pattern</p>
+                    <p><strong>✅ Good:</strong> Using Task tool with Explore agent for codebase exploration</p>
+                    <p><strong>Impact:</strong> Token waste, slower results, missed findings.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Ignoring MCP Server Capabilities</h4>
+                    <p><strong>❌ Bad:</strong> Reading entire files to find a single function</p>
+                    <p><strong>✅ Good:</strong> Using Serena's find_symbol to locate specific code entities</p>
+                    <p><strong>Impact:</strong> Massive token waste, slower workflow.</p>
+                </div>
+            </div>
+
+            <h3>🚫 Security Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Ignoring Input Validation</h4>
+                    <p><strong>❌ Bad:</strong> Accepting user input directly into queries or commands</p>
+                    <p><strong>✅ Good:</strong> Validating, sanitizing, and parameterizing all inputs</p>
+                    <p><strong>Impact:</strong> SQL injection, XSS, command injection vulnerabilities.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Hardcoding Secrets</h4>
+                    <pre><code>❌ Bad: const API_KEY = "sk-1234567890abcdef"
+✅ Good: const API_KEY = process.env.API_KEY</code></pre>
+                    <p><strong>Impact:</strong> Exposed credentials, security breaches.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Disabling Security Features</h4>
+                    <p><strong>❌ Bad:</strong> "CORS is giving me errors, just disable it"</p>
+                    <p><strong>✅ Good:</strong> "Configure CORS properly for my use case"</p>
+                    <p><strong>Impact:</strong> Security vulnerabilities, exposed APIs.</p>
+                </div>
+            </div>
+
+            <h3>🚫 Architecture Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Creating Monolithic Files</h4>
+                    <p><strong>❌ Bad:</strong> Putting all logic in one massive 2000-line file</p>
+                    <p><strong>✅ Good:</strong> Splitting into logical modules (services, controllers, utilities)</p>
+                    <p><strong>Impact:</strong> Unmaintainable code, merge conflicts, difficult testing.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Tight Coupling</h4>
+                    <p><strong>❌ Bad:</strong> Direct dependencies between unrelated modules</p>
+                    <p><strong>✅ Good:</strong> Interfaces, dependency injection, loose coupling</p>
+                    <p><strong>Impact:</strong> Brittle code, difficult refactoring, testing challenges.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Not Following Project Conventions</h4>
+                    <p><strong>❌ Bad:</strong> Introducing new patterns that differ from existing codebase</p>
+                    <p><strong>✅ Good:</strong> "How does this project handle error responses? I'll follow that pattern"</p>
+                    <p><strong>Impact:</strong> Inconsistent codebase, confusion, maintenance burden.</p>
+                </div>
+            </div>
+
+            <h3>🚫 Performance Anti-Patterns</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Premature Optimization</h4>
+                    <p><strong>❌ Bad:</strong> "Make this as fast as possible" without profiling</p>
+                    <p><strong>✅ Good:</strong> "Profile the slow endpoint, then optimize the bottleneck"</p>
+                    <p><strong>Impact:</strong> Wasted effort, complex code, no measurable improvement.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>N+1 Query Problems</h4>
+                    <p><strong>❌ Bad:</strong> Loop through users, making a DB query for each user's posts</p>
+                    <p><strong>✅ Good:</strong> Single query with JOIN or batch loading</p>
+                    <p><strong>Impact:</strong> Severe performance degradation at scale.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>Not Considering Scale</h4>
+                    <p><strong>❌ Bad:</strong> Loading all 1 million records into memory</p>
+                    <p><strong>✅ Good:</strong> Pagination, streaming, lazy loading</p>
+                    <p><strong>Impact:</strong> Out of memory errors, slow responses, crashes.</p>
+                </div>
+            </div>
+
+            <h3>🎯 Key Takeaways: What to Avoid</h3>
+
+            <div class="success-box">
+                <ol>
+                    <li><strong>Don't overload context</strong> - Be surgical with file reads</li>
+                    <li><strong>Don't skip verification</strong> - Always confirm claimed completions</li>
+                    <li><strong>Don't work without planning</strong> - Use todo lists for complex tasks</li>
+                    <li><strong>Don't ignore test failures</strong> - Debug and fix root causes</li>
+                    <li><strong>Don't commit untested code</strong> - Run tests before committing</li>
+                    <li><strong>Don't forget constraints</strong> - Reinforce or use memory files</li>
+                    <li><strong>Don't accept vague errors</strong> - Investigate systematically</li>
+                    <li><strong>Don't create monolithic code</strong> - Split into logical modules</li>
+                    <li><strong>Don't skip security</strong> - Validate inputs, protect secrets</li>
+                    <li><strong>Don't work on main</strong> - Use feature branches</li>
+                </ol>
+            </div>
+
+            <div class="info-box">
+                <h3>💡 Remember</h3>
+                <p><strong>Most problems are easier to prevent than to fix.</strong> Following these guidelines will save significant time and frustration.</p>
+            </div>
+
+            <div class="related-resources">
+                <h4>Related Resources</h4>
+                <ul>
+                    <li><a href="#behavior-issues">Claude Behavior Issues</a></li>
+                    <li><a href="#antipatterns">Common Antipatterns</a></li>
+                    <li><a href="#advanced-topics">How Claude Code Really Works</a></li>
+                    <li><a href="#workflows">Practical Workflows</a></li>
+                </ul>
+            </div>
+        </section>

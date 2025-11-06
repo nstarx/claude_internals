@@ -557,3 +557,162 @@
     visibility: visible;
     opacity: 1;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   SCORE INDICATORS (for Self-Assessment section)
+   ═══════════════════════════════════════════════════════════════ */
+
+.score-high {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: 600;
+}
+
+.score-medium {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background-color: #fff3cd;
+    color: #856404;
+    font-weight: 600;
+}
+
+.score-low {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background-color: #f8d7da;
+    color: #721c24;
+    font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   METRICS TABLE (for Self-Assessment section)
+   ═══════════════════════════════════════════════════════════════ */
+
+.metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-3) 0;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+}
+
+.metrics-table thead {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+.metrics-table thead th {
+    padding: var(--space-2);
+    text-align: left;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.metrics-table tbody tr {
+    border-bottom: 1px solid var(--border-light);
+}
+
+.metrics-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.metrics-table tbody tr:hover {
+    background-color: var(--bg-secondary);
+}
+
+.metrics-table tbody td {
+    padding: var(--space-2);
+    font-size: var(--font-size-base);
+}
+
+.metrics-table tbody td:first-child {
+    font-weight: 500;
+}
+
+.metrics-table tbody td:nth-child(2) {
+    text-align: center;
+    font-family: var(--font-mono);
+}
+
+.metrics-table tbody td:nth-child(3) {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* Responsive table for mobile */
+@media (max-width: 768px) {
+    .metrics-table {
+        font-size: var(--font-size-sm);
+    }
+    
+    .metrics-table thead {
+        display: none;
+    }
+    
+    .metrics-table tbody tr {
+        display: block;
+        margin-bottom: var(--space-2);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-base);
+    }
+    
+    .metrics-table tbody td {
+        display: block;
+        text-align: right;
+        padding: var(--space-1) var(--space-2);
+        border-bottom: 1px solid var(--border-light);
+    }
+    
+    .metrics-table tbody td:last-child {
+        border-bottom: none;
+    }
+    
+    .metrics-table tbody td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+}
+
+/* Comparison tables in info-box */
+.info-box table {
+    width: 100%;
+    margin-top: var(--space-2);
+}
+
+.info-box table tr {
+    border-bottom: 1px solid var(--border-light);
+}
+
+.info-box table tr:last-child {
+    border-bottom: none;
+}
+
+.info-box table td {
+    padding: var(--space-1) var(--space-2);
+}
+
+.info-box table td:first-child {
+    font-weight: 600;
+    width: 40%;
+}
+
+.info-box table td:last-child {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.info-box table em {
+    color: var(--info-color);
+    font-weight: 500;
+}

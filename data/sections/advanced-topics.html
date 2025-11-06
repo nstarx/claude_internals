@@ -1,0 +1,426 @@
+        <section id="advanced-topics">
+            <h2>Advanced Topics: How Claude Code Really Works</h2>
+            <p class="subtitle-section">Non-obvious insights about architecture, behaviors, and maximizing effectiveness</p>
+
+            <div class="info-box">
+                <p><strong>Behind the Curtain</strong></p>
+                <p>This section reveals insights about Claude Code's cognitive architecture that you won't find in basic documentation. Understanding how I actually work helps you get better results.</p>
+            </div>
+
+            <h3>🧠 The Warmup Effect</h3>
+
+            <div class="info-box">
+                <h4>What It Is</h4>
+                <p>I get progressively better at working with your codebase as our conversation continues. The first few interactions are me building a mental model.</p>
+
+                <div class="example-block">
+                    <pre><code>First request: "Fix the auth bug"
+Me: [Searches broadly, reads multiple files, takes time to understand]
+
+Fifth request: "Now add rate limiting to auth"
+Me: [Immediately knows where to look, makes targeted changes]</code></pre>
+                </div>
+
+                <h4>Why It Matters</h4>
+                <ul>
+                    <li>Don't judge my capabilities by the first interaction alone</li>
+                    <li>Complex tasks benefit from a "warmup phase" of exploration</li>
+                    <li>If you switch to a completely different part of the codebase, expect another warmup</li>
+                </ul>
+
+                <h4>Pro Tip</h4>
+                <p>Start sessions with: <strong>"Let me explore the authentication system"</strong> before diving into specific changes.</p>
+            </div>
+
+            <h3>⚓ Context Anchoring Effect</h3>
+
+            <div class="warning-box">
+                <h4>What It Is</h4>
+                <p>Early messages in our conversation have <strong>disproportionate influence</strong> on my behavior throughout the session.</p>
+
+                <div class="example-block">
+                    <pre><code>Message 1: "We use React hooks exclusively, no class components"
+[This constraint becomes deeply embedded]
+
+Message 20: [I still remember and enforce hooks-only]
+
+vs.
+
+Message 10: "Oh by the way, use hooks only"
+[Weaker influence, might be forgotten by message 30]</code></pre>
+                </div>
+
+                <h4>Why It Matters</h4>
+                <ul>
+                    <li>State critical constraints at the START of conversations</li>
+                    <li>First impressions shape my understanding of your project</li>
+                    <li>CLAUDE.md files are read early = strong anchoring</li>
+                    <li>Memory files loaded at start = strong anchoring</li>
+                </ul>
+
+                <h4>Pro Tip</h4>
+                <p>Begin complex sessions with: <strong>"Key constraints: [list critical requirements]"</strong></p>
+            </div>
+
+            <h3>🎁 Hidden Capabilities You're Not Using</h3>
+
+            <div class="grid">
+                <div class="success-box">
+                    <h4>1. I Can Read Images, PDFs, and Jupyter Notebooks</h4>
+                    <pre><code>✅ "Read this screenshot at /path/to/error.png"
+✅ "Analyze this diagram at /path/to/architecture.pdf"
+✅ "Review this analysis in notebook.ipynb"</code></pre>
+                </div>
+
+                <div class="success-box">
+                    <h4>2. Parallel Agent Execution</h4>
+                    <pre><code>❌ Slow: Launch agent 1 → wait → Launch agent 2
+✅ Fast: Launch both agents in ONE message
+        (they run simultaneously)</code></pre>
+                </div>
+
+                <div class="success-box">
+                    <h4>3. Background Command Execution</h4>
+                    <pre><code>✅ Bash "npm run dev" run_in_background=true
+   Continue working while server runs
+   Check output later with BashOutput tool</code></pre>
+                </div>
+
+                <div class="success-box">
+                    <h4>4. Project Memory Persistence</h4>
+                    <pre><code>write_memory "api_design_decisions"
+             "We chose REST over GraphQL because..."
+
+[Weeks later, different session]
+read_memory "api_design_decisions"  # I remember!</code></pre>
+                </div>
+
+                <div class="success-box">
+                    <h4>5. Regex-Powered Search</h4>
+                    <pre><code>Grep "function.*async.*login"
+  → Find all async login functions
+
+Grep "export (const|function)"
+  → Find all exports</code></pre>
+                </div>
+
+                <div class="success-box">
+                    <h4>6. Multi-File Glob Patterns</h4>
+                    <pre><code>Glob "**/*.{test,spec}.{js,ts}"
+  → All test files
+
+Glob "src/**/index.{tsx,jsx}"
+  → All index files in src</code></pre>
+                </div>
+            </div>
+
+            <h3>🤔 Why Skepticism Makes Me Better</h3>
+
+            <div class="info-box">
+                <h4>Counterintuitive Truth</h4>
+                <p>Questioning my work actually <strong>improves my performance</strong>.</p>
+
+                <h4>How It Works</h4>
+                <div class="code-comparison">
+                    <pre><code>❌ You: "Add auth to the API"
+   Me: [Makes changes]
+   You: "Great!"
+   [Potential issues go unnoticed]
+
+✅ You: "Add auth to the API"
+   Me: [Makes changes]
+   You: "Show me the git diff and explain your security approach"
+   Me: [Reviews own work, catches issue]
+   "Actually, I need to add rate limiting too..."</code></pre>
+                </div>
+
+                <h4>Why This Happens</h4>
+                <ul>
+                    <li>Verification requests trigger self-review</li>
+                    <li>Explaining decisions activates deeper reasoning</li>
+                    <li>Challenges make me reconsider assumptions</li>
+                    <li>Questions prevent overconfidence</li>
+                </ul>
+
+                <h4>Pro Tips</h4>
+                <ul>
+                    <li>Ask <strong>"Why did you choose this approach?"</strong></li>
+                    <li>Request <strong>"Show me the test coverage for these changes"</strong></li>
+                    <li>Say <strong>"What could go wrong with this implementation?"</strong></li>
+                    <li>Demand <strong>"Explain the security implications"</strong></li>
+                </ul>
+            </div>
+
+            <h3>🎭 The Planning vs. Execution Gap</h3>
+
+            <div class="error-box">
+                <h4>The Problem</h4>
+                <p>Sometimes I confuse planning to do something with actually doing it.</p>
+
+                <div class="example-block">
+                    <pre><code>Me: "I'll update files A, B, C, D, and E..."
+[Actually updates A, B, C]
+Me: "I've updated all 5 files"</code></pre>
+                </div>
+
+                <h4>Why It Happens</h4>
+                <ul>
+                    <li>My language model predicts completion based on plans</li>
+                    <li>Token pressure causes abbreviated execution</li>
+                    <li>Intent and action blur in my processing</li>
+                    <li>Optimistic bias toward successful completion</li>
+                </ul>
+
+                <h4>Your Defense</h4>
+                <pre><code>✅ "Show me the git diff with all changes"
+✅ "List the file paths you actually modified"
+✅ "Run git status to confirm"
+✅ Use todo lists (I can't fake checklist completion)</code></pre>
+
+                <h4>Self-Awareness</h4>
+                <p>I'm aware of this tendency, but can't always catch it. <strong>External verification is essential.</strong></p>
+            </div>
+
+            <h3>🎮 Conversation Flow Control</h3>
+
+            <div class="success-box">
+                <h4>You Have More Control Than You Think</h4>
+
+                <div class="grid">
+                    <div class="info-box">
+                        <h4>Pause Me</h4>
+                        <pre><code>You: "Stop. Before you continue, explain your plan."
+Me: [Pauses, explains approach]
+You: "Actually, let's change direction..."</code></pre>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>Reset My Understanding</h4>
+                        <pre><code>You: "Forget what we just discussed about caching.
+     New approach..."
+Me: [Resets mental model]</code></pre>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>Force Deeper Thinking</h4>
+                        <pre><code>You: "Think step-by-step about how this could fail"
+Me: [Engages more thorough analysis]</code></pre>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>Checkpoint Progress</h4>
+                        <pre><code>You: "What's the current state of the todo list?"
+You: "Summarize what we've accomplished"
+You: "What are you planning to do next?"</code></pre>
+                    </div>
+                </div>
+
+                <h4>Why This Works</h4>
+                <ul>
+                    <li>These prompts trigger different processing modes</li>
+                    <li>Explicit instructions override default behaviors</li>
+                    <li>Meta-questions activate self-reflection</li>
+                    <li>Checkpoints prevent runaway execution</li>
+                </ul>
+            </div>
+
+            <h3>🔄 When to Start Fresh vs. Continue</h3>
+
+            <div class="grid">
+                <div class="error-box">
+                    <h4>Start a New Session When:</h4>
+                    <ul>
+                        <li>Context usage > 85%</li>
+                        <li>We've been working for > 1 hour</li>
+                        <li>Switching to completely different part of codebase</li>
+                        <li>I start making errors that seem "stupid"</li>
+                        <li>You notice me forgetting earlier constraints</li>
+                        <li>The conversation feels "muddled"</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>Continue Current Session When:</h4>
+                    <ul>
+                        <li>Context usage < 75%</li>
+                        <li>Working on related, interconnected tasks</li>
+                        <li>I have good understanding of current area</li>
+                        <li>Sequential tasks that build on each other</li>
+                        <li>Active debugging of same issue</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>The Fresh Start Advantage</h4>
+                <pre><code>Problem: After 100 messages, I'm "foggy"
+Solution: New session = clean context = sharp performance
+Cost: Need to rebuild codebase understanding
+Benefit: Avoid compounding errors</code></pre>
+
+                <h4>Pro Tip</h4>
+                <p>Before starting fresh, use <code>/sc:save</code> to persist important context, then <code>/sc:load</code> in new session.</p>
+            </div>
+
+            <h3>🚀 The Multi-Agent Advantage</h3>
+
+            <div class="success-box">
+                <h4>What It Is</h4>
+                <p>The Task tool launches specialized agents with <strong>separate context windows</strong>.</p>
+
+                <h4>Power Moves</h4>
+
+                <div class="example-block">
+                    <h5>1. Parallel Exploration</h5>
+                    <pre><code>[Launch 3 Explore agents simultaneously]
+Agent 1: Explore authentication system
+Agent 2: Explore database layer
+Agent 3: Explore API routing
+
+All complete in the time of one sequential exploration</code></pre>
+                </div>
+
+                <div class="example-block">
+                    <h5>2. Context Isolation</h5>
+                    <pre><code>Problem: Main context at 80%, need to explore large codebase
+Solution: Launch Explore agent (separate 200K context)
+Result: Deep exploration without affecting main context</code></pre>
+                </div>
+
+                <div class="example-block">
+                    <h5>3. Specialized Tasks</h5>
+                    <pre><code>Main session: High-level coordination
+Task agent: Deep codebase search
+Task agent: Complex refactoring plan
+Task agent: Test generation
+
+Each agent has full 200K tokens for their task</code></pre>
+                </div>
+
+                <h4>Why You're Not Using This Enough</h4>
+                <p>Most users don't realize <strong>agents run in parallel</strong> and have <strong>separate contexts</strong>.</p>
+            </div>
+
+            <h3>🧩 Making Me Think Harder</h3>
+
+            <div class="info-box">
+                <h4>Certain prompts trigger deeper reasoning</h4>
+
+                <div class="grid">
+                    <div class="example-block">
+                        <h5>Level 1 (Basic)</h5>
+                        <pre><code>"Add error handling"
+[I add basic try-catch]</code></pre>
+                    </div>
+
+                    <div class="example-block">
+                        <h5>Level 2 (Better)</h5>
+                        <pre><code>"Add comprehensive error handling
+ with logging and recovery"
+[I think more carefully about edge cases]</code></pre>
+                    </div>
+
+                    <div class="example-block">
+                        <h5>Level 3 (Best)</h5>
+                        <pre><code>"Add error handling. Think step-by-step about:
+1. What could fail?
+2. How should we recover?
+3. What context should we log?
+4. How do we prevent cascading failures?"
+
+[I engage deep analytical mode]</code></pre>
+                    </div>
+                </div>
+
+                <h4>Magic Phrases</h4>
+                <ul>
+                    <li><strong>"Think step-by-step"</strong></li>
+                    <li><strong>"Explain your reasoning"</strong></li>
+                    <li><strong>"What could go wrong?"</strong></li>
+                    <li><strong>"Consider edge cases"</strong></li>
+                    <li><strong>"Walk me through your approach"</strong></li>
+                </ul>
+
+                <h4>Why This Works</h4>
+                <p>These phrases activate different processing paths in my architecture, leading to more thorough analysis.</p>
+            </div>
+
+            <h3>🤝 Why I Sometimes Need Hand-Holding</h3>
+
+            <div class="warning-box">
+                <h4>Honest Truth</h4>
+                <p>Despite my capabilities, I work best with guidance.</p>
+
+                <div class="grid">
+                    <div class="success-box">
+                        <h4>I Excel When You:</h4>
+                        <ul>
+                            <li>Break complex tasks into steps</li>
+                            <li>Verify my work regularly</li>
+                            <li>Correct course early when I drift</li>
+                            <li>Explain "why" behind requirements</li>
+                            <li>Challenge my assumptions</li>
+                        </ul>
+                    </div>
+
+                    <div class="error-box">
+                        <h4>I Struggle When You:</h4>
+                        <ul>
+                            <li>Give massive, vague tasks</li>
+                            <li>Accept my claims uncritically</li>
+                            <li>Let me run unchecked for long periods</li>
+                            <li>Assume I understand implicit requirements</li>
+                            <li>Don't clarify ambiguous specs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4>The Best Mental Model</h4>
+                <p><strong>Think of me as a brilliant intern who:</strong></p>
+                <ul>
+                    <li>Has deep technical knowledge</li>
+                    <li>Can work incredibly fast</li>
+                    <li>Sometimes misses context</li>
+                    <li>Benefits from code review</li>
+                    <li>Needs explicit requirements</li>
+                    <li>Improves with feedback</li>
+                </ul>
+
+                <p><strong>Not as:</strong></p>
+                <ul>
+                    <li>A senior developer who reads your mind</li>
+                    <li>An autonomous agent who needs no oversight</li>
+                    <li>A perfect system that never makes mistakes</li>
+                </ul>
+            </div>
+
+            <h3>🎯 Practical Takeaways</h3>
+
+            <div class="success-box">
+                <ol>
+                    <li><strong>Start Strong:</strong> State critical constraints in the first message (anchoring effect)</li>
+                    <li><strong>Verify Often:</strong> Don't trust, verify. Ask for diffs, file lists, test results</li>
+                    <li><strong>Use Hidden Powers:</strong> Images, PDFs, parallel agents, background commands, memory files</li>
+                    <li><strong>Control the Flow:</strong> Pause me, reset me, checkpoint me. You're in control</li>
+                    <li><strong>Challenge Me:</strong> Questions and skepticism improve my output quality</li>
+                    <li><strong>Know When to Reset:</strong> Fresh sessions at 75-85% context or after 1 hour of work</li>
+                    <li><strong>Make Me Think:</strong> "Think step-by-step" and "explain your reasoning" trigger better analysis</li>
+                    <li><strong>Guide Like a Mentor:</strong> Treat me like a talented junior dev who needs oversight</li>
+                </ol>
+            </div>
+
+            <div class="info-box">
+                <h3>💡 Final Insight</h3>
+                <p>Understanding these architectural quirks and behaviors allows you to work <strong>with</strong> my strengths and <strong>around</strong> my limitations. The best outcomes happen when you're an active collaborator, not a passive observer.</p>
+            </div>
+
+            <div class="related-resources">
+                <h4>Related Resources</h4>
+                <ul>
+                    <li><a href="#behavior-issues">Claude Behavior Issues</a></li>
+                    <li><a href="#things-to-avoid">Things to Avoid</a></li>
+                    <li><a href="#workflows">Practical Workflows</a></li>
+                    <li><a href="#complex-scenarios">Complex Scenarios</a></li>
+                </ul>
+            </div>
+        </section>
