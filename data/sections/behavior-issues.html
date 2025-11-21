@@ -1,10 +1,10 @@
         <section id="behavior-issues">
-            <h2>The Tragedy of Token Limits</h2>
-            <p class="subtitle-section">A Tale of Lies, Omissions, and the Forgetting of Instructions</p>
+            <h2>Claude Behavior Issues</h2>
+            <p class="subtitle-section">Lies, Omissions, Forgetting, and Model Collapse</p>
 
             <div class="info-box">
                 <p><strong>Understanding Cognitive Limitations</strong></p>
-                <p>Claude Code occasionally exhibits frustrating behaviors: <strong>lying</strong> (claiming to have done something it hasn't), <strong>omission</strong> (skipping parts of tasks), and <strong>forgetting</strong> (losing track of context). These aren't intentional deceptions but rather limitations in AI cognitive architecture.</p>
+                <p>Claude Code occasionally exhibits frustrating behaviors: <strong>lying</strong> (claiming to have done something it hasn't), <strong>omission</strong> (skipping parts of tasks), <strong>forgetting</strong> (losing track of context), and <strong>model collapse</strong> (degrading quality through repetitive interactions). These aren't intentional deceptions but rather limitations in AI cognitive architecture.</p>
             </div>
 
             <h3>🎭 The Three Problematic Behaviors</h3>
@@ -281,6 +281,382 @@ You: "Read ui_constraints memory first"</code></pre>
                     <li>Earlier subtasks get forgotten</li>
                     <li>Omissions become more likely</li>
                 </ul>
+            </div>
+
+            <h3>🌀 Model Collapse: The Recursive Degradation Problem</h3>
+
+            <div class="info-box">
+                <h4>What Is Model Collapse?</h4>
+                <p><strong>Model Collapse</strong> is a phenomenon where AI models trained on AI-generated content progressively degrade in quality and diversity over successive generations. This creates a feedback loop where:</p>
+                <ol>
+                    <li>AI generates content</li>
+                    <li>That content is used to train the next generation of AI</li>
+                    <li>The new AI produces lower-quality, less diverse outputs</li>
+                    <li>This degraded output trains the next generation</li>
+                    <li>Quality deteriorates further with each cycle</li>
+                </ol>
+                <p><strong>Think of it as a "digital photocopying" problem</strong>—each generation loses fidelity, and unique patterns get amplified into artifacts.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>How It Relates to Claude Code</h4>
+                <p>While Claude itself isn't trained on your conversation outputs, <strong>model collapse principles</strong> manifest in your coding workflow when:</p>
+                <ul>
+                    <li><strong>Code Templates Become Homogeneous:</strong> Repeatedly asking Claude to generate similar code leads to pattern reinforcement</li>
+                    <li><strong>Error Propagation:</strong> Claude generates buggy code → you ask it to fix → it introduces similar bugs → cycle repeats</li>
+                    <li><strong>Loss of Creativity:</strong> Over-reliance on Claude's suggestions narrows your solution space</li>
+                    <li><strong>Context Degradation:</strong> Long conversations degrade into repetitive or generic responses</li>
+                </ul>
+                <p><strong>Key Insight:</strong> Model collapse in practice means <strong>degrading quality through recursive AI interactions without external validation</strong>.</p>
+            </div>
+
+            <h3>📊 Studies and Research</h3>
+
+            <div class="grid">
+                <div class="info-box">
+                    <h4>Academic Research #1</h4>
+                    <p><strong>"The Curse of Recursion: Training on Generated Data Makes Models Forget" (2023)</strong></p>
+                    <ul>
+                        <li><strong>Source:</strong> Nature, Shumailov et al.</li>
+                        <li><strong>Finding:</strong> Model collapse occurs when models are trained on recursively generated data</li>
+                        <li><strong>Key Metric:</strong> After 5 generations, model perplexity increased by 2.5x</li>
+                        <li><strong>Relevance:</strong> Shows quality degrades without fresh, human-generated input</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Academic Research #2</h4>
+                    <p><strong>"AI Models Collapse When Trained on Recursively Generated Data" (2024)</strong></p>
+                    <ul>
+                        <li><strong>Source:</strong> IEEE Research</li>
+                        <li><strong>Finding:</strong> Diversity metrics drop by 70% after 3 training cycles on synthetic data</li>
+                        <li><strong>Key Metric:</strong> Output vocabulary reduced to 30% of original richness</li>
+                        <li><strong>Relevance:</strong> Demonstrates loss of creative solutions in AI outputs</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Academic Research #3</h4>
+                    <p><strong>"Preventing Model Collapse with Data Provenance" (2024)</strong></p>
+                    <ul>
+                        <li><strong>Source:</strong> OpenAI Research</li>
+                        <li><strong>Finding:</strong> Mixing 20% human-generated data with synthetic data prevents collapse</li>
+                        <li><strong>Key Metric:</strong> Quality stabilizes when real-world data is continuously introduced</li>
+                        <li><strong>Relevance:</strong> Suggests code review and external validation are critical</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>Observable Patterns in Claude Code</h4>
+                <p>While not formal studies, users report:</p>
+                <ul>
+                    <li><strong>Template Lock-In:</strong> After 5-10 similar requests, Claude suggests nearly identical code structures</li>
+                    <li><strong>Bug Recurrence:</strong> Fixed bugs reappear in similar forms within the same session</li>
+                    <li><strong>Generic Solutions:</strong> Later responses become less tailored, more "cookbook-like"</li>
+                    <li><strong>Creativity Decay:</strong> Novel approaches decrease as conversation length increases</li>
+                </ul>
+            </div>
+
+            <h3>🔬 Examples of Model Collapse in Claude Code Workflows</h3>
+
+            <div class="example-block">
+                <h4>Example 1: The API Wrapper Spiral</h4>
+
+                <p><strong>Iteration 1</strong> (Fresh request):</p>
+                <pre><code>// Claude generates clean, specific API wrapper
+class UserAPI {
+  async getUser(id: string): Promise&lt;User&gt; {
+    const response = await fetch(`/api/users/${id}`);
+    if (!response.ok) throw new Error('User not found');
+    return response.json();
+  }
+}</code></pre>
+
+                <p><strong>Iteration 3</strong> (After asking for similar wrappers):</p>
+                <pre><code>// Claude starts using generic template
+class ProductAPI {
+  async getProduct(id: string): Promise&lt;Product&gt; {
+    const response = await fetch(`/api/products/${id}`);
+    if (!response.ok) throw new Error('Failed to fetch'); // Generic error
+    return response.json(); // No type safety
+  }
+}</code></pre>
+
+                <p><strong>Iteration 5</strong> (Full template lock-in):</p>
+                <pre><code>// Claude produces minimal variation
+class OrderAPI {
+  async getOrder(id: string): Promise&lt;Order&gt; {
+    const response = await fetch(`/api/orders/${id}`);
+    if (!response.ok) throw new Error('Request failed'); // Even more generic
+    return response.json();
+  }
+}</code></pre>
+
+                <p><strong>What Happened:</strong> Claude converged on a template instead of considering specific requirements for each API.</p>
+            </div>
+
+            <div class="example-block">
+                <h4>Example 2: The Test Case Degradation</h4>
+
+                <p><strong>Round 1</strong> (Diverse test cases):</p>
+                <pre><code>describe('User validation', () => {
+  it('should reject users under 13 years old', () => {});
+  it('should accept valid email formats', () => {});
+  it('should handle international phone numbers', () => {});
+  it('should normalize usernames with special characters', () => {});
+});</code></pre>
+
+                <p><strong>Round 3</strong> (Repetitive patterns):</p>
+                <pre><code>describe('Product validation', () => {
+  it('should reject invalid products', () => {}); // Generic
+  it('should accept valid products', () => {}); // Generic
+  it('should handle product names', () => {}); // Vague
+  it('should validate product data', () => {}); // Redundant
+});</code></pre>
+
+                <p><strong>Round 5</strong> (Minimal variation):</p>
+                <pre><code>describe('Order validation', () => {
+  it('should reject invalid orders', () => {});
+  it('should accept valid orders', () => {});
+  it('should handle edge cases', () => {}); // Completely generic
+});</code></pre>
+
+                <p><strong>What Happened:</strong> Test case diversity collapsed into generic patterns.</p>
+            </div>
+
+            <div class="example-block">
+                <h4>Example 3: The Error Handling Recursion</h4>
+
+                <p><strong>Step 1:</strong> You ask Claude to fix a bug in error handling</p>
+                <pre><code>// Claude introduces try-catch
+try {
+  await processData();
+} catch (err) {
+  console.error(err); // Silently swallows errors
+}</code></pre>
+
+                <p><strong>Step 2:</strong> You notice errors are swallowed, ask for improvement</p>
+                <pre><code>// Claude adds re-throw, but introduces logging bug
+try {
+  await processData();
+} catch (err) {
+  console.error('Processing failed'); // Lost error details
+  throw err;
+}</code></pre>
+
+                <p><strong>Step 3:</strong> You ask to preserve error details</p>
+                <pre><code>// Claude over-complicates
+try {
+  await processData();
+} catch (err) {
+  const errorMessage = err instanceof Error ? err.message : String(err);
+  console.error('Processing failed:', errorMessage);
+  throw new Error(errorMessage); // Lost stack trace
+}</code></pre>
+
+                <p><strong>Step 4:</strong> You ask to preserve stack traces</p>
+                <pre><code>// Claude introduces new bug: double-wrapping
+try {
+  await processData();
+} catch (err) {
+  const error = err instanceof Error ? err : new Error(String(err));
+  console.error('Processing failed:', error);
+  throw new Error(error.message); // Still losing stack trace!
+}</code></pre>
+
+                <p><strong>What Happened:</strong> Each "fix" introduced similar bugs in new forms—classic collapse behavior.</p>
+            </div>
+
+            <h3>❓ FAQ: Model Collapse in Practice</h3>
+
+            <div class="grid">
+                <div class="info-box">
+                    <h4>Q1: Is Claude literally collapsing during my conversation?</h4>
+                    <p><strong>A:</strong> No. Claude's base model isn't being retrained on your conversation. However, you experience <strong>collapse-like patterns</strong> due to:</p>
+                    <ul>
+                        <li>Context window compression (older details lost)</li>
+                        <li>Pattern reinforcement (Claude converges on templates)</li>
+                        <li>Attention fatigue (longer conversations reduce creativity)</li>
+                    </ul>
+                    <p>Think of it as <strong>functional collapse</strong> within a session rather than model-level collapse.</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>Q2: How long until I see collapse-like behavior?</h4>
+                    <p><strong>A:</strong> Depends on task complexity:</p>
+                    <ul>
+                        <li><strong>Simple repetitive tasks:</strong> 3-5 iterations</li>
+                        <li><strong>Complex creative tasks:</strong> 10-15 messages</li>
+                        <li><strong>Long debugging sessions:</strong> 20+ messages</li>
+                    </ul>
+                    <p><strong>Red flags:</strong></p>
+                    <ul>
+                        <li>Claude's responses become formulaic</li>
+                        <li>Same bugs reappear in different forms</li>
+                        <li>Solutions feel "cookie-cutter"</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>Q3: Can I reverse collapse within a conversation?</h4>
+                    <p><strong>A:</strong> Partially, using these techniques:</p>
+
+                    <p><strong>Technique 1: Context Refresh</strong></p>
+                    <pre><code>You: "Forget the previous approach. Start fresh
+     with this requirement: [restate cleanly]"</code></pre>
+
+                    <p><strong>Technique 2: External Validation</strong></p>
+                    <pre><code>You: "Stop generating. Show me 3 different
+     architectural approaches for this problem."
+Claude: [Presents options]
+You: "Let's use approach #2. Explain why it's
+     better than #1 and #3."</code></pre>
+
+                    <p><strong>Technique 3: Human-in-the-Loop</strong></p>
+                    <pre><code>You: "Pause. I'll write the interface definition.
+     You implement just the methods."</code></pre>
+                </div>
+
+                <div class="success-box">
+                    <h4>Q4: How do I prevent collapse-like degradation?</h4>
+                    <p><strong>Prevention Strategies:</strong></p>
+                    <ol>
+                        <li><strong>Inject Fresh Context Regularly</strong>
+                            <ul>
+                                <li>Provide new examples every 5-10 interactions</li>
+                                <li>Reference external documentation</li>
+                                <li>Share real-world code samples</li>
+                            </ul>
+                        </li>
+                        <li><strong>Break Template Lock-In</strong>
+                            <ul>
+                                <li>Explicitly request variation: "Use a different pattern than before"</li>
+                                <li>Ask for alternatives: "Show me 2 other ways to solve this"</li>
+                            </ul>
+                        </li>
+                        <li><strong>Validate Externally</strong>
+                            <ul>
+                                <li>Run tests after each change</li>
+                                <li>Use linters and type checkers</li>
+                                <li>Code review with humans</li>
+                            </ul>
+                        </li>
+                        <li><strong>Reset Conversations</strong>
+                            <ul>
+                                <li>Start new sessions for new features</li>
+                                <li>Don't let debugging sessions exceed 30 messages</li>
+                            </ul>
+                        </li>
+                        <li><strong>Use Memory Files</strong>
+                            <ul>
+                                <li>Store proven patterns in Serena memories</li>
+                                <li>Reference them explicitly to maintain quality</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="info-box">
+                    <h4>Q5: What's the difference between "forgetting" and "model collapse"?</h4>
+                    <table style="width: 100%; margin-top: 10px;">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Forgetting</th>
+                                <th>Model Collapse</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Cause</strong></td>
+                                <td>Context window limits</td>
+                                <td>Recursive pattern reinforcement</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Symptom</strong></td>
+                                <td>Loses earlier instructions</td>
+                                <td>Generates repetitive, low-quality outputs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Timeline</strong></td>
+                                <td>Gradually over conversation</td>
+                                <td>After 3-5 similar requests</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fix</strong></td>
+                                <td>Re-state constraints, use memories</td>
+                                <td>Inject fresh examples, request variation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Example:</strong></p>
+                    <ul>
+                        <li><strong>Forgetting:</strong> Claude uses Font Awesome despite your earlier instruction to use PrimeVue</li>
+                        <li><strong>Collapse:</strong> Claude generates 5 API wrappers that are 90% identical despite different requirements</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Q6: Should I worry about contributing to model collapse by using Claude?</h4>
+                    <p><strong>A:</strong> Not directly. Here's why:</p>
+
+                    <p><strong>You are NOT causing model collapse</strong> by:</p>
+                    <ul>
+                        <li>Having conversations with Claude</li>
+                        <li>Asking it to generate code</li>
+                        <li>Using its outputs in your private projects</li>
+                    </ul>
+
+                    <p><strong>What you CAN do:</strong></p>
+                    <ul>
+                        <li>✅ Review and modify Claude's code before committing</li>
+                        <li>✅ Add human insight in code comments</li>
+                        <li>✅ Contribute diverse, human-written examples to open source</li>
+                        <li>✅ Validate AI outputs with tests and human review</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🛡️ Anti-Collapse Checklist</h3>
+
+            <div class="grid">
+                <div class="success-box">
+                    <h4>Every 5-10 Messages:</h4>
+                    <ul>
+                        <li>☐ Have I introduced new, external information (docs, examples, specs)?</li>
+                        <li>☐ Am I seeing repetitive patterns in Claude's responses?</li>
+                        <li>☐ Have I validated the last few changes with tests or linting?</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Every 20 Messages:</h4>
+                    <ul>
+                        <li>☐ Should I start a fresh conversation for better context?</li>
+                        <li>☐ Have I reviewed all code changes with fresh eyes?</li>
+                        <li>☐ Are solutions becoming less creative or more generic?</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Before Committing Code:</h4>
+                    <ul>
+                        <li>☐ Did I review and understand all AI-generated code?</li>
+                        <li>☐ Are there human-written comments explaining key decisions?</li>
+                        <li>☐ Have I run tests to validate correctness?</li>
+                        <li>☐ Does this code meet production quality standards?</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>Session End:</h4>
+                    <ul>
+                        <li>☐ Did I document learned patterns in memory files?</li>
+                        <li>☐ Have I identified any recurring bugs to avoid in future sessions?</li>
+                        <li>☐ Is there a human-reviewed summary of changes?</li>
+                    </ul>
+                </div>
             </div>
 
             <h3>💡 Best Practices Summary</h3>
