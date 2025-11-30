@@ -18,6 +18,7 @@
                 'tools',
                 'metrics',
                 'simulators',
+                'compact-command',
                 'without-tools',
                 'antipatterns',
                 'things-to-avoid',
@@ -206,6 +207,12 @@
             if (container.querySelector('#decay-simulator-container') && window.DecaySimulator) {
                 console.log('Initializing Decay Simulator...');
                 window.DecaySimulator.init('decay-simulator-container');
+            }
+
+            // Compact Simulator
+            if (container.querySelector('#compact-simulator-container') && window.CompactSimulator) {
+                console.log('Initializing Compact Simulator...');
+                window.CompactSimulator.init('compact-simulator-container');
             }
         },
 
