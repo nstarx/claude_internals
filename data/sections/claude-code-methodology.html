@@ -1,0 +1,757 @@
+        <section id="claude-code-methodology">
+            <h2>Claude Code: Best User Methodology</h2>
+            <p class="subtitle">Master Claude Code through practical workflows, proven patterns, and strategic approaches to AI-assisted development</p>
+
+            <div class="info-box">
+                <h3><i class="pi pi-info-circle"></i> What is Claude Code?</h3>
+                <p><strong>Claude Code</strong> is Anthropic's official CLI tool that integrates Claude AI directly into your development workflow. It's an interactive coding assistant with a rich set of development tools, persistent sessions, and specialized agents.</p>
+                <p><strong>Key Advantage</strong>: Context-aware development with <span class="badge badge-info">200K token</span> working memory, tool integration, and natural language interaction.</p>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Understanding the Foundation</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <h4>The Context Window: Your Working Memory</h4>
+            <p>The context window is Claude's "RAM" - the total text Claude can process at once. Think of it as your collaboration workspace.</p>
+
+            <div class="formula-box">
+                <div class="formula-title">Context Budget</div>
+                <div class="formula-content">
+                    <strong>Available:</strong> ~200,000 tokens ≈ 150,000 words ≈ 600 pages
+                </div>
+                <div class="formula-details">
+                    <strong>Token Conversion:</strong>
+                    <ul>
+                        <li>1 token ≈ 4 characters</li>
+                        <li>1 token ≈ 0.75 words</li>
+                        <li>Medium file (300 lines) ≈ 3,000-5,000 tokens</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Context Consumption Breakdown</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Typical Size</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Conversation History</td>
+                        <td>Variable</td>
+                        <td class="badge badge-warning">Accumulates</td>
+                    </tr>
+                    <tr>
+                        <td>File Reads</td>
+                        <td>3K-10K per file</td>
+                        <td class="badge badge-warning">Persists</td>
+                    </tr>
+                    <tr>
+                        <td>Tool Results</td>
+                        <td>1K-5K per result</td>
+                        <td class="badge badge-info">Temporary</td>
+                    </tr>
+                    <tr>
+                        <td>System Instructions</td>
+                        <td>10K-30K</td>
+                        <td class="badge badge-success">Pre-loaded</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight">
+                <h4><i class="pi pi-chart-line"></i> Context Usage Guidelines</h4>
+                <ul>
+                    <li><span class="badge badge-success">0-75%</span> - Normal operation, full capabilities</li>
+                    <li><span class="badge badge-warning">75-85%</span> - Be selective with file reads</li>
+                    <li><span class="badge badge-danger">85%+</span> - Critical, focus on essentials only</li>
+                </ul>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Core Methodology: The 4-Phase Workflow</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <div class="workflow-container">
+                <div class="workflow-phase">
+                    <div class="phase-number">1</div>
+                    <h4>Discovery Phase</h4>
+                    <p><strong>Goal:</strong> Understand the codebase with minimal context usage</p>
+
+                    <div class="code-example">
+                        <div class="code-header">Efficient Discovery Pattern</div>
+                        <pre><code>✅ Strategic Approach:
+1. Glob "**/*auth*"           → Find relevant files (low cost)
+2. Grep "jwt.*login"          → Search for patterns (medium cost)
+3. Read auth.js               → Read specific file (high cost)
+
+❌ Inefficient Approach:
+1. Read all files in src/     → Burns 50K+ tokens
+2. Search manually            → Wastes context</code></pre>
+                    </div>
+
+                    <div class="best-practice">
+                        <strong>Pro Tip:</strong> Use <code>Task tool with Explore agent</code> for complex discovery - it runs in a separate context window.
+                    </div>
+                </div>
+
+                <div class="workflow-phase">
+                    <div class="phase-number">2</div>
+                    <h4>Planning Phase</h4>
+                    <p><strong>Goal:</strong> Create actionable roadmap before execution</p>
+
+                    <div class="code-example">
+                        <div class="code-header">Planning Criteria</div>
+                        <pre><code>Use TODO lists when:
+✅ Task has 3+ distinct steps
+✅ Multiple files need modification
+✅ Task is non-trivial or complex
+✅ User provides multiple requirements
+
+Skip TODO lists when:
+❌ Single, straightforward operation
+❌ Trivial task (< 3 simple steps)
+❌ Purely conversational query</code></pre>
+                    </div>
+
+                    <div class="best-practice">
+                        <strong>Best Practice:</strong> Break complex tasks into parallel and sequential operations during planning.
+                    </div>
+                </div>
+
+                <div class="workflow-phase">
+                    <div class="phase-number">3</div>
+                    <h4>Execution Phase</h4>
+                    <p><strong>Goal:</strong> Make changes efficiently with parallel operations</p>
+
+                    <div class="code-example">
+                        <div class="code-header">Parallel vs Sequential</div>
+                        <pre><code>✅ Parallel (Independent Operations):
+Read file1.js + Read file2.js + Read file3.js
+↓ All complete simultaneously
+
+❌ Sequential (When Not Needed):
+Read file1.js → wait → Read file2.js → wait
+↓ 3x slower
+
+✅ Sequential (When Required):
+Read file.js → Edit file.js → Bash "npm test"
+↓ Each depends on previous</code></pre>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Critical Rule:</strong> Always <code>Read</code> a file before using <code>Edit</code> or <code>Write</code> on existing files.
+                    </div>
+                </div>
+
+                <div class="workflow-phase">
+                    <div class="phase-number">4</div>
+                    <h4>Verification Phase</h4>
+                    <p><strong>Goal:</strong> Validate changes before committing</p>
+
+                    <div class="code-example">
+                        <div class="code-header">Verification Checklist</div>
+                        <pre><code>Before committing:
+☑ Run all tests: npm test / pytest
+☑ Check build: npm run build
+☑ Review diff: git diff
+☑ Verify files: git status
+☑ Edge cases tested
+☑ No console.log() left behind</code></pre>
+                    </div>
+
+                    <div class="best-practice">
+                        <strong>Trust but Verify:</strong> Always ask Claude to show git diff and test results before accepting "completed" claims.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Essential Tools & When to Use Them</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Use Case</th>
+                        <th>Example</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Glob</code></td>
+                        <td>Find files by pattern</td>
+                        <td><code>**/*.test.js</code></td>
+                        <td class="badge badge-success">Low</td>
+                    </tr>
+                    <tr>
+                        <td><code>Grep</code></td>
+                        <td>Search file contents</td>
+                        <td><code>pattern: "authentication"</code></td>
+                        <td class="badge badge-info">Medium</td>
+                    </tr>
+                    <tr>
+                        <td><code>Read</code></td>
+                        <td>View file contents</td>
+                        <td><code>Read auth.js</code></td>
+                        <td class="badge badge-warning">High</td>
+                    </tr>
+                    <tr>
+                        <td><code>Edit</code></td>
+                        <td>Precise replacements</td>
+                        <td><code>old → new string</code></td>
+                        <td class="badge badge-info">Medium</td>
+                    </tr>
+                    <tr>
+                        <td><code>Write</code></td>
+                        <td>Create new files</td>
+                        <td><code>Write newFile.js</code></td>
+                        <td class="badge badge-info">Medium</td>
+                    </tr>
+                    <tr>
+                        <td><code>Bash</code></td>
+                        <td>Run commands</td>
+                        <td><code>npm test</code></td>
+                        <td class="badge badge-info">Variable</td>
+                    </tr>
+                    <tr>
+                        <td><code>Task</code></td>
+                        <td>Launch specialized agents</td>
+                        <td><code>Explore agent</code></td>
+                        <td class="badge badge-success">Separate Context</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Strategic Patterns for Success</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <h4>Pattern 1: Symbol-Based Reading (Serena MCP)</h4>
+            <div class="code-example">
+                <div class="code-header">Instead of Reading Entire Files</div>
+                <pre><code>❌ Traditional Approach:
+Read user.controller.js      → 5,000 tokens (entire file)
+Read auth.service.js         → 8,000 tokens (entire file)
+Read database.js             → 10,000 tokens (entire file)
+Total: 23,000 tokens
+
+✅ Symbol-Based Approach:
+find_symbol "UserController"                → 500 tokens (overview)
+find_symbol "UserController/login" depth=1  → 300 tokens (method only)
+get_symbols_overview auth.service.js        → 200 tokens (structure)
+Total: 1,000 tokens
+
+<span class="badge badge-success">Savings: 95.7% reduction</span></code></pre>
+            </div>
+
+            <h4>Pattern 2: Parallel File Operations</h4>
+            <div class="code-example">
+                <div class="code-header">Maximize Efficiency with Parallel Calls</div>
+                <pre><code>✅ Single Message - Multiple Tools:
+Read auth.js + Read user.js + Read config.js + Bash "git status"
+↓ All execute simultaneously
+Result: 4x faster than sequential
+
+Common Parallel Patterns:
+• Read multiple unrelated files
+• Multiple independent Grep searches
+• Parallel Glob patterns
+• Independent Bash commands</code></pre>
+            </div>
+
+            <h4>Pattern 3: Agent Delegation</h4>
+            <div class="code-example">
+                <div class="code-header">When to Delegate to Agents</div>
+                <pre><code>Use Explore Agent when:
+✅ "Where is feature X implemented?"
+✅ "How does the auth system work?"
+✅ "Find all files related to payments"
+✅ Open-ended codebase exploration
+
+Use Plan Agent when:
+✅ Complex multi-step implementations
+✅ Architecture decisions needed
+✅ Multiple valid approaches exist
+
+Use General-Purpose Agent when:
+✅ Research tasks requiring iteration
+✅ Complex searches with multiple attempts
+✅ Multi-step investigations</code></pre>
+            </div>
+
+            <div class="highlight">
+                <h4><i class="pi pi-lightbulb"></i> Power Move: Parallel Agent Execution</h4>
+                <p>Launch multiple agents in ONE message - they run simultaneously with separate 200K context windows:</p>
+                <pre><code>Task(Explore: auth system) + Task(Explore: database layer) + Task(Explore: API routes)
+↓ All complete in parallel
+↓ Each has full 200K context
+↓ No impact on main session context</code></pre>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Critical Do's and Don'ts</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <div class="two-column-layout">
+                <div class="column">
+                    <h4 class="success-header"><i class="pi pi-check-circle"></i> Do's</h4>
+
+                    <div class="practice-item">
+                        <strong>Be Specific</strong>
+                        <p class="example-good">✅ "Add error handling to login function in auth.js line 45"</p>
+                        <p class="example-bad">❌ "Make the code better"</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Start Small, Scale Smart</strong>
+                        <p class="example-good">✅ Target specific files → Make changes → Expand scope</p>
+                        <p class="example-bad">❌ Read entire codebase → Get overwhelmed</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Use Feature Branches</strong>
+                        <p class="example-good">✅ Create branch → Work → Test → PR → Merge</p>
+                        <p class="example-bad">❌ Work directly on main/master</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Leverage Parallel Operations</strong>
+                        <p class="example-good">✅ Read 5 files simultaneously in one message</p>
+                        <p class="example-bad">❌ Sequential reads, waiting for each</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Monitor Context Usage</strong>
+                        <p class="example-good">✅ Check token warnings, adjust at 75%</p>
+                        <p class="example-bad">❌ Ignore warnings until 95%+</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Verify Completion Claims</strong>
+                        <p class="example-good">✅ "Show me git diff and list file paths"</p>
+                        <p class="example-bad">❌ "Great, thanks!" (without verification)</p>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h4 class="danger-header"><i class="pi pi-times-circle"></i> Don'ts</h4>
+
+                    <div class="practice-item">
+                        <strong>Don't Read Everything</strong>
+                        <p class="example-bad">❌ "Read all files in src/ so you understand"</p>
+                        <p class="explanation">Impact: Wastes 50-100K tokens, leaves no room for work</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Don't Skip Planning</strong>
+                        <p class="example-bad">❌ Starting complex multi-step tasks without TODO list</p>
+                        <p class="explanation">Impact: Forgotten subtasks, incomplete work</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Don't Ignore Test Failures</strong>
+                        <p class="example-bad">❌ "Tests failing, just comment them out"</p>
+                        <p class="explanation">Impact: Hidden broken functionality</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Don't Use Bash for File Operations</strong>
+                        <p class="example-bad">❌ Bash "cat file.js" or Bash "echo 'code' > file.js"</p>
+                        <p class="explanation">Use Read/Write tools instead - faster and more reliable</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Don't Accept Vague Requests</strong>
+                        <p class="example-bad">❌ "Fix all bugs" / "Optimize everything"</p>
+                        <p class="explanation">Clarify scope and success criteria first</p>
+                    </div>
+
+                    <div class="practice-item">
+                        <strong>Don't Commit Without Testing</strong>
+                        <p class="example-bad">❌ Edit files → git commit → push</p>
+                        <p class="explanation">Always run tests before committing</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Advanced Techniques</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <h4>The Warmup Effect</h4>
+            <div class="info-box">
+                <p><strong>Insight:</strong> Claude gets progressively better at working with your codebase as the conversation continues. The first few interactions build a mental model.</p>
+                <p><strong>Pro Tip:</strong> Start complex sessions with: <em>"Let me explore the authentication system first"</em> before diving into specific changes.</p>
+            </div>
+
+            <h4>Context Anchoring</h4>
+            <div class="info-box">
+                <p><strong>Insight:</strong> Early messages have disproportionate influence on Claude's behavior throughout the session.</p>
+                <p><strong>Pro Tip:</strong> State critical constraints in the FIRST message for maximum effect:</p>
+                <div class="code-example">
+                    <pre><code>Message 1: "Key constraints: React hooks only, no class components,
+            TypeScript strict mode, all functions must have tests"
+↓ Deeply embedded throughout session</code></pre>
+                </div>
+            </div>
+
+            <h4>Making Claude Think Harder</h4>
+            <div class="code-example">
+                <div class="code-header">Magic Phrases for Deeper Analysis</div>
+                <pre><code>Level 1 (Basic):
+"Add error handling"
+↓ Basic try-catch
+
+Level 2 (Better):
+"Add comprehensive error handling with logging and recovery"
+↓ More careful consideration
+
+Level 3 (Best):
+"Add error handling. Think step-by-step about:
+1. What could fail?
+2. How should we recover?
+3. What context should we log?
+4. How do we prevent cascading failures?"
+↓ Deep analytical mode activated
+
+<strong>Other Magic Phrases:</strong>
+• "Think step-by-step"
+• "Explain your reasoning"
+• "What could go wrong?"
+• "Consider edge cases"
+• "Walk me through your approach"</code></pre>
+            </div>
+
+            <h4>When to Start Fresh vs Continue</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Start New Session</th>
+                        <th>Continue Current Session</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Context usage > 85%</td>
+                        <td>Context usage < 75%</td>
+                    </tr>
+                    <tr>
+                        <td>Working for > 1 hour</td>
+                        <td>Related, interconnected tasks</td>
+                    </tr>
+                    <tr>
+                        <td>Switching to different codebase area</td>
+                        <td>Good understanding of current area</td>
+                    </tr>
+                    <tr>
+                        <td>Claude making "stupid" errors</td>
+                        <td>Sequential tasks building on each other</td>
+                    </tr>
+                    <tr>
+                        <td>Forgetting earlier constraints</td>
+                        <td>Active debugging of same issue</td>
+                    </tr>
+                    <tr>
+                        <td>Conversation feels "muddled"</td>
+                        <td>Clear progress being made</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="best-practice">
+                <strong>Session Persistence:</strong> Use <code>/sc:save</code> before starting fresh, then <code>/sc:load</code> in new session to restore context.
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>MCP Servers: Extended Capabilities</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <div class="mcp-grid">
+                <div class="mcp-card">
+                    <h4><i class="pi pi-code"></i> Serena</h4>
+                    <p class="mcp-tagline">Semantic Code Understanding</p>
+                    <ul>
+                        <li>Symbol operations (rename, extract, move)</li>
+                        <li>Project memory & session persistence</li>
+                        <li>LSP integration (multi-language)</li>
+                        <li><code>/sc:load</code> and <code>/sc:save</code></li>
+                    </ul>
+                    <div class="best-practice">
+                        <strong>Use for:</strong> Symbol-based navigation, project context management
+                    </div>
+                </div>
+
+                <div class="mcp-card">
+                    <h4><i class="pi pi-brain"></i> Sequential-Thinking</h4>
+                    <p class="mcp-tagline">Complex Reasoning</p>
+                    <ul>
+                        <li>Multi-step problem analysis</li>
+                        <li>Hypothesis generation/testing</li>
+                        <li>Structured reasoning chains</li>
+                        <li>Verification loops</li>
+                    </ul>
+                    <div class="best-practice">
+                        <strong>Use for:</strong> Complex debugging, architectural decisions
+                    </div>
+                </div>
+
+                <div class="mcp-card">
+                    <h4><i class="pi pi-book"></i> Context7</h4>
+                    <p class="mcp-tagline">Documentation Lookup</p>
+                    <ul>
+                        <li>Official library documentation</li>
+                        <li>Framework patterns & best practices</li>
+                        <li>Version-specific guides</li>
+                        <li>Code examples</li>
+                    </ul>
+                    <div class="best-practice">
+                        <strong>Use for:</strong> Learning new libraries, API references
+                    </div>
+                </div>
+
+                <div class="mcp-card">
+                    <h4><i class="pi pi-sparkles"></i> Magic</h4>
+                    <p class="mcp-tagline">UI Component Generation</p>
+                    <ul>
+                        <li>Modern components from 21st.dev</li>
+                        <li>React, Vue, Angular patterns</li>
+                        <li>Responsive designs</li>
+                        <li>Accessibility built-in</li>
+                    </ul>
+                    <div class="best-practice">
+                        <strong>Use for:</strong> Rapid UI prototyping
+                    </div>
+                </div>
+
+                <div class="mcp-card">
+                    <h4><i class="pi pi-sync"></i> Morphllm</h4>
+                    <p class="mcp-tagline">Bulk Transformations</p>
+                    <ul>
+                        <li>Pattern-based multi-file edits</li>
+                        <li>Style guide enforcement</li>
+                        <li>Framework migrations</li>
+                        <li>Codebase-wide refactoring</li>
+                    </ul>
+                    <div class="best-practice">
+                        <strong>Use for:</strong> Large-scale code changes
+                    </div>
+                </div>
+
+                <div class="mcp-card">
+                    <h4><i class="pi pi-desktop"></i> Playwright</h4>
+                    <p class="mcp-tagline">Browser Testing</p>
+                    <ul>
+                        <li>E2E test automation</li>
+                        <li>Visual validation</li>
+                        <li>Accessibility testing</li>
+                        <li>Cross-browser support</li>
+                    </ul>
+                    <div class="best-practice">
+                        <strong>Use for:</strong> Web application testing
+                    </div>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Example Session Walkthrough</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <div class="code-example">
+                <div class="code-header">Real-World Session: Adding JWT Authentication</div>
+                <pre><code><strong>You:</strong> Add JWT authentication to the Express API
+
+<strong>Claude:</strong> I'll help you add JWT authentication. Let me first understand your current setup.
+
+<em>[Phase 1: Discovery - Parallel operations]</em>
+Glob "**/*auth*"           → Find existing auth files
+Glob "**/*server*.js"      → Find Express setup
+Read package.json          → Check dependencies
+
+I found your Express app in server.js. I'll create a TODO list:
+
+<em>[Phase 2: Planning]</em>
+✓ TODO List Created:
+  1. Install jsonwebtoken and bcrypt packages
+  2. Create JWT middleware in middleware/auth.js
+  3. Add login/register endpoints
+  4. Protect existing API routes
+  5. Add tests for auth flow
+
+<em>[Phase 3: Execution - Mark first item in_progress]</em>
+Bash "npm install jsonwebtoken bcrypt"
+
+<em>[Complete item 1, start item 2]</em>
+Write middleware/auth.js   → Create JWT middleware
+
+<em>[Complete item 2, start item 3]</em>
+Read server.js             → Understand current structure
+Edit server.js             → Add auth routes
+
+<em>[Complete item 3, start item 4]</em>
+Read routes/api.js
+Edit routes/api.js         → Protect endpoints with middleware
+
+<em>[Complete item 4, start item 5]</em>
+Write tests/auth.test.js   → Create auth tests
+
+<em>[Phase 4: Verification]</em>
+Bash "npm test"            → Run test suite
+✓ All tests passing (15/15)
+
+<em>[Complete item 5]</em>
+✅ JWT authentication implemented:
+   • Login endpoint: POST /api/auth/login
+   • Register endpoint: POST /api/auth/register
+   • Middleware protects all /api/users/* routes
+   • 5 new tests added, all passing
+
+<strong>You:</strong> Great! Show me the git diff
+
+<strong>Claude:</strong>
+Bash "git diff"
+
+<em>[Shows comprehensive diff of all changes]</em>
+
+<strong>You:</strong> Perfect. Can you add refresh token support?
+
+<strong>Claude:</strong> I'll extend the authentication to support refresh tokens.
+Since we've already explored the auth system, I can work efficiently:
+
+Read middleware/auth.js    → Review current implementation
+<em>[Continues with high efficiency due to warmup effect...]</em></code></pre>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Quick Reference: Common Commands</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <div class="reference-grid">
+                <div class="reference-section">
+                    <h4>Slash Commands</h4>
+                    <ul>
+                        <li><code>/sc:test</code> - Execute tests with coverage</li>
+                        <li><code>/sc:build</code> - Build and optimize project</li>
+                        <li><code>/sc:git</code> - Intelligent git operations</li>
+                        <li><code>/sc:analyze</code> - Code quality analysis</li>
+                        <li><code>/sc:implement</code> - Feature implementation workflow</li>
+                        <li><code>/sc:troubleshoot</code> - Diagnostic and debugging</li>
+                        <li><code>/sc:save</code> - Save session context</li>
+                        <li><code>/sc:load</code> - Restore session context</li>
+                        <li><code>/sc:help</code> - List all commands</li>
+                    </ul>
+                </div>
+
+                <div class="reference-section">
+                    <h4>File Operations</h4>
+                    <ul>
+                        <li><code>Glob "pattern"</code> - Find files by pattern</li>
+                        <li><code>Grep "pattern"</code> - Search file contents</li>
+                        <li><code>Read file.js</code> - View file contents</li>
+                        <li><code>Edit file.js</code> - Make precise edits</li>
+                        <li><code>Write file.js</code> - Create new file</li>
+                    </ul>
+                </div>
+
+                <div class="reference-section">
+                    <h4>Git Operations</h4>
+                    <ul>
+                        <li><code>git status</code> - Check repository status</li>
+                        <li><code>git diff</code> - View changes</li>
+                        <li><code>git log -n 5</code> - Recent commits</li>
+                        <li>Ask Claude to create commits with proper messages</li>
+                        <li>Ask Claude to create PRs with gh CLI</li>
+                    </ul>
+                </div>
+
+                <div class="reference-section">
+                    <h4>Testing & Building</h4>
+                    <ul>
+                        <li><code>npm test</code> / <code>pytest</code></li>
+                        <li><code>npm run build</code></li>
+                        <li><code>npm run lint</code></li>
+                        <li><code>npm install package</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Key Takeaways</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <div class="takeaway-grid">
+                <div class="takeaway-item">
+                    <div class="takeaway-number">1</div>
+                    <h4>Be Strategic with Context</h4>
+                    <p>Use searches and symbol operations before reading entire files. Monitor token usage and adjust at 75%.</p>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-number">2</div>
+                    <h4>Plan Before Executing</h4>
+                    <p>Use TODO lists for complex tasks (3+ steps). Break down into parallel and sequential operations.</p>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-number">3</div>
+                    <h4>Leverage Parallel Operations</h4>
+                    <p>Read multiple files, run multiple searches, launch multiple agents - all in one message.</p>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-number">4</div>
+                    <h4>Trust but Verify</h4>
+                    <p>Always ask for git diff, test results, and file lists. Don't accept completion claims blindly.</p>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-number">5</div>
+                    <h4>Use Specialized Agents</h4>
+                    <p>Delegate complex exploration, planning, and research to agents - they have separate context windows.</p>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-number">6</div>
+                    <h4>Anchor Early</h4>
+                    <p>State critical constraints in the first message for maximum influence throughout the session.</p>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-number">7</div>
+                    <h4>Start Fresh When Needed</h4>
+                    <p>New session at 75-85% context or after 1 hour. Use /sc:save and /sc:load for continuity.</p>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-number">8</div>
+                    <h4>Make Claude Think Harder</h4>
+                    <p>Use "think step-by-step", "explain your reasoning", and "what could go wrong?" for deeper analysis.</p>
+                </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════════ -->
+            <h3>Final Thoughts</h3>
+            <!-- ════════════════════════════════════════════════════════════ -->
+
+            <div class="info-box">
+                <h4><i class="pi pi-heart"></i> Claude Code as a Collaborative Partner</h4>
+                <p>Think of Claude Code as a brilliant junior developer who:</p>
+                <ul>
+                    <li>Has deep technical knowledge and works incredibly fast</li>
+                    <li>Needs explicit requirements and benefits from code review</li>
+                    <li>Improves with feedback and gets better throughout the session</li>
+                    <li>Works best with guidance, verification, and clear constraints</li>
+                </ul>
+                <p><strong>The more context you provide and the clearer your requirements, the better the results will be.</strong></p>
+            </div>
+
+            <div class="highlight">
+                <p class="text-center"><strong>Remember:</strong> Effective use of Claude Code is a skill that improves with practice. Start with these methodologies, experiment with different patterns, and develop your own workflow based on what works best for your projects.</p>
+            </div>
+        </section>

@@ -1,0 +1,530 @@
+/**
+ * Claude Code Methodology Page - Specific Styles
+ * Custom components for the methodology documentation
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   WORKFLOW PHASES
+   ═══════════════════════════════════════════════════════════════ */
+
+.workflow-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-4) 0;
+}
+
+.workflow-phase {
+    background: var(--card-bg);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.workflow-phase:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.phase-number {
+    position: absolute;
+    top: -15px;
+    left: var(--space-3);
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--secondary-color), var(--info-color));
+    color: var(--text-inverse);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-xl);
+    box-shadow: var(--shadow-base);
+}
+
+.workflow-phase h4 {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+    color: var(--primary-color);
+}
+
+.workflow-phase p {
+    margin-bottom: var(--space-3);
+    color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CODE EXAMPLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.code-example {
+    background: var(--code-bg);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    margin: var(--space-3) 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.code-header {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    padding: var(--space-2) var(--space-3);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.code-example pre {
+    margin: 0;
+    padding: var(--space-3);
+    overflow-x: auto;
+    background: var(--code-bg);
+}
+
+.code-example code {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--text-color);
+}
+
+.example-good {
+    color: var(--success-color);
+    font-weight: 600;
+    margin: var(--space-1) 0;
+}
+
+.example-bad {
+    color: var(--danger-color);
+    font-weight: 600;
+    margin: var(--space-1) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BEST PRACTICE BOXES
+   ═══════════════════════════════════════════════════════════════ */
+
+.best-practice {
+    background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+    padding: var(--space-3);
+    border-radius: var(--radius-base);
+    margin: var(--space-3) 0;
+    border-top: 3px solid var(--success-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.best-practice strong {
+    color: var(--success-color);
+    display: block;
+    margin-bottom: var(--space-1);
+}
+
+.warning-box {
+    background: linear-gradient(to right, #fff3e0, #ffe0b2);
+    padding: var(--space-3);
+    border-radius: var(--radius-base);
+    margin: var(--space-3) 0;
+    border-top: 3px solid var(--warning-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.warning-box strong {
+    color: var(--warning-color);
+    display: block;
+    margin-bottom: var(--space-1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TWO COLUMN LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+
+.two-column-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-4) 0;
+}
+
+.column {
+    background: var(--card-bg);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-base);
+}
+
+.success-header {
+    color: var(--success-color);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--success-color);
+}
+
+.danger-header {
+    color: var(--danger-color);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--danger-color);
+}
+
+.practice-item {
+    margin: var(--space-3) 0;
+    padding: var(--space-3);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-base);
+}
+
+.practice-item strong {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--primary-color);
+    font-size: var(--font-size-base);
+}
+
+.practice-item .explanation {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: var(--space-1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MCP GRID
+   ═══════════════════════════════════════════════════════════════ */
+
+.mcp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-3);
+    margin: var(--space-4) 0;
+}
+
+.mcp-card {
+    background: var(--card-bg);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-base);
+    transition: all var(--transition-base);
+    border-top: 4px solid var(--secondary-color);
+}
+
+.mcp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.mcp-card h4 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--primary-color);
+    margin-bottom: var(--space-2);
+}
+
+.mcp-card h4 i {
+    color: var(--secondary-color);
+    font-size: var(--font-size-xl);
+}
+
+.mcp-tagline {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+}
+
+.mcp-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: var(--space-3);
+}
+
+.mcp-card ul li {
+    padding: var(--space-1) 0;
+    padding-left: var(--space-3);
+    position: relative;
+}
+
+.mcp-card ul li:before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TAKEAWAY GRID
+   ═══════════════════════════════════════════════════════════════ */
+
+.takeaway-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-3);
+    margin: var(--space-4) 0;
+}
+
+.takeaway-item {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-base);
+    position: relative;
+    transition: all var(--transition-base);
+}
+
+.takeaway-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.takeaway-number {
+    position: absolute;
+    top: -12px;
+    right: var(--space-3);
+    width: 36px;
+    height: 36px;
+    background: var(--secondary-color);
+    color: var(--text-inverse);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    box-shadow: var(--shadow-base);
+}
+
+.takeaway-item h4 {
+    margin-bottom: var(--space-2);
+    color: var(--primary-color);
+}
+
+.takeaway-item p {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REFERENCE GRID
+   ═══════════════════════════════════════════════════════════════ */
+
+.reference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-4) 0;
+}
+
+.reference-section {
+    background: var(--card-bg);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-base);
+    border-top: 3px solid var(--info-color);
+}
+
+.reference-section h4 {
+    color: var(--primary-color);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.reference-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.reference-section li {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.reference-section li:last-child {
+    border-bottom: none;
+}
+
+.reference-section code {
+    background: var(--code-bg);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DATA TABLE ENHANCEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: var(--space-4) 0;
+    background: var(--card-bg);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    box-shadow: var(--shadow-base);
+}
+
+.data-table thead {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+}
+
+.data-table th {
+    padding: var(--space-3);
+    text-align: left;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.data-table td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.data-table tbody tr:hover {
+    background: var(--bg-secondary);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table code {
+    background: var(--code-bg);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FORMULA BOX (for technical content)
+   ═══════════════════════════════════════════════════════════════ */
+
+.formula-box {
+    background: linear-gradient(to bottom right, #e3f2fd, #f3e5f5);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin: var(--space-4) 0;
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid var(--info-color);
+}
+
+.formula-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.formula-content {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-3);
+    padding: var(--space-3);
+    background: var(--card-bg);
+    border-radius: var(--radius-base);
+    font-family: var(--font-mono);
+}
+
+.formula-details {
+    background: var(--card-bg);
+    padding: var(--space-3);
+    border-radius: var(--radius-base);
+}
+
+.formula-details ul {
+    margin: var(--space-2) 0 0 0;
+    padding-left: var(--space-4);
+}
+
+.formula-details li {
+    padding: var(--space-1) 0;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════ */
+
+.text-center {
+    text-align: center;
+}
+
+.subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-muted);
+    font-weight: 400;
+    line-height: var(--line-height-base);
+    margin: var(--space-2) 0 var(--space-4) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .workflow-container,
+    .two-column-layout,
+    .mcp-grid,
+    .takeaway-grid,
+    .reference-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .workflow-phase,
+    .takeaway-item {
+        padding: var(--space-3);
+    }
+
+    .phase-number,
+    .takeaway-number {
+        width: 32px;
+        height: 32px;
+        font-size: var(--font-size-base);
+    }
+
+    .data-table {
+        font-size: var(--font-size-sm);
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: var(--space-2);
+    }
+}
+
+@media (max-width: 480px) {
+    .code-example pre {
+        font-size: var(--font-size-xs);
+        padding: var(--space-2);
+    }
+
+    .formula-content {
+        font-size: var(--font-size-base);
+    }
+}

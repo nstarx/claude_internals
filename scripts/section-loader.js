@@ -10,6 +10,7 @@
         config: {
             sectionsPath: './data/sections/',
             sections: [
+                'claude-code-methodology',
                 'overview',
                 'working-memory',
                 'architecture',

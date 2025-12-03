@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code: Best User Methodology</title>
+    <meta name="description" content="Master Claude Code through practical workflows, proven patterns, and strategic approaches to AI-assisted development">
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/navigation.css">
+    <link rel="stylesheet" href="./styles/markdown.css">
+    <link rel="stylesheet" href="./styles/methodology.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="pi pi-code"></i> Claude Code: Best User Methodology</h1>
+            <p class="subtitle">Master Claude Code through practical workflows, proven patterns, and strategic approaches to AI-assisted development</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <h2><span class="toc-text">Table of Contents</span></h2>
+            <ul>
+                <li><a href="#what-is">What is Claude Code?</a></li>
+                <li><a href="#foundation">Understanding the Foundation</a></li>
+                <li><a href="#workflow">The 4-Phase Workflow</a></li>
+                <li><a href="#tools">Essential Tools</a></li>
+                <li><a href="#patterns">Strategic Patterns</a></li>
+                <li><a href="#dos-donts">Do's and Don'ts</a></li>
+                <li><a href="#advanced">Advanced Techniques</a></li>
+                <li><a href="#mcp">MCP Servers</a></li>
+                <li><a href="#example">Example Session</a></li>
+                <li><a href="#reference">Quick Reference</a></li>
+                <li><a href="#takeaways">Key Takeaways</a></li>
+            </ul>
+        </nav>
+
+        <!-- Load the methodology section -->
+        <div id="methodology-content"></div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Claude Code: Best User Methodology</p>
+            <p>Part of the SuperClaude Framework</p>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top">↑</a>
+
+    <!-- Load the content -->
+    <script>
+        // Load the methodology section
+        fetch('./data/sections/claude-code-methodology.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('methodology-content').innerHTML = html;
+
+                // Update nav links to point to the correct section IDs
+                const section = document.querySelector('#claude-code-methodology');
+                if (section) {
+                    // Add ID anchors for navigation
+                    const headings = section.querySelectorAll('h3, h4');
+                    headings.forEach((heading, index) => {
+                        const text = heading.textContent;
+                        if (text.includes('Understanding the Foundation')) {
+                            heading.id = 'foundation';
+                        } else if (text.includes('4-Phase Workflow')) {
+                            heading.id = 'workflow';
+                        } else if (text.includes('Essential Tools')) {
+                            heading.id = 'tools';
+                        } else if (text.includes('Strategic Patterns')) {
+                            heading.id = 'patterns';
+                        } else if (text.includes('Do\'s and Don\'ts') || text.includes('Critical Do')) {
+                            heading.id = 'dos-donts';
+                        } else if (text.includes('Advanced Techniques')) {
+                            heading.id = 'advanced';
+                        } else if (text.includes('MCP Servers')) {
+                            heading.id = 'mcp';
+                        } else if (text.includes('Example Session')) {
+                            heading.id = 'example';
+                        } else if (text.includes('Quick Reference')) {
+                            heading.id = 'reference';
+                        } else if (text.includes('Key Takeaways')) {
+                            heading.id = 'takeaways';
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error loading methodology content:', error);
+                document.getElementById('methodology-content').innerHTML =
+                    '<div class="error-box"><p>Error loading content. Please refresh the page.</p></div>';
+            });
+    </script>
+
+    <!-- Navigation Scripts -->
+    <script src="./scripts/navigation.js"></script>
+    <script src="./scripts/ui-components.js"></script>
+</body>
+</html>
