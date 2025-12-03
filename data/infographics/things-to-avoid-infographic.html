@@ -1,0 +1,257 @@
+<div class="infographic-container">
+    <div class="infographic-avoid">
+        <!-- Header -->
+        <div class="avoid-header">
+            <h3><i class="pi pi-times-circle"></i> Things to Avoid</h3>
+            <p>Critical anti-patterns that derail your workflow</p>
+        </div>
+
+        <!-- Category Grid -->
+        <div class="avoid-categories">
+            <div class="avoid-category">
+                <div class="cat-header context">
+                    <i class="pi pi-database"></i>
+                    <h4>Context</h4>
+                </div>
+                <ul class="avoid-list">
+                    <li><i class="pi pi-ban"></i> Reading entire codebases</li>
+                    <li><i class="pi pi-ban"></i> Repeated file reads</li>
+                    <li><i class="pi pi-ban"></i> Ignoring token warnings</li>
+                </ul>
+            </div>
+
+            <div class="avoid-category">
+                <div class="cat-header tasks">
+                    <i class="pi pi-list-check"></i>
+                    <h4>Tasks</h4>
+                </div>
+                <ul class="avoid-list">
+                    <li><i class="pi pi-ban"></i> Vague requests</li>
+                    <li><i class="pi pi-ban"></i> No TODO for complex tasks</li>
+                    <li><i class="pi pi-ban"></i> Accepting claims blindly</li>
+                </ul>
+            </div>
+
+            <div class="avoid-category">
+                <div class="cat-header code">
+                    <i class="pi pi-code"></i>
+                    <h4>Code</h4>
+                </div>
+                <ul class="avoid-list">
+                    <li><i class="pi pi-ban"></i> Skipping tests</li>
+                    <li><i class="pi pi-ban"></i> Missing edge cases</li>
+                    <li><i class="pi pi-ban"></i> Monolithic files</li>
+                </ul>
+            </div>
+
+            <div class="avoid-category">
+                <div class="cat-header git">
+                    <i class="pi pi-github"></i>
+                    <h4>Git</h4>
+                </div>
+                <ul class="avoid-list">
+                    <li><i class="pi pi-ban"></i> Working on main</li>
+                    <li><i class="pi pi-ban"></i> Vague commit messages</li>
+                    <li><i class="pi pi-ban"></i> Committing secrets</li>
+                </ul>
+            </div>
+
+            <div class="avoid-category">
+                <div class="cat-header security">
+                    <i class="pi pi-shield"></i>
+                    <h4>Security</h4>
+                </div>
+                <ul class="avoid-list">
+                    <li><i class="pi pi-ban"></i> Ignoring validation</li>
+                    <li><i class="pi pi-ban"></i> Hardcoding secrets</li>
+                    <li><i class="pi pi-ban"></i> Disabling security</li>
+                </ul>
+            </div>
+
+            <div class="avoid-category">
+                <div class="cat-header tools">
+                    <i class="pi pi-wrench"></i>
+                    <h4>Tools</h4>
+                </div>
+                <ul class="avoid-list">
+                    <li><i class="pi pi-ban"></i> Bash for file ops</li>
+                    <li><i class="pi pi-ban"></i> Sequential when parallel</li>
+                    <li><i class="pi pi-ban"></i> Ignoring MCP servers</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="takeaways-section">
+            <h4><i class="pi pi-lightbulb"></i> Top 10 Rules</h4>
+            <div class="takeaways-grid">
+                <div class="takeaway-item">
+                    <span class="num">1</span>
+                    <span>Be surgical with file reads</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">2</span>
+                    <span>Verify completion claims</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">3</span>
+                    <span>Use TODO for complex tasks</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">4</span>
+                    <span>Debug test failures</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">5</span>
+                    <span>Test before commit</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">6</span>
+                    <span>Reinforce constraints</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">7</span>
+                    <span>Investigate errors</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">8</span>
+                    <span>Split monoliths</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">9</span>
+                    <span>Protect secrets</span>
+                </div>
+                <div class="takeaway-item">
+                    <span class="num">10</span>
+                    <span>Use feature branches</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-avoid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.avoid-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #be123c 0%, #e11d48 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.avoid-header h3 { margin: 0; font-size: 1.5rem; }
+.avoid-header p { margin: 0.5rem 0 0; opacity: 0.9; }
+
+.avoid-categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.avoid-category {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.cat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: white;
+}
+
+.cat-header.context { background: #3b82f6; }
+.cat-header.tasks { background: #8b5cf6; }
+.cat-header.code { background: #22c55e; }
+.cat-header.git { background: #f97316; }
+.cat-header.security { background: #ef4444; }
+.cat-header.tools { background: #0891b2; }
+
+.cat-header h4 { margin: 0; font-size: 0.9rem; }
+
+.avoid-list {
+    list-style: none;
+    padding: 0.75rem 1rem;
+    margin: 0;
+}
+
+.avoid-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0;
+    font-size: 0.8rem;
+    color: #475569;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.avoid-list li:last-child { border-bottom: none; }
+
+.avoid-list i { color: #ef4444; font-size: 0.75rem; }
+
+.takeaways-section {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+}
+
+.takeaways-section h4 {
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.takeaways-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+.takeaway-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+.takeaway-item .num {
+    width: 20px;
+    height: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .avoid-categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .takeaways-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .avoid-categories {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

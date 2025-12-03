@@ -1,0 +1,425 @@
+/**
+ * TOC Forest Map Styles
+ * Interactive navigation visualization
+ */
+
+/* ========================================
+   Map Container
+   ======================================== */
+
+#toc-map-container {
+    margin-bottom: 2rem;
+}
+
+.toc-map {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Starfield effect */
+.toc-map::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 160px 30px, rgba(255,255,255,0.4), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* ========================================
+   Map Header
+   ======================================== */
+
+.map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.map-header-left {
+    text-align: left;
+}
+
+.map-header h3 {
+    color: #f8fafc;
+    margin: 0 0 0.25rem 0;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.map-header h3 i {
+    color: #60a5fa;
+}
+
+.map-subtitle {
+    color: #94a3b8;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* Collapse Button */
+.map-collapse-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #cbd5e1;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.map-collapse-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #f8fafc;
+}
+
+.map-collapse-btn i {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+/* ========================================
+   Map Canvas
+   ======================================== */
+
+.map-canvas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   Zones
+   ======================================== */
+
+.map-zone {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.map-zone:hover,
+.map-zone.zone-hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--zone-color, #3b82f6);
+    box-shadow: 0 0 20px rgba(var(--zone-color, 59, 130, 246), 0.15);
+}
+
+.zone-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--zone-color, #3b82f6);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.zone-header i {
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   Nodes
+   ======================================== */
+
+.zone-nodes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.map-node {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.map-node i {
+    font-size: 0.85rem;
+    color: #64748b;
+    transition: color 0.2s ease;
+}
+
+.map-node:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--zone-color, #3b82f6);
+    color: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.map-node:hover i {
+    color: var(--zone-color, #3b82f6);
+}
+
+/* Visited state */
+.map-node.visited {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.map-node.visited i {
+    color: #10b981;
+}
+
+.map-node.visited::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+}
+
+/* Active/Current state */
+.map-node.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+    border-color: #3b82f6;
+    color: #f8fafc;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.map-node.active i {
+    color: #60a5fa;
+}
+
+.map-node.active::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    z-index: -1;
+    opacity: 0.5;
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+/* ========================================
+   Zone Connector
+   ======================================== */
+
+.zone-connector {
+    display: flex;
+    justify-content: center;
+    padding: 0.25rem 0;
+    color: #475569;
+}
+
+.zone-connector i {
+    font-size: 0.9rem;
+    animation: bounce-down 1.5s infinite;
+}
+
+@keyframes bounce-down {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(4px); opacity: 1; }
+}
+
+/* ========================================
+   Legend
+   ======================================== */
+
+.map-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 1;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #475569;
+    border: 1px solid #64748b;
+}
+
+.legend-dot.current {
+    background: #3b82f6;
+    border-color: #60a5fa;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+}
+
+.legend-dot.visited {
+    background: #10b981;
+    border-color: #34d399;
+}
+
+/* ========================================
+   Collapsed State
+   ======================================== */
+
+.toc-map.collapsed {
+    padding: 1rem 1.5rem;
+}
+
+.toc-map.collapsed .map-header {
+    margin-bottom: 0;
+}
+
+.toc-map.collapsed .map-subtitle {
+    display: none;
+}
+
+.toc-map.collapsed .map-canvas {
+    display: none;
+}
+
+.toc-map.collapsed .map-legend {
+    display: none;
+}
+
+/* Smooth transitions for collapse */
+.map-canvas,
+.map-legend {
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+    .toc-map {
+        padding: 1rem;
+    }
+
+    .map-zone {
+        padding: 0.75rem;
+    }
+
+    .zone-nodes {
+        gap: 0.4rem;
+    }
+
+    .map-node {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    .map-node .node-label {
+        display: none;
+    }
+
+    .map-node i {
+        font-size: 1rem;
+    }
+
+    .map-legend {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .zone-header {
+        font-size: 0.7rem;
+    }
+
+    .zone-nodes {
+        gap: 0.3rem;
+    }
+
+    .map-node {
+        padding: 0.5rem;
+    }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+    .toc-map {
+        display: none;
+    }
+}
+
+/* ========================================
+   Progress Bar (Optional Enhancement)
+   ======================================== */
+
+.map-progress {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+}
+
+.progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #3b82f6);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    color: #64748b;
+    font-size: 0.75rem;
+}

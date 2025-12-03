@@ -1,0 +1,379 @@
+/**
+ * Infographics Styles
+ * Toggle component and infographic display styles
+ */
+
+/* ========================================
+   Toggle Component
+   ======================================== */
+
+.view-toggle {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--bg-secondary, #f0f0f0);
+    border-radius: 8px;
+    padding: 4px;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.section-header-with-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-header-with-toggle h2 {
+    margin: 0;
+}
+
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary, #666);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.toggle-btn.active {
+    background: var(--primary, #3498db);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn i {
+    font-size: 1rem;
+}
+
+/* ========================================
+   Content Views
+   ======================================== */
+
+.section-content-wrapper {
+    position: relative;
+}
+
+.text-view,
+.infographic-view {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.text-view.hidden,
+.infographic-view.hidden {
+    display: none;
+}
+
+.infographic-view {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   Loading & Error States
+   ======================================== */
+
+.loading-infographic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 3rem;
+    color: var(--text-secondary, #666);
+    font-size: 1rem;
+}
+
+.loading-infographic i {
+    font-size: 1.5rem;
+    color: var(--primary, #3498db);
+}
+
+.infographic-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-secondary, #666);
+    background: #fef2f2;
+    border-radius: 12px;
+    border: 1px dashed #fca5a5;
+}
+
+.infographic-error i {
+    font-size: 2rem;
+    color: #f87171;
+}
+
+.infographic-error p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   Infographic Container
+   ======================================== */
+
+.infographic-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    min-height: 400px;
+}
+
+/* ========================================
+   Four-Pillar Layout (Overview)
+   ======================================== */
+
+.infographic-overview {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.overview-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.overview-header h3 {
+    font-size: 1.5rem;
+    color: var(--primary, #3498db);
+    margin: 0 0 0.5rem 0;
+}
+
+.overview-header .definition {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.overview-goal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.goal-label {
+    font-weight: 600;
+    color: #475569;
+}
+
+.goal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #10b981;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.goal-badge i {
+    font-size: 1rem;
+}
+
+/* Four Pillars Grid */
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.pillar {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.pillar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pillar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.pillar.token-windows::before { background: #3b82f6; }
+.pillar.session-amnesia::before { background: #f59e0b; }
+.pillar.info-overload::before { background: #ef4444; }
+.pillar.cognitive-load::before { background: #8b5cf6; }
+
+.pillar-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+}
+
+.pillar.token-windows .pillar-icon { background: #dbeafe; color: #3b82f6; }
+.pillar.session-amnesia .pillar-icon { background: #fef3c7; color: #f59e0b; }
+.pillar.info-overload .pillar-icon { background: #fee2e2; color: #ef4444; }
+.pillar.cognitive-load .pillar-icon { background: #ede9fe; color: #8b5cf6; }
+
+.pillar h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+.pillar-value {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.pillar p {
+    margin: 0.75rem 0 0;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* Strategic Response */
+.strategic-response {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.response-arrow {
+    font-size: 2rem;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+}
+
+.strategic-response h4 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.strategic-response p {
+    margin: 0.25rem 0 0;
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 900px) {
+    .pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .view-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .section-header-with-toggle {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pillars-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .infographic-container {
+        padding: 1rem;
+    }
+
+    .strategic-response {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .response-arrow {
+        transform: rotate(90deg);
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: rotate(90deg) translateX(0); }
+        50% { transform: rotate(90deg) translateX(8px); }
+    }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+    .view-toggle {
+        display: none;
+    }
+
+    .infographic-view.hidden {
+        display: block !important;
+    }
+
+    .infographic-container {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #e2e8f0;
+    }
+}

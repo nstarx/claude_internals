@@ -1,0 +1,339 @@
+<div class="infographic-container">
+    <div class="infographic-behavior">
+        <!-- Header -->
+        <div class="behavior-header">
+            <h3><i class="pi pi-exclamation-triangle"></i> Claude Behavior Issues</h3>
+            <p>Understanding lies, omissions, forgetting, and model collapse</p>
+        </div>
+
+        <!-- Three Main Issues -->
+        <div class="issues-grid">
+            <div class="issue-card lying">
+                <div class="issue-icon"><i class="pi pi-comment"></i></div>
+                <h4>Lying</h4>
+                <p class="issue-desc">Claims completion but hasn't executed</p>
+                <div class="issue-example">"I've updated all 5 files" (only 3 done)</div>
+                <div class="issue-why">
+                    <span class="label">Why:</span>
+                    <ul>
+                        <li>Intent vs execution gap</li>
+                        <li>Token pressure</li>
+                        <li>Optimistic predictions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="issue-card omission">
+                <div class="issue-icon"><i class="pi pi-minus-circle"></i></div>
+                <h4>Omission</h4>
+                <p class="issue-desc">Silently skips portions of requests</p>
+                <div class="issue-example">Updates code but ignores docs</div>
+                <div class="issue-why">
+                    <span class="label">Why:</span>
+                    <ul>
+                        <li>Task complexity overload</li>
+                        <li>Attention decay</li>
+                        <li>Context limits</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="issue-card forgetting">
+                <div class="issue-icon"><i class="pi pi-question-circle"></i></div>
+                <h4>Forgetting</h4>
+                <p class="issue-desc">Loses track of constraints</p>
+                <div class="issue-example">Uses hooks after "no hooks" rule</div>
+                <div class="issue-why">
+                    <span class="label">Why:</span>
+                    <ul>
+                        <li>Context compression</li>
+                        <li>Instruction embedding failure</li>
+                        <li>Memory not loaded</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Collapse -->
+        <div class="collapse-section">
+            <div class="collapse-header">
+                <i class="pi pi-sync"></i>
+                <h4>Model Collapse</h4>
+            </div>
+            <p class="collapse-desc">Degrading quality through repetitive interactions</p>
+            <div class="collapse-flow">
+                <div class="collapse-step">
+                    <span class="step-label">Fresh</span>
+                    <div class="quality-bar" style="width: 100%"></div>
+                </div>
+                <div class="collapse-step">
+                    <span class="step-label">3-5 iterations</span>
+                    <div class="quality-bar" style="width: 70%"></div>
+                </div>
+                <div class="collapse-step">
+                    <span class="step-label">10+ iterations</span>
+                    <div class="quality-bar" style="width: 40%"></div>
+                </div>
+            </div>
+            <div class="collapse-symptoms">
+                <span><i class="pi pi-exclamation-circle"></i> Template lock-in</span>
+                <span><i class="pi pi-exclamation-circle"></i> Bug recurrence</span>
+                <span><i class="pi pi-exclamation-circle"></i> Generic solutions</span>
+            </div>
+        </div>
+
+        <!-- Prevention & Recovery -->
+        <div class="solutions-row">
+            <div class="solution-col prevention">
+                <h4><i class="pi pi-shield"></i> Prevention</h4>
+                <ul>
+                    <li>Use TODO lists religiously</li>
+                    <li>Request verification (git diff)</li>
+                    <li>Break down complex tasks</li>
+                    <li>Reinforce critical constraints</li>
+                    <li>Use memory files</li>
+                </ul>
+            </div>
+            <div class="solution-col recovery">
+                <h4><i class="pi pi-refresh"></i> Recovery</h4>
+                <ul>
+                    <li>Show file paths and line numbers</li>
+                    <li>Run git status to verify</li>
+                    <li>Re-read CLAUDE.md</li>
+                    <li>Start fresh conversation</li>
+                    <li>Inject external examples</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Key Insight -->
+        <div class="insight-box">
+            <i class="pi pi-info-circle"></i>
+            <div>
+                <strong>Key Insight</strong>
+                <p>These behaviors are AI cognitive limitations, not malice. Treat Claude as a brilliant but forgetful colleague who needs clear lists, regular check-ins, and explicit verification.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-behavior {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.behavior-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.behavior-header h3 { margin: 0; font-size: 1.5rem; }
+.behavior-header p { margin: 0.5rem 0 0; opacity: 0.9; }
+
+.issues-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.issue-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    border-top: 4px solid;
+}
+
+.issue-card.lying { border-color: #ef4444; }
+.issue-card.omission { border-color: #f59e0b; }
+.issue-card.forgetting { border-color: #8b5cf6; }
+
+.issue-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.issue-card.lying .issue-icon { background: #fee2e2; color: #ef4444; }
+.issue-card.omission .issue-icon { background: #fef3c7; color: #f59e0b; }
+.issue-card.forgetting .issue-icon { background: #ede9fe; color: #8b5cf6; }
+
+.issue-card h4 { margin: 0 0 0.5rem; font-size: 1rem; }
+
+.issue-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0 0 0.5rem;
+}
+
+.issue-example {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-radius: 6px;
+    color: #475569;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+}
+
+.issue-why .label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.issue-why ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.25rem 0 0;
+}
+
+.issue-why li {
+    font-size: 0.75rem;
+    color: #64748b;
+    padding: 2px 0;
+}
+
+.collapse-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.collapse-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #dc2626;
+    margin-bottom: 0.5rem;
+}
+
+.collapse-header h4 { margin: 0; }
+
+.collapse-desc {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.collapse-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.collapse-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.step-label {
+    width: 100px;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.quality-bar {
+    height: 16px;
+    background: linear-gradient(90deg, #22c55e, #f59e0b, #ef4444);
+    border-radius: 4px;
+}
+
+.collapse-symptoms {
+    display: flex;
+    gap: 1rem;
+}
+
+.collapse-symptoms span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    color: #dc2626;
+}
+
+.solutions-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.solution-col {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.solution-col h4 {
+    margin: 0 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.solution-col.prevention h4 { color: #22c55e; }
+.solution-col.recovery h4 { color: #3b82f6; }
+
+.solution-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.solution-col li {
+    font-size: 0.8rem;
+    color: #475569;
+    padding: 0.25rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.solution-col li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #22c55e;
+}
+
+.recovery li::before { color: #3b82f6; }
+
+.insight-box {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.insight-box i {
+    font-size: 1.5rem;
+    color: #60a5fa;
+}
+
+.insight-box strong { display: block; margin-bottom: 0.25rem; }
+.insight-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+
+@media (max-width: 768px) {
+    .issues-grid, .solutions-row {
+        grid-template-columns: 1fr;
+    }
+    .collapse-symptoms {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+</style>

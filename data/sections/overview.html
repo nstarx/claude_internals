@@ -1,25 +1,42 @@
         <section id="overview">
-            <h2>Overview</h2>
-            <p>Strategic Context Management is the systematic approach to optimizing information flow, memory utilization, and cognitive resource allocation in AI-assisted development workflows. It represents the intersection of session persistence, token efficiency, and architectural understanding.</p>
-
-            <div class="info-box">
-                <h3>Core Concept</h3>
-                <p><strong>Definition</strong>: The intelligent curation, prioritization, and persistence of project knowledge to maximize development effectiveness while minimizing cognitive and computational overhead.</p>
-                <p><strong>Goal</strong>: Maintain <span class="badge badge-success">≥90%</span> context relevance across sessions while operating within token budgets and memory constraints.</p>
+            <div class="section-header-with-toggle">
+                <h2>Overview</h2>
+                <div class="view-toggle">
+                    <button class="toggle-btn active" data-view="text">
+                        <i class="pi pi-align-left"></i> Text
+                    </button>
+                    <button class="toggle-btn" data-view="infographic">
+                        <i class="pi pi-chart-bar"></i> Visual
+                    </button>
+                </div>
             </div>
 
-            <h3>The Context Challenge</h3>
+            <div class="text-view">
+                <p>Strategic Context Management is the systematic approach to optimizing information flow, memory utilization, and cognitive resource allocation in AI-assisted development workflows. It represents the intersection of session persistence, token efficiency, and architectural understanding.</p>
 
-            <h4>Traditional Limitations</h4>
-            <ul>
-                <li><strong>Token Windows</strong>: Fixed context limits (200K tokens) require strategic information selection</li>
-                <li><strong>Session Amnesia</strong>: Lost context between sessions forces repeated discovery</li>
-                <li><strong>Information Overload</strong>: Large codebases exceed immediate comprehension capacity</li>
-                <li><strong>Cognitive Load</strong>: Humans and AI both struggle with excessive simultaneous context</li>
-            </ul>
+                <div class="info-box">
+                    <h3>Core Concept</h3>
+                    <p><strong>Definition</strong>: The intelligent curation, prioritization, and persistence of project knowledge to maximize development effectiveness while minimizing cognitive and computational overhead.</p>
+                    <p><strong>Goal</strong>: Maintain <span class="badge badge-success">≥90%</span> context relevance across sessions while operating within token budgets and memory constraints.</p>
+                </div>
 
-            <div class="highlight">
-                <h4>Strategic Response</h4>
-                <p>Rather than fighting these constraints, Strategic Context Management treats them as design parameters for building efficient workflows.</p>
+                <h3>The Context Challenge</h3>
+
+                <h4>Traditional Limitations</h4>
+                <ul>
+                    <li><strong>Token Windows</strong>: Fixed context limits (200K tokens) require strategic information selection</li>
+                    <li><strong>Session Amnesia</strong>: Lost context between sessions forces repeated discovery</li>
+                    <li><strong>Information Overload</strong>: Large codebases exceed immediate comprehension capacity</li>
+                    <li><strong>Cognitive Load</strong>: Humans and AI both struggle with excessive simultaneous context</li>
+                </ul>
+
+                <div class="highlight">
+                    <h4>Strategic Response</h4>
+                    <p>Rather than fighting these constraints, Strategic Context Management treats them as design parameters for building efficient workflows.</p>
+                </div>
+            </div>
+
+            <div class="infographic-view hidden">
+                <!-- Loaded dynamically by infographics-toggle.js -->
             </div>
         </section>

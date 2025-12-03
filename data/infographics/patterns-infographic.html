@@ -1,0 +1,446 @@
+<div class="infographic-container">
+    <div class="infographic-patterns">
+        <!-- Header -->
+        <div class="patterns-header">
+            <h3><i class="pi pi-objects-column"></i> Strategic Patterns</h3>
+            <p>Reusable patterns for context optimization</p>
+        </div>
+
+        <!-- Pattern Cards -->
+        <div class="patterns-grid">
+            <!-- Pattern 1 -->
+            <div class="pattern-card pattern-explore">
+                <div class="pattern-badge">Pattern 1</div>
+                <div class="pattern-icon">
+                    <i class="pi pi-compass"></i>
+                </div>
+                <h4>Exploration → Distillation</h4>
+                <p class="use-case">Understanding unfamiliar codebases</p>
+
+                <div class="pattern-flow">
+                    <div class="flow-step">
+                        <span class="step-icon">🔍</span>
+                        <span class="step-name">Explore</span>
+                        <span class="step-cost">15K tokens</span>
+                    </div>
+                    <i class="pi pi-arrow-right flow-arrow"></i>
+                    <div class="flow-step">
+                        <span class="step-icon">📝</span>
+                        <span class="step-name">Distill</span>
+                        <span class="step-cost">Compress</span>
+                    </div>
+                    <i class="pi pi-arrow-right flow-arrow"></i>
+                    <div class="flow-step">
+                        <span class="step-icon">📖</span>
+                        <span class="step-name">Reference</span>
+                        <span class="step-cost">2K tokens</span>
+                    </div>
+                </div>
+
+                <div class="pattern-metric">
+                    <span class="metric-value">87%</span>
+                    <span class="metric-label">efficiency gain</span>
+                </div>
+            </div>
+
+            <!-- Pattern 2 -->
+            <div class="pattern-card pattern-hierarchy">
+                <div class="pattern-badge">Pattern 2</div>
+                <div class="pattern-icon">
+                    <i class="pi pi-sort-amount-down"></i>
+                </div>
+                <h4>Hierarchical Loading</h4>
+                <p class="use-case">Working on features in large systems</p>
+
+                <div class="hierarchy-levels">
+                    <div class="h-level">
+                        <span class="h-num">L1</span>
+                        <span class="h-name">System Context</span>
+                        <span class="h-tokens">1-2K</span>
+                    </div>
+                    <div class="h-level">
+                        <span class="h-num">L2</span>
+                        <span class="h-name">Domain Context</span>
+                        <span class="h-tokens">3-5K</span>
+                    </div>
+                    <div class="h-level">
+                        <span class="h-num">L3</span>
+                        <span class="h-name">Implementation</span>
+                        <span class="h-tokens">5-10K</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pattern 3 -->
+            <div class="pattern-card pattern-decision">
+                <div class="pattern-badge">Pattern 3</div>
+                <div class="pattern-icon">
+                    <i class="pi pi-check-square"></i>
+                </div>
+                <h4>Decision Documentation</h4>
+                <p class="use-case">Capturing architectural choices</p>
+
+                <div class="decision-template">
+                    <div class="dt-section">
+                        <span class="dt-label">Context</span>
+                        <span class="dt-arrow">→</span>
+                    </div>
+                    <div class="dt-section">
+                        <span class="dt-label">Options</span>
+                        <span class="dt-arrow">→</span>
+                    </div>
+                    <div class="dt-section">
+                        <span class="dt-label">Decision</span>
+                        <span class="dt-arrow">→</span>
+                    </div>
+                    <div class="dt-section">
+                        <span class="dt-label">Impact</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pattern 4 -->
+            <div class="pattern-card pattern-refine">
+                <div class="pattern-badge">Pattern 4</div>
+                <div class="pattern-icon">
+                    <i class="pi pi-sync"></i>
+                </div>
+                <h4>Progressive Refinement</h4>
+                <p class="use-case">Iterative system improvement</p>
+
+                <div class="iteration-cycle">
+                    <div class="iter-step">
+                        <span class="iter-num">1</span>
+                        <span>Broad Understanding</span>
+                    </div>
+                    <div class="iter-step">
+                        <span class="iter-num">2</span>
+                        <span>Focused Analysis</span>
+                    </div>
+                    <div class="iter-step">
+                        <span class="iter-num">3</span>
+                        <span>Implementation</span>
+                    </div>
+                    <div class="iter-step">
+                        <span class="iter-num">4</span>
+                        <span>Integration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- When to Use -->
+        <div class="patterns-guide">
+            <h4><i class="pi pi-lightbulb"></i> Pattern Selection Guide</h4>
+            <div class="guide-grid">
+                <div class="guide-item">
+                    <span class="guide-scenario">New codebase?</span>
+                    <span class="guide-arrow">→</span>
+                    <span class="guide-pattern">Exploration → Distillation</span>
+                </div>
+                <div class="guide-item">
+                    <span class="guide-scenario">Feature work?</span>
+                    <span class="guide-arrow">→</span>
+                    <span class="guide-pattern">Hierarchical Loading</span>
+                </div>
+                <div class="guide-item">
+                    <span class="guide-scenario">Architecture choice?</span>
+                    <span class="guide-arrow">→</span>
+                    <span class="guide-pattern">Decision Documentation</span>
+                </div>
+                <div class="guide-item">
+                    <span class="guide-scenario">System optimization?</span>
+                    <span class="guide-arrow">→</span>
+                    <span class="guide-pattern">Progressive Refinement</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-patterns {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.patterns-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.patterns-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.patterns-header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.pattern-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    border-top: 4px solid;
+}
+
+.pattern-explore { border-color: #3b82f6; }
+.pattern-hierarchy { border-color: #8b5cf6; }
+.pattern-decision { border-color: #22c55e; }
+.pattern-refine { border-color: #f59e0b; }
+
+.pattern-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+}
+
+.pattern-explore .pattern-badge { background: #3b82f6; }
+.pattern-hierarchy .pattern-badge { background: #8b5cf6; }
+.pattern-decision .pattern-badge { background: #22c55e; }
+.pattern-refine .pattern-badge { background: #f59e0b; }
+
+.pattern-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.pattern-explore .pattern-icon { background: #dbeafe; color: #3b82f6; }
+.pattern-hierarchy .pattern-icon { background: #ede9fe; color: #8b5cf6; }
+.pattern-decision .pattern-icon { background: #dcfce7; color: #22c55e; }
+.pattern-refine .pattern-icon { background: #fef3c7; color: #f59e0b; }
+
+.pattern-card h4 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+.use-case {
+    margin: 0 0 1rem;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.pattern-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.step-icon {
+    font-size: 1.25rem;
+}
+
+.step-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.step-cost {
+    font-size: 0.65rem;
+    color: #64748b;
+}
+
+.flow-arrow {
+    color: #cbd5e1;
+}
+
+.pattern-metric {
+    background: #dcfce7;
+    padding: 0.5rem;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #16a34a;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: #166534;
+}
+
+.hierarchy-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.h-level {
+    display: grid;
+    grid-template-columns: 30px 1fr 50px;
+    align-items: center;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-radius: 6px;
+}
+
+.h-num {
+    font-weight: 700;
+    color: #8b5cf6;
+    font-size: 0.8rem;
+}
+
+.h-name {
+    font-size: 0.85rem;
+}
+
+.h-tokens {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-align: right;
+}
+
+.decision-template {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.dt-section {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background: #dcfce7;
+    border-radius: 4px;
+}
+
+.dt-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #166534;
+}
+
+.dt-arrow {
+    margin-left: auto;
+    color: #16a34a;
+}
+
+.iteration-cycle {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.iter-step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #fef3c7;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+.iter-num {
+    width: 20px;
+    height: 20px;
+    background: #f59e0b;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.patterns-guide {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+}
+
+.patterns-guide h4 {
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.guide-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.guide-scenario {
+    color: #94a3b8;
+}
+
+.guide-arrow {
+    color: #22c55e;
+}
+
+.guide-pattern {
+    color: white;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .patterns-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guide-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pattern-flow {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+}
+</style>

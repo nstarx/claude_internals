@@ -163,6 +163,21 @@
                 window.initializeInteractiveElements(container);
             }
 
+            // Initialize infographic toggles for newly loaded sections
+            if (window.InfographicsToggle) {
+                const section = container.querySelector('section[id]');
+                if (section && section.querySelector('.view-toggle')) {
+                    const sectionId = section.id;
+                    const preference = window.InfographicsToggle.getPreference(sectionId);
+                    if (preference === 'visual') {
+                        const visualBtn = section.querySelector('[data-view="visual"]');
+                        if (visualBtn) {
+                            visualBtn.click();
+                        }
+                    }
+                }
+            }
+
             // Initialize simulators if they exist in the loaded content
             this.initializeSimulators(container);
 

@@ -1,0 +1,314 @@
+<div class="infographic-container">
+    <div class="infographic-simulators">
+        <!-- Header -->
+        <div class="simulators-header">
+            <h3><i class="pi pi-play-circle"></i> Interactive Simulations</h3>
+            <p>Hands-on learning tools for context management concepts</p>
+        </div>
+
+        <!-- Simulator Showcase -->
+        <div class="simulator-showcase">
+            <div class="sim-card">
+                <div class="sim-icon">
+                    <i class="pi pi-calculator"></i>
+                </div>
+                <div class="sim-info">
+                    <h4>Token Calculator</h4>
+                    <p>Estimate token consumption</p>
+                </div>
+                <div class="sim-features">
+                    <span><i class="pi pi-check"></i> Text to tokens</span>
+                    <span><i class="pi pi-check"></i> File size estimation</span>
+                </div>
+            </div>
+
+            <div class="sim-card">
+                <div class="sim-icon">
+                    <i class="pi pi-window-maximize"></i>
+                </div>
+                <div class="sim-info">
+                    <h4>Context Window</h4>
+                    <p>Visualize capacity usage</p>
+                </div>
+                <div class="sim-features">
+                    <span><i class="pi pi-check"></i> Real-time fill</span>
+                    <span><i class="pi pi-check"></i> Category breakdown</span>
+                </div>
+            </div>
+
+            <div class="sim-card">
+                <div class="sim-icon">
+                    <i class="pi pi-database"></i>
+                </div>
+                <div class="sim-info">
+                    <h4>Memory Simulator</h4>
+                    <p>Practice memory operations</p>
+                </div>
+                <div class="sim-features">
+                    <span><i class="pi pi-check"></i> Write/Read cycles</span>
+                    <span><i class="pi pi-check"></i> ROI tracking</span>
+                </div>
+            </div>
+
+            <div class="sim-card">
+                <div class="sim-icon">
+                    <i class="pi pi-bolt"></i>
+                </div>
+                <div class="sim-info">
+                    <h4>Cognitive Load</h4>
+                    <p>Measure mental overhead</p>
+                </div>
+                <div class="sim-features">
+                    <span><i class="pi pi-check"></i> Load calculation</span>
+                    <span><i class="pi pi-check"></i> Optimization tips</span>
+                </div>
+            </div>
+
+            <div class="sim-card">
+                <div class="sim-icon">
+                    <i class="pi pi-chart-line"></i>
+                </div>
+                <div class="sim-info">
+                    <h4>Decay Simulator</h4>
+                    <p>Observe information decay</p>
+                </div>
+                <div class="sim-features">
+                    <span><i class="pi pi-check"></i> Time-based decay</span>
+                    <span><i class="pi pi-check"></i> Retention curves</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Use -->
+        <div class="usage-guide">
+            <h4><i class="pi pi-lightbulb"></i> How to Use Simulators</h4>
+            <div class="usage-steps">
+                <div class="usage-step">
+                    <div class="usage-icon interact"><i class="pi pi-sliders-h"></i></div>
+                    <div class="usage-content">
+                        <strong>Interact</strong>
+                        <span>Use sliders, inputs, and buttons</span>
+                    </div>
+                </div>
+                <div class="usage-step">
+                    <div class="usage-icon observe"><i class="pi pi-eye"></i></div>
+                    <div class="usage-content">
+                        <strong>Observe</strong>
+                        <span>Watch real-time visualizations</span>
+                    </div>
+                </div>
+                <div class="usage-step">
+                    <div class="usage-icon learn"><i class="pi pi-book"></i></div>
+                    <div class="usage-content">
+                        <strong>Learn</strong>
+                        <span>Understand key concepts</span>
+                    </div>
+                </div>
+                <div class="usage-step">
+                    <div class="usage-icon experiment"><i class="pi pi-flask"></i></div>
+                    <div class="usage-content">
+                        <strong>Experiment</strong>
+                        <span>Try extreme values</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="sim-cta">
+            <i class="pi pi-play"></i>
+            <span>Scroll down to try the interactive simulators</span>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-simulators {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.simulators-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.simulators-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.simulators-header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.simulator-showcase {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.sim-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sim-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.sim-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.75rem;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+    color: white;
+}
+
+.sim-info h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #1e293b;
+}
+
+.sim-info p {
+    margin: 0.25rem 0 0;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.sim-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.sim-features span {
+    font-size: 0.7rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.sim-features i {
+    color: #22c55e;
+    font-size: 0.7rem;
+}
+
+.usage-guide {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.usage-guide h4 {
+    margin: 0 0 1rem;
+    color: #1e293b;
+}
+
+.usage-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.usage-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.usage-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.usage-icon.interact { background: #3b82f6; }
+.usage-icon.observe { background: #8b5cf6; }
+.usage-icon.learn { background: #22c55e; }
+.usage-icon.experiment { background: #f59e0b; }
+
+.usage-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.usage-content strong {
+    font-size: 0.9rem;
+    color: #1e293b;
+}
+
+.usage-content span {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.sim-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.sim-cta i {
+    font-size: 1.25rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@media (max-width: 900px) {
+    .simulator-showcase {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .usage-steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .simulator-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .usage-steps {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

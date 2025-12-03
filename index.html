@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="./styles/methodology.css">
     <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="stylesheet" href="./styles/fix-desktop-nav.css">
+    <link rel="stylesheet" href="./styles/infographics.css">
+    <link rel="stylesheet" href="./styles/floating-nav.css">
 </head>
 <body>
     <header>
@@ -27,33 +29,6 @@
     </header>
 
     <div class="container">
-        <nav>
-            <h2><span class="toc-text">Table of Contents</span></h2>
-            <ul>
-                <li><a href="#claude-code-methodology">Claude Code Methodology</a></li>
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#working-memory">Working Memory & Quality</a></li>
-                <li><a href="#architecture">Architecture</a></li>
-                <li><a href="#principles">Core Principles</a></li>
-                <li><a href="#patterns">Strategic Patterns</a></li>
-                <li><a href="#tools">Tool Integration</a></li>
-                <li><a href="#metrics">Metrics & Optimization</a></li>
-                <li><a href="#simulators">Interactive Simulations</a></li>
-                <li><a href="#compact-command">The /compact Command</a></li>
-                <li><a href="#without-tools">Cost of Not Using Tools</a></li>
-                <li><a href="#antipatterns">Common Antipatterns</a></li>
-                <li><a href="#things-to-avoid">Things to Avoid</a></li>
-                <li><a href="#behavior-issues">Claude Behavior Issues</a></li>
-                <li><a href="#advanced-topics">How Claude Code Really Works</a></li>
-                <li><a href="#self-assessment">Honest Self-Assessment</a></li>
-                <li><a href="#advanced">Advanced Techniques</a></li>
-                <li><a href="#integration">Framework Integration</a></li>
-                <li><a href="#workflows">Practical Workflows</a></li>
-                <li><a href="#complex-scenarios">Complex Scenarios</a></li>
-                <li><a href="#conclusion">Conclusion</a></li>
-            </ul>
-        </nav>
-
         <!-- Section Containers - Content loaded dynamically -->
         <div id="section-claude-code-methodology"></div>
         <div id="section-overview"></div>
@@ -87,7 +62,13 @@
 
     <a href="#" class="back-to-top">↑</a>
 
-    <!-- Section Loader Script (must be loaded first) -->
+    <!-- Infographics Toggle (must load before section-loader) -->
+    <script src="./scripts/infographics-toggle.js"></script>
+
+    <!-- Floating Navigation -->
+    <script src="./scripts/floating-nav.js"></script>
+
+    <!-- Section Loader Script -->
     <script src="./scripts/section-loader.js"></script>
 
     <!-- External Scripts -->

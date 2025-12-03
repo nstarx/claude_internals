@@ -1,0 +1,409 @@
+<div class="infographic-container">
+    <div class="infographic-compact">
+        <!-- Header -->
+        <div class="compact-header">
+            <h3><i class="pi pi-compress"></i> The /compact Command</h3>
+            <p>Context compaction for extended sessions</p>
+        </div>
+
+        <!-- Before/After Comparison -->
+        <div class="comparison-section">
+            <div class="comparison-card before">
+                <div class="comp-header danger">
+                    <span>BEFORE</span>
+                    <span class="usage">95% Full</span>
+                </div>
+                <div class="context-bar">
+                    <div class="bar-segment conversation" style="width: 35%">
+                        <span>History</span>
+                    </div>
+                    <div class="bar-segment files" style="width: 30%">
+                        <span>Files</span>
+                    </div>
+                    <div class="bar-segment tools" style="width: 25%">
+                        <span>Tools</span>
+                    </div>
+                    <div class="bar-segment free" style="width: 5%"></div>
+                </div>
+                <div class="comp-stats">
+                    <span>190K / 200K tokens</span>
+                </div>
+            </div>
+
+            <div class="comparison-arrow">
+                <div class="arrow-content">
+                    <code>/compact</code>
+                    <i class="pi pi-arrow-right"></i>
+                </div>
+            </div>
+
+            <div class="comparison-card after">
+                <div class="comp-header success">
+                    <span>AFTER</span>
+                    <span class="usage">~40% Used</span>
+                </div>
+                <div class="context-bar">
+                    <div class="bar-segment essential" style="width: 15%">
+                        <span>Essential</span>
+                    </div>
+                    <div class="bar-segment summary" style="width: 20%">
+                        <span>Summary</span>
+                    </div>
+                    <div class="bar-segment free-large" style="width: 60%">
+                        <span>Free Space</span>
+                    </div>
+                </div>
+                <div class="comp-stats">
+                    <span>80K / 200K tokens</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Process Flow -->
+        <div class="process-flow">
+            <div class="process-step">
+                <div class="step-icon categorize"><i class="pi pi-tags"></i></div>
+                <h5>Categorize</h5>
+                <p>Essential / Historical / Redundant</p>
+            </div>
+            <div class="process-connector"><i class="pi pi-chevron-right"></i></div>
+            <div class="process-step">
+                <div class="step-icon score"><i class="pi pi-star"></i></div>
+                <h5>Score</h5>
+                <p>Priority by relevance & recency</p>
+            </div>
+            <div class="process-connector"><i class="pi pi-chevron-right"></i></div>
+            <div class="process-step">
+                <div class="step-icon summarize"><i class="pi pi-file-import"></i></div>
+                <h5>Summarize</h5>
+                <p>~90% compression on history</p>
+            </div>
+            <div class="process-connector"><i class="pi pi-chevron-right"></i></div>
+            <div class="process-step">
+                <div class="step-icon rebuild"><i class="pi pi-refresh"></i></div>
+                <h5>Rebuild</h5>
+                <p>Essential + Summary + Recent</p>
+            </div>
+        </div>
+
+        <!-- Key Stats -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <span class="stat-value">95%</span>
+                <span class="stat-label">Auto-trigger threshold</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">85-95%</span>
+                <span class="stat-label">Compression ratio</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">40-60%</span>
+                <span class="stat-label">Result size</span>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="practices-section">
+            <div class="practice-col good">
+                <h5><i class="pi pi-check-circle"></i> Do</h5>
+                <ul>
+                    <li>Use with instructions</li>
+                    <li>Compact before pivots</li>
+                    <li>Monitor with /cost</li>
+                </ul>
+            </div>
+            <div class="practice-col bad">
+                <h5><i class="pi pi-times-circle"></i> Don't</h5>
+                <ul>
+                    <li>Compact too frequently</li>
+                    <li>Rely only on auto-compact</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Command Reference -->
+        <div class="command-ref">
+            <code>/compact [instructions]</code>
+            <span class="example">e.g., "/compact Focus on API changes"</span>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.compact-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.compact-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.compact-header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.comparison-section {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.comparison-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    border-top: 4px solid;
+}
+
+.comparison-card.before { border-color: #ef4444; }
+.comparison-card.after { border-color: #22c55e; }
+
+.comp-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.comp-header.danger { color: #ef4444; }
+.comp-header.success { color: #22c55e; }
+
+.usage {
+    font-size: 0.85rem;
+}
+
+.context-bar {
+    display: flex;
+    height: 32px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f1f5f9;
+}
+
+.bar-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: white;
+    font-weight: 500;
+}
+
+.bar-segment.conversation { background: #ef4444; }
+.bar-segment.files { background: #f59e0b; }
+.bar-segment.tools { background: #3b82f6; }
+.bar-segment.free { background: #94a3b8; }
+.bar-segment.essential { background: #22c55e; }
+.bar-segment.summary { background: #3b82f6; }
+.bar-segment.free-large { background: #d1d5db; color: #64748b; }
+
+.comp-stats {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.comparison-arrow {
+    padding: 0 1rem;
+}
+
+.arrow-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.arrow-content code {
+    background: #6366f1;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.arrow-content i {
+    font-size: 1.5rem;
+    color: #6366f1;
+}
+
+.process-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.process-step {
+    text-align: center;
+    flex: 1;
+}
+
+.step-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.step-icon.categorize { background: #3b82f6; }
+.step-icon.score { background: #f59e0b; }
+.step-icon.summarize { background: #8b5cf6; }
+.step-icon.rebuild { background: #22c55e; }
+
+.process-step h5 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #1e293b;
+}
+
+.process-step p {
+    margin: 0.25rem 0 0;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.process-connector {
+    color: #cbd5e1;
+    font-size: 1.25rem;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat-box {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #6366f1;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.practices-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.practice-col {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.practice-col h5 {
+    margin: 0 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.practice-col.good h5 { color: #22c55e; }
+.practice-col.bad h5 { color: #ef4444; }
+
+.practice-col ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.practice-col li {
+    font-size: 0.85rem;
+    color: #475569;
+    margin-bottom: 0.25rem;
+}
+
+.command-ref {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.command-ref code {
+    background: rgba(255,255,255,0.1);
+    color: #22c55e;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.command-ref .example {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .comparison-section {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-arrow {
+        padding: 1rem 0;
+    }
+
+    .arrow-content {
+        flex-direction: row;
+    }
+
+    .arrow-content i {
+        transform: rotate(90deg);
+    }
+
+    .process-flow {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .process-connector {
+        transform: rotate(90deg);
+    }
+
+    .stats-row,
+    .practices-section {
+        grid-template-columns: 1fr;
+    }
+
+    .command-ref {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>

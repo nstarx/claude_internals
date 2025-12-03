@@ -1,0 +1,338 @@
+<div class="infographic-container">
+    <div class="infographic-architecture">
+        <!-- Header -->
+        <div class="arch-header">
+            <h3><i class="pi pi-server"></i> Three-Layer Context Model</h3>
+            <p>Information flows from persistent storage to immediate task</p>
+        </div>
+
+        <!-- Architecture Layers -->
+        <div class="layers-visualization">
+            <!-- Layer 1: Persistent -->
+            <div class="arch-layer layer-persistent">
+                <div class="layer-badge">Layer 1</div>
+                <div class="layer-icon">
+                    <i class="pi pi-database"></i>
+                </div>
+                <div class="layer-content">
+                    <h4>Persistent Memory</h4>
+                    <p class="layer-subtitle">Serena MCP Storage</p>
+                    <div class="layer-items">
+                        <span class="item"><i class="pi pi-sitemap"></i> Architecture</span>
+                        <span class="item"><i class="pi pi-lightbulb"></i> Decisions</span>
+                        <span class="item"><i class="pi pi-book"></i> Patterns</span>
+                    </div>
+                </div>
+                <div class="layer-meta">
+                    <span class="duration"><i class="pi pi-clock"></i> Months+</span>
+                    <span class="tokens"><i class="pi pi-ticket"></i> On-demand</span>
+                </div>
+            </div>
+
+            <div class="flow-arrow">
+                <i class="pi pi-arrow-down"></i>
+                <span>Retrieval on demand</span>
+            </div>
+
+            <!-- Layer 2: Session -->
+            <div class="arch-layer layer-session">
+                <div class="layer-badge">Layer 2</div>
+                <div class="layer-icon">
+                    <i class="pi pi-window-maximize"></i>
+                </div>
+                <div class="layer-content">
+                    <h4>Session Context</h4>
+                    <p class="layer-subtitle">Active Working Memory</p>
+                    <div class="layer-items">
+                        <span class="item"><i class="pi pi-flag"></i> Current Task</span>
+                        <span class="item"><i class="pi pi-file"></i> Recent Files</span>
+                        <span class="item"><i class="pi pi-cog"></i> Active Decisions</span>
+                    </div>
+                </div>
+                <div class="layer-meta">
+                    <span class="duration"><i class="pi pi-clock"></i> Session</span>
+                    <span class="tokens"><i class="pi pi-ticket"></i> ~50K-100K</span>
+                </div>
+            </div>
+
+            <div class="flow-arrow">
+                <i class="pi pi-arrow-down"></i>
+                <span>Just-in-time loading</span>
+            </div>
+
+            <!-- Layer 3: Immediate -->
+            <div class="arch-layer layer-immediate">
+                <div class="layer-badge">Layer 3</div>
+                <div class="layer-icon">
+                    <i class="pi pi-bolt"></i>
+                </div>
+                <div class="layer-content">
+                    <h4>Immediate Context</h4>
+                    <p class="layer-subtitle">Current Task Focus</p>
+                    <div class="layer-items">
+                        <span class="item"><i class="pi pi-pencil"></i> Active Edits</span>
+                        <span class="item"><i class="pi pi-search"></i> Problem-Solving</span>
+                        <span class="item"><i class="pi pi-code"></i> Implementation</span>
+                    </div>
+                </div>
+                <div class="layer-meta">
+                    <span class="duration"><i class="pi pi-clock"></i> Now</span>
+                    <span class="tokens"><i class="pi pi-ticket"></i> ~10K-30K</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Flow Legend -->
+        <div class="flow-legend">
+            <div class="legend-item">
+                <div class="legend-color persistent"></div>
+                <span>Persistent (write once, read many)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color session"></div>
+                <span>Session (active working set)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color immediate"></div>
+                <span>Immediate (current focus)</span>
+            </div>
+        </div>
+
+        <!-- Key Insight -->
+        <div class="arch-insight">
+            <i class="pi pi-info-circle"></i>
+            <div>
+                <strong>Design Principle</strong>
+                <p>Information importance determines retention priority. Flow from persistent → session → immediate based on task needs.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-architecture {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.arch-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.arch-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.arch-header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.layers-visualization {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.arch-layer {
+    display: grid;
+    grid-template-columns: auto 60px 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    position: relative;
+}
+
+.layer-persistent {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #3b82f6;
+}
+
+.layer-session {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #f59e0b;
+}
+
+.layer-immediate {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border: 2px solid #22c55e;
+}
+
+.layer-badge {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    padding: 2px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+}
+
+.layer-persistent .layer-badge { background: #3b82f6; }
+.layer-session .layer-badge { background: #f59e0b; }
+.layer-immediate .layer-badge { background: #22c55e; }
+
+.layer-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.layer-persistent .layer-icon { color: #3b82f6; }
+.layer-session .layer-icon { color: #f59e0b; }
+.layer-immediate .layer-icon { color: #22c55e; }
+
+.layer-content h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+.layer-subtitle {
+    margin: 0.25rem 0 0.75rem;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.layer-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.layer-items .item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    background: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.layer-items .item i {
+    font-size: 0.9rem;
+}
+
+.layer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.layer-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.flow-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0;
+    color: #64748b;
+    font-size: 0.8rem;
+}
+
+.flow-arrow i {
+    font-size: 1.5rem;
+    color: #94a3b8;
+}
+
+.flow-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+.legend-color.persistent { background: #3b82f6; }
+.legend-color.session { background: #f59e0b; }
+.legend-color.immediate { background: #22c55e; }
+
+.arch-insight {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.arch-insight i {
+    font-size: 1.5rem;
+    color: #60a5fa;
+}
+
+.arch-insight strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.arch-insight p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .arch-layer {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .layer-icon {
+        margin: 0 auto;
+    }
+
+    .layer-items {
+        justify-content: center;
+    }
+
+    .layer-meta {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .flow-legend {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
+</style>

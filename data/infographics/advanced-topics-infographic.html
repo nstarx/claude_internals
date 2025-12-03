@@ -1,0 +1,499 @@
+<div class="infographic-container">
+    <div class="infographic-advanced-topics">
+        <!-- Header -->
+        <div class="advanced-header">
+            <h3><i class="pi pi-cog"></i> How Claude Code Really Works</h3>
+            <p>Non-obvious insights about architecture, behaviors, and maximizing effectiveness</p>
+        </div>
+
+        <!-- Two Key Effects -->
+        <div class="effects-row">
+            <div class="effect-card warmup">
+                <div class="effect-icon"><i class="pi pi-chart-line"></i></div>
+                <h4>Warmup Effect</h4>
+                <p>Performance improves as conversation continues</p>
+                <div class="effect-visual">
+                    <div class="warmup-bar">
+                        <div class="bar-fill" style="width: 40%"><span>Request 1</span></div>
+                    </div>
+                    <div class="warmup-bar">
+                        <div class="bar-fill" style="width: 70%"><span>Request 3</span></div>
+                    </div>
+                    <div class="warmup-bar">
+                        <div class="bar-fill" style="width: 95%"><span>Request 5+</span></div>
+                    </div>
+                </div>
+                <div class="effect-tip">
+                    <i class="pi pi-lightbulb"></i>
+                    <span>Start with exploration before specific changes</span>
+                </div>
+            </div>
+
+            <div class="effect-card anchoring">
+                <div class="effect-icon"><i class="pi pi-anchor"></i></div>
+                <h4>Context Anchoring</h4>
+                <p>Early messages have disproportionate influence</p>
+                <div class="effect-visual">
+                    <div class="anchor-timeline">
+                        <div class="anchor-point early">
+                            <span class="msg">Msg 1</span>
+                            <div class="influence high"></div>
+                            <span class="label">Strong</span>
+                        </div>
+                        <div class="anchor-point mid">
+                            <span class="msg">Msg 10</span>
+                            <div class="influence medium"></div>
+                            <span class="label">Medium</span>
+                        </div>
+                        <div class="anchor-point late">
+                            <span class="msg">Msg 20</span>
+                            <div class="influence low"></div>
+                            <span class="label">Weak</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="effect-tip">
+                    <i class="pi pi-lightbulb"></i>
+                    <span>State critical constraints at START</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Capabilities -->
+        <div class="capabilities-section">
+            <h4><i class="pi pi-gift"></i> Hidden Capabilities</h4>
+            <div class="capabilities-grid">
+                <div class="capability-item">
+                    <i class="pi pi-image"></i>
+                    <span>Read Images/PDFs</span>
+                </div>
+                <div class="capability-item">
+                    <i class="pi pi-sitemap"></i>
+                    <span>Parallel Agents</span>
+                </div>
+                <div class="capability-item">
+                    <i class="pi pi-play"></i>
+                    <span>Background Commands</span>
+                </div>
+                <div class="capability-item">
+                    <i class="pi pi-database"></i>
+                    <span>Memory Persistence</span>
+                </div>
+                <div class="capability-item">
+                    <i class="pi pi-search"></i>
+                    <span>Regex Search</span>
+                </div>
+                <div class="capability-item">
+                    <i class="pi pi-folder"></i>
+                    <span>Glob Patterns</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planning vs Execution -->
+        <div class="gap-section">
+            <div class="gap-header">
+                <i class="pi pi-exclamation-triangle"></i>
+                <h4>Planning vs. Execution Gap</h4>
+            </div>
+            <div class="gap-visual">
+                <div class="gap-item planned">
+                    <span class="label">Planned</span>
+                    <div class="files">
+                        <span class="file">A</span>
+                        <span class="file">B</span>
+                        <span class="file">C</span>
+                        <span class="file">D</span>
+                        <span class="file">E</span>
+                    </div>
+                </div>
+                <div class="gap-arrow"><i class="pi pi-arrow-right"></i></div>
+                <div class="gap-item executed">
+                    <span class="label">Executed</span>
+                    <div class="files">
+                        <span class="file done">A</span>
+                        <span class="file done">B</span>
+                        <span class="file done">C</span>
+                        <span class="file missed">D</span>
+                        <span class="file missed">E</span>
+                    </div>
+                </div>
+            </div>
+            <div class="gap-defense">
+                <span class="defense-label">Defense:</span>
+                <span class="defense-item">git diff</span>
+                <span class="defense-item">git status</span>
+                <span class="defense-item">TODO lists</span>
+            </div>
+        </div>
+
+        <!-- Session Management -->
+        <div class="session-section">
+            <h4><i class="pi pi-sync"></i> When to Start Fresh</h4>
+            <div class="session-grid">
+                <div class="session-col fresh">
+                    <h5><i class="pi pi-plus-circle"></i> New Session</h5>
+                    <ul>
+                        <li>Context > 85%</li>
+                        <li>> 1 hour of work</li>
+                        <li>Switching codebase areas</li>
+                        <li>Making "stupid" errors</li>
+                    </ul>
+                </div>
+                <div class="session-col continue">
+                    <h5><i class="pi pi-arrow-right"></i> Continue</h5>
+                    <ul>
+                        <li>Context < 75%</li>
+                        <li>Related tasks</li>
+                        <li>Active debugging</li>
+                        <li>Building on previous work</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Magic Phrases -->
+        <div class="magic-section">
+            <h4><i class="pi pi-sparkles"></i> Phrases That Trigger Deeper Thinking</h4>
+            <div class="magic-phrases">
+                <span class="phrase">"Think step-by-step"</span>
+                <span class="phrase">"Explain your reasoning"</span>
+                <span class="phrase">"What could go wrong?"</span>
+                <span class="phrase">"Consider edge cases"</span>
+                <span class="phrase">"Walk me through"</span>
+            </div>
+        </div>
+
+        <!-- Key Insight -->
+        <div class="insight-box">
+            <i class="pi pi-user"></i>
+            <div>
+                <strong>Mental Model</strong>
+                <p>Treat me as a brilliant intern: deep knowledge, incredible speed, needs oversight, benefits from code review, improves with feedback.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-advanced-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.advanced-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.advanced-header h3 { margin: 0; font-size: 1.5rem; }
+.advanced-header p { margin: 0.5rem 0 0; opacity: 0.9; }
+
+.effects-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.effect-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    border-top: 4px solid;
+}
+
+.effect-card.warmup { border-color: #22c55e; }
+.effect-card.anchoring { border-color: #f59e0b; }
+
+.effect-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.effect-card.warmup .effect-icon { background: #dcfce7; color: #22c55e; }
+.effect-card.anchoring .effect-icon { background: #fef3c7; color: #f59e0b; }
+
+.effect-card h4 { margin: 0 0 0.5rem; font-size: 1rem; }
+.effect-card > p { margin: 0 0 0.75rem; font-size: 0.85rem; color: #64748b; }
+
+.warmup-bar {
+    margin-bottom: 0.5rem;
+}
+
+.bar-fill {
+    height: 24px;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+    font-size: 0.7rem;
+    color: white;
+}
+
+.anchor-timeline {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+}
+
+.anchor-point {
+    text-align: center;
+}
+
+.anchor-point .msg {
+    font-size: 0.7rem;
+    color: #64748b;
+}
+
+.influence {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0.25rem auto;
+}
+
+.influence.high { background: #22c55e; }
+.influence.medium { background: #f59e0b; }
+.influence.low { background: #ef4444; }
+
+.anchor-point .label {
+    font-size: 0.65rem;
+    color: #94a3b8;
+}
+
+.effect-tip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #475569;
+    margin-top: 0.75rem;
+}
+
+.effect-tip i { color: #f59e0b; }
+
+.capabilities-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.capabilities-section h4 {
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #8b5cf6;
+}
+
+.capabilities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+}
+
+.capability-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: #f5f3ff;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    color: #6d28d9;
+    text-align: center;
+}
+
+.capability-item i { font-size: 1.25rem; }
+
+.gap-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.gap-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.gap-header h4 { margin: 0; }
+
+.gap-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.gap-item {
+    text-align: center;
+}
+
+.gap-item .label {
+    font-size: 0.75rem;
+    color: #64748b;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.gap-item .files {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.file {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.planned .file { background: #dbeafe; color: #3b82f6; }
+.executed .file.done { background: #dcfce7; color: #22c55e; }
+.executed .file.missed { background: #fee2e2; color: #ef4444; }
+
+.gap-arrow { color: #94a3b8; font-size: 1.5rem; }
+
+.gap-defense {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.defense-label {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.defense-item {
+    padding: 0.25rem 0.75rem;
+    background: #dcfce7;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: #166534;
+}
+
+.session-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.session-section > h4 {
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #1e293b;
+}
+
+.session-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.session-col {
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.session-col.fresh { background: #fef2f2; }
+.session-col.continue { background: #f0fdf4; }
+
+.session-col h5 {
+    margin: 0 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.session-col.fresh h5 { color: #dc2626; }
+.session-col.continue h5 { color: #22c55e; }
+
+.session-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.session-col li {
+    font-size: 0.8rem;
+    color: #475569;
+    padding: 0.25rem 0;
+}
+
+.magic-section {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    padding: 1.25rem;
+    color: white;
+}
+
+.magic-section h4 {
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.magic-phrases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.phrase {
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.insight-box {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.insight-box i { font-size: 1.5rem; }
+.insight-box strong { display: block; margin-bottom: 0.25rem; }
+.insight-box p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+
+@media (max-width: 768px) {
+    .effects-row, .session-grid { grid-template-columns: 1fr; }
+    .capabilities-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>

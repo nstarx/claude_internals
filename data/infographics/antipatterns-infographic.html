@@ -1,0 +1,274 @@
+<div class="infographic-container">
+    <div class="infographic-antipatterns">
+        <!-- Header -->
+        <div class="antipatterns-header">
+            <h3><i class="pi pi-ban"></i> Common Antipatterns</h3>
+            <p>Five patterns to avoid for effective context management</p>
+        </div>
+
+        <!-- Antipattern Cards -->
+        <div class="antipattern-grid">
+            <div class="antipattern-card">
+                <div class="ap-number">1</div>
+                <div class="ap-icon"><i class="pi pi-database"></i></div>
+                <h4>Over-Loading Context</h4>
+                <div class="ap-problem">
+                    <span class="label">Problem</span>
+                    <p>Loading entire codebase "just to be safe"</p>
+                </div>
+                <div class="ap-impact">
+                    <span class="label">Impact</span>
+                    <p>Token exhaustion, slow performance</p>
+                </div>
+                <div class="ap-solution">
+                    <i class="pi pi-check"></i>
+                    <span>Lazy loading with just-in-time retrieval</span>
+                </div>
+            </div>
+
+            <div class="antipattern-card">
+                <div class="ap-number">2</div>
+                <div class="ap-icon"><i class="pi pi-history"></i></div>
+                <h4>Session Amnesia</h4>
+                <div class="ap-problem">
+                    <span class="label">Problem</span>
+                    <p>Rediscovering same patterns repeatedly</p>
+                </div>
+                <div class="ap-impact">
+                    <span class="label">Impact</span>
+                    <p>Wasted tokens, slower development</p>
+                </div>
+                <div class="ap-solution">
+                    <i class="pi pi-check"></i>
+                    <span>Write discoveries to memory immediately</span>
+                </div>
+            </div>
+
+            <div class="antipattern-card">
+                <div class="ap-number">3</div>
+                <div class="ap-icon"><i class="pi pi-times-circle"></i></div>
+                <h4>Ignoring Memory</h4>
+                <div class="ap-problem">
+                    <span class="label">Problem</span>
+                    <p>Treating each session as fresh start</p>
+                </div>
+                <div class="ap-impact">
+                    <span class="label">Impact</span>
+                    <p>Linear scaling of context cost</p>
+                </div>
+                <div class="ap-solution">
+                    <i class="pi pi-check"></i>
+                    <span>/sc:load and /sc:save lifecycle</span>
+                </div>
+            </div>
+
+            <div class="antipattern-card">
+                <div class="ap-number">4</div>
+                <div class="ap-icon"><i class="pi pi-sitemap"></i></div>
+                <h4>Premature Abstraction</h4>
+                <div class="ap-problem">
+                    <span class="label">Problem</span>
+                    <p>Complex memory structures before understanding needs</p>
+                </div>
+                <div class="ap-impact">
+                    <span class="label">Impact</span>
+                    <p>Maintenance burden, low utilization</p>
+                </div>
+                <div class="ap-solution">
+                    <i class="pi pi-check"></i>
+                    <span>Start simple, refine based on usage</span>
+                </div>
+            </div>
+
+            <div class="antipattern-card">
+                <div class="ap-number">5</div>
+                <div class="ap-icon"><i class="pi pi-clock"></i></div>
+                <h4>Stale Memory</h4>
+                <div class="ap-problem">
+                    <span class="label">Problem</span>
+                    <p>Outdated information in persistent memory</p>
+                </div>
+                <div class="ap-impact">
+                    <span class="label">Impact</span>
+                    <p>Incorrect decisions from obsolete context</p>
+                </div>
+                <div class="ap-solution">
+                    <i class="pi pi-check"></i>
+                    <span>Memory review cycles, timestamp info</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prevention Summary -->
+        <div class="prevention-summary">
+            <h4><i class="pi pi-shield"></i> Prevention Checklist</h4>
+            <div class="prevention-items">
+                <div class="prevention-item">
+                    <i class="pi pi-check-circle"></i>
+                    <span>Load only what you need</span>
+                </div>
+                <div class="prevention-item">
+                    <i class="pi pi-check-circle"></i>
+                    <span>Persist valuable discoveries</span>
+                </div>
+                <div class="prevention-item">
+                    <i class="pi pi-check-circle"></i>
+                    <span>Use session lifecycle commands</span>
+                </div>
+                <div class="prevention-item">
+                    <i class="pi pi-check-circle"></i>
+                    <span>Start simple, evolve structure</span>
+                </div>
+                <div class="prevention-item">
+                    <i class="pi pi-check-circle"></i>
+                    <span>Review and clean memories</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-antipatterns {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.antipatterns-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.antipatterns-header h3 { margin: 0; font-size: 1.5rem; }
+.antipatterns-header p { margin: 0.5rem 0 0; opacity: 0.9; }
+
+.antipattern-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.antipattern-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    position: relative;
+    border-top: 4px solid #f97316;
+}
+
+.ap-number {
+    position: absolute;
+    top: -12px;
+    left: 12px;
+    width: 24px;
+    height: 24px;
+    background: #f97316;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ap-icon {
+    width: 40px;
+    height: 40px;
+    background: #ffedd5;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f97316;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.antipattern-card h4 {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: #1e293b;
+}
+
+.ap-problem, .ap-impact {
+    margin-bottom: 0.5rem;
+}
+
+.ap-problem .label, .ap-impact .label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+.ap-problem p, .ap-impact p {
+    margin: 0.25rem 0 0;
+    font-size: 0.75rem;
+    color: #475569;
+}
+
+.ap-solution {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #f0fdf4;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #166534;
+}
+
+.ap-solution i { color: #22c55e; margin-top: 2px; }
+
+.prevention-summary {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+}
+
+.prevention-summary h4 {
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.prevention-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.prevention-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.prevention-item i { color: #22c55e; }
+
+@media (max-width: 900px) {
+    .antipattern-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .antipattern-grid {
+        grid-template-columns: 1fr;
+    }
+    .prevention-items {
+        flex-direction: column;
+    }
+}
+</style>

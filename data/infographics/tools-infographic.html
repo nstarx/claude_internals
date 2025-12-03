@@ -1,0 +1,362 @@
+<div class="infographic-container">
+    <div class="infographic-tools">
+        <!-- Header -->
+        <div class="tools-header">
+            <h3><i class="pi pi-wrench"></i> Tool Integration</h3>
+            <p>MCP servers extend Claude Code's capabilities</p>
+        </div>
+
+        <!-- Tool Cards Grid -->
+        <div class="tools-grid">
+            <div class="tool-card serena">
+                <div class="tool-icon">
+                    <i class="pi pi-database"></i>
+                </div>
+                <div class="tool-info">
+                    <h4>Serena MCP</h4>
+                    <span class="tool-badge">Persistent Knowledge</span>
+                </div>
+                <div class="tool-functions">
+                    <code>write_memory()</code>
+                    <code>read_memory()</code>
+                    <code>list_memories()</code>
+                    <code>delete_memory()</code>
+                </div>
+                <div class="tool-value">
+                    <i class="pi pi-star"></i>
+                    Cross-session context without token waste
+                </div>
+            </div>
+
+            <div class="tool-card sequential">
+                <div class="tool-icon">
+                    <i class="pi pi-sitemap"></i>
+                </div>
+                <div class="tool-info">
+                    <h4>Sequential MCP</h4>
+                    <span class="tool-badge">Multi-Step Analysis</span>
+                </div>
+                <div class="tool-functions">
+                    <code>sequentialthinking()</code>
+                </div>
+                <div class="tool-use-cases">
+                    <span>Architectural analysis</span>
+                    <span>Complex debugging</span>
+                    <span>System design</span>
+                </div>
+                <div class="tool-value">
+                    <i class="pi pi-star"></i>
+                    Converts reasoning into knowledge
+                </div>
+            </div>
+
+            <div class="tool-card context7">
+                <div class="tool-icon">
+                    <i class="pi pi-book"></i>
+                </div>
+                <div class="tool-info">
+                    <h4>Context7 MCP</h4>
+                    <span class="tool-badge">Documentation</span>
+                </div>
+                <div class="tool-functions">
+                    <code>resolve-library-id()</code>
+                    <code>get-library-docs()</code>
+                </div>
+                <div class="tool-use-cases">
+                    <span>Official docs lookup</span>
+                    <span>Version guides</span>
+                </div>
+                <div class="tool-value">
+                    <i class="pi pi-star"></i>
+                    Reduces repeated documentation lookups
+                </div>
+            </div>
+
+            <div class="tool-card morphllm">
+                <div class="tool-icon">
+                    <i class="pi pi-sync"></i>
+                </div>
+                <div class="tool-info">
+                    <h4>Morphllm MCP</h4>
+                    <span class="tool-badge">Bulk Transforms</span>
+                </div>
+                <div class="tool-use-cases">
+                    <span>Systematic changes</span>
+                    <span>Style enforcement</span>
+                    <span>Pattern application</span>
+                </div>
+                <div class="tool-value">
+                    <i class="pi pi-star"></i>
+                    High-impact with minimal tokens
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Flow -->
+        <div class="integration-flow">
+            <h4><i class="pi pi-arrows-h"></i> Integration Pattern</h4>
+            <div class="flow-diagram">
+                <div class="flow-node source">
+                    <i class="pi pi-code"></i>
+                    <span>Claude Code</span>
+                </div>
+                <div class="flow-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-label">MCP Protocol</span>
+                </div>
+                <div class="flow-node destination">
+                    <div class="dest-item">
+                        <i class="pi pi-database"></i>
+                        <span>Serena</span>
+                    </div>
+                    <div class="dest-item">
+                        <i class="pi pi-sitemap"></i>
+                        <span>Sequential</span>
+                    </div>
+                    <div class="dest-item">
+                        <i class="pi pi-book"></i>
+                        <span>Context7</span>
+                    </div>
+                    <div class="dest-item">
+                        <i class="pi pi-sync"></i>
+                        <span>Morphllm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.tools-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.tools-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.tools-header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.tool-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-left: 4px solid;
+}
+
+.tool-card.serena { border-color: #3b82f6; }
+.tool-card.sequential { border-color: #f59e0b; }
+.tool-card.context7 { border-color: #22c55e; }
+.tool-card.morphllm { border-color: #ef4444; }
+
+.tool-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.tool-card.serena .tool-icon { background: #dbeafe; color: #3b82f6; }
+.tool-card.sequential .tool-icon { background: #fef3c7; color: #f59e0b; }
+.tool-card.context7 .tool-icon { background: #dcfce7; color: #22c55e; }
+.tool-card.morphllm .tool-icon { background: #fee2e2; color: #ef4444; }
+
+.tool-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tool-info h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.tool-badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.tool-functions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.tool-functions code {
+    font-size: 0.7rem;
+    background: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    color: #475569;
+}
+
+.tool-use-cases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.tool-use-cases span {
+    font-size: 0.7rem;
+    background: #f1f5f9;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    color: #64748b;
+}
+
+.tool-value {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #475569;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.tool-value i {
+    color: #f59e0b;
+}
+
+.integration-flow {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.integration-flow h4 {
+    margin: 0 0 1rem;
+    color: #1e293b;
+}
+
+.flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.flow-node {
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.flow-node.source {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+    min-width: 120px;
+}
+
+.flow-node.source i {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.flow-node.destination {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    background: #f8fafc;
+    padding: 1rem;
+}
+
+.dest-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 8px;
+    font-size: 0.75rem;
+}
+
+.dest-item i {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.flow-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.connector-line {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #a855f7);
+    border-radius: 2px;
+    position: relative;
+}
+
+.connector-line::after {
+    content: '→';
+    position: absolute;
+    right: -10px;
+    top: -8px;
+    font-size: 1rem;
+    color: #a855f7;
+}
+
+.connector-label {
+    font-size: 0.7rem;
+    color: #64748b;
+}
+
+@media (max-width: 768px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flow-diagram {
+        flex-direction: column;
+    }
+
+    .connector-line {
+        width: 4px;
+        height: 40px;
+    }
+
+    .connector-line::after {
+        content: '↓';
+        right: -8px;
+        top: auto;
+        bottom: -10px;
+    }
+}
+</style>

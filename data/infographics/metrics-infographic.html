@@ -1,0 +1,414 @@
+<div class="infographic-container">
+    <div class="infographic-metrics">
+        <!-- Header -->
+        <div class="metrics-header">
+            <h3><i class="pi pi-chart-bar"></i> Metrics & Optimization</h3>
+            <p>Key performance indicators for context management</p>
+        </div>
+
+        <!-- KPI Dashboard -->
+        <div class="kpi-dashboard">
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="pi pi-percentage"></i></div>
+                <div class="kpi-content">
+                    <h4>Token Utilization</h4>
+                    <div class="kpi-formula">
+                        <code>Relevant / Total × 100</code>
+                    </div>
+                    <div class="kpi-target">
+                        <span class="target-label">Target:</span>
+                        <span class="target-value success">≥90%</span>
+                    </div>
+                </div>
+                <div class="kpi-gauge">
+                    <svg viewBox="0 0 100 50">
+                        <path d="M 10 45 A 40 40 0 0 1 90 45" fill="none" stroke="#e2e8f0" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M 10 45 A 40 40 0 0 1 82 25" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round"/>
+                        <text x="50" y="42" text-anchor="middle" class="gauge-text">90%</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="pi pi-stopwatch"></i></div>
+                <div class="kpi-content">
+                    <h4>Session Startup</h4>
+                    <div class="kpi-comparison">
+                        <div class="comp-item">
+                            <span class="comp-label">With memory</span>
+                            <span class="comp-value success">&lt;2 min</span>
+                        </div>
+                        <div class="comp-item">
+                            <span class="comp-label">Without</span>
+                            <span class="comp-value warning">&lt;10 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon"><i class="pi pi-chart-line"></i></div>
+                <div class="kpi-content">
+                    <h4>Memory ROI</h4>
+                    <div class="kpi-formula">
+                        <code>Savings / Investment</code>
+                    </div>
+                    <div class="roi-visual">
+                        <div class="roi-bar">
+                            <div class="roi-fill" style="width: 30%"></div>
+                            <span class="roi-label">Break-even: 3 sessions</span>
+                        </div>
+                        <div class="roi-bar">
+                            <div class="roi-fill high" style="width: 100%"></div>
+                            <span class="roi-label">High ROI: 10+ sessions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optimization Triggers -->
+        <div class="triggers-section">
+            <h4><i class="pi pi-exclamation-triangle"></i> When to Optimize</h4>
+            <div class="triggers-grid">
+                <div class="trigger-item">
+                    <span class="trigger-icon warning"><i class="pi pi-chart-pie"></i></span>
+                    <span class="trigger-text">Context &gt;75%</span>
+                </div>
+                <div class="trigger-item">
+                    <span class="trigger-icon warning"><i class="pi pi-replay"></i></span>
+                    <span class="trigger-text">Repeated loading</span>
+                </div>
+                <div class="trigger-item">
+                    <span class="trigger-icon warning"><i class="pi pi-clock"></i></span>
+                    <span class="trigger-text">Slow startup &gt;5min</span>
+                </div>
+                <div class="trigger-item">
+                    <span class="trigger-icon warning"><i class="pi pi-eye-slash"></i></span>
+                    <span class="trigger-text">Lost task focus</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optimization Steps -->
+        <div class="optimization-steps">
+            <h4><i class="pi pi-check-circle"></i> How to Optimize</h4>
+            <div class="steps-flow">
+                <div class="opt-step">
+                    <span class="step-num">1</span>
+                    <div class="step-content">
+                        <strong>Audit</strong>
+                        <span>Find low-value info</span>
+                    </div>
+                </div>
+                <div class="step-arrow"><i class="pi pi-arrow-right"></i></div>
+                <div class="opt-step">
+                    <span class="step-num">2</span>
+                    <div class="step-content">
+                        <strong>Extract</strong>
+                        <span>Move to memory</span>
+                    </div>
+                </div>
+                <div class="step-arrow"><i class="pi pi-arrow-right"></i></div>
+                <div class="opt-step">
+                    <span class="step-num">3</span>
+                    <div class="step-content">
+                        <strong>Compress</strong>
+                        <span>Use symbols</span>
+                    </div>
+                </div>
+                <div class="step-arrow"><i class="pi pi-arrow-right"></i></div>
+                <div class="opt-step">
+                    <span class="step-num">4</span>
+                    <div class="step-content">
+                        <strong>Lazy Load</strong>
+                        <span>Defer non-critical</span>
+                    </div>
+                </div>
+                <div class="step-arrow"><i class="pi pi-arrow-right"></i></div>
+                <div class="opt-step">
+                    <span class="step-num">5</span>
+                    <div class="step-content">
+                        <strong>Measure</strong>
+                        <span>Track savings</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.metrics-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.metrics-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.metrics-header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.kpi-dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.kpi-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.kpi-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.kpi-content h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #1e293b;
+}
+
+.kpi-formula {
+    margin: 0.5rem 0;
+}
+
+.kpi-formula code {
+    font-size: 0.8rem;
+    background: #f1f5f9;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.kpi-target {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.target-label {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.target-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.target-value.success { color: #22c55e; }
+
+.kpi-gauge {
+    width: 80px;
+    align-self: center;
+}
+
+.gauge-text {
+    font-size: 14px;
+    font-weight: 700;
+    fill: #22c55e;
+}
+
+.kpi-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.comp-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.comp-label {
+    color: #64748b;
+}
+
+.comp-value.success { color: #22c55e; font-weight: 600; }
+.comp-value.warning { color: #f59e0b; font-weight: 600; }
+
+.roi-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.roi-bar {
+    position: relative;
+    height: 24px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.roi-fill {
+    height: 100%;
+    background: #0ea5e9;
+    border-radius: 4px;
+}
+
+.roi-fill.high {
+    background: #22c55e;
+}
+
+.roi-label {
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    font-size: 0.7rem;
+    color: white;
+    font-weight: 500;
+}
+
+.triggers-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.triggers-section h4 {
+    margin: 0 0 1rem;
+    color: #f59e0b;
+}
+
+.triggers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.trigger-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #fef3c7;
+    border-radius: 8px;
+}
+
+.trigger-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trigger-icon.warning {
+    background: #f59e0b;
+    color: white;
+}
+
+.trigger-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #92400e;
+}
+
+.optimization-steps {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+}
+
+.optimization-steps h4 {
+    margin: 0 0 1rem;
+    color: #22c55e;
+}
+
+.steps-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.opt-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255,255,255,0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+}
+
+.step-num {
+    width: 24px;
+    height: 24px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.step-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.step-content strong {
+    font-size: 0.85rem;
+}
+
+.step-content span {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.step-arrow {
+    color: #64748b;
+}
+
+@media (max-width: 900px) {
+    .kpi-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .triggers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .steps-flow {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .step-arrow {
+        transform: rotate(90deg);
+    }
+}
+</style>

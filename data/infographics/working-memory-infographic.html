@@ -1,0 +1,545 @@
+<div class="infographic-container">
+    <div class="infographic-memory">
+        <!-- Header -->
+        <div class="memory-header">
+            <h3><i class="pi pi-microchip-ai"></i> Working Memory & Quality</h3>
+            <p>Context quality determines reasoning performance</p>
+        </div>
+
+        <!-- Capacity Visualization -->
+        <div class="capacity-section">
+            <div class="capacity-bar-container">
+                <div class="capacity-label">
+                    <span>Context Window Capacity</span>
+                    <span class="capacity-value">200K tokens</span>
+                </div>
+                <div class="capacity-bar">
+                    <div class="capacity-fill optimal" style="width: 75%">
+                        <span>Optimal Zone</span>
+                    </div>
+                    <div class="capacity-fill warning" style="width: 10%">
+                        <span>⚠️</span>
+                    </div>
+                    <div class="capacity-fill danger" style="width: 15%">
+                        <span>🚨</span>
+                    </div>
+                </div>
+                <div class="capacity-markers">
+                    <span>0%</span>
+                    <span>75%</span>
+                    <span>85%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quality Dimensions -->
+        <div class="dimensions-grid">
+            <div class="dimension-card relevance">
+                <div class="dim-header">
+                    <i class="pi pi-bullseye"></i>
+                    <h4>Relevance</h4>
+                </div>
+                <div class="dim-scale">
+                    <div class="scale-item critical">
+                        <span class="level">Critical</span>
+                        <span class="value">100%</span>
+                    </div>
+                    <div class="scale-item high">
+                        <span class="level">High</span>
+                        <span class="value">70-90%</span>
+                    </div>
+                    <div class="scale-item medium">
+                        <span class="level">Medium</span>
+                        <span class="value">40-60%</span>
+                    </div>
+                    <div class="scale-item low">
+                        <span class="level">Low</span>
+                        <span class="value">&lt;30%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dimension-card density">
+                <div class="dim-header">
+                    <i class="pi pi-chart-bar"></i>
+                    <h4>Density</h4>
+                </div>
+                <div class="density-comparison">
+                    <div class="density-item low-density">
+                        <div class="density-bar" style="height: 30%"></div>
+                        <span>Verbose</span>
+                        <span class="tokens">80 tok</span>
+                    </div>
+                    <div class="density-item high-density">
+                        <div class="density-bar" style="height: 100%"></div>
+                        <span>Compressed</span>
+                        <span class="tokens">15 tok</span>
+                    </div>
+                </div>
+                <div class="efficiency-badge">5.3x more efficient</div>
+            </div>
+
+            <div class="dimension-card validity">
+                <div class="dim-header">
+                    <i class="pi pi-clock"></i>
+                    <h4>Validity</h4>
+                </div>
+                <div class="validity-timeline">
+                    <div class="timeline-item long">
+                        <span class="period">Months+</span>
+                        <span class="type">Architecture</span>
+                    </div>
+                    <div class="timeline-item medium">
+                        <span class="period">Weeks</span>
+                        <span class="type">Features</span>
+                    </div>
+                    <div class="timeline-item short">
+                        <span class="period">Days</span>
+                        <span class="type">Debugging</span>
+                    </div>
+                    <div class="timeline-item transient">
+                        <span class="period">Session</span>
+                        <span class="type">Transient</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anti-patterns -->
+        <div class="antipatterns-section">
+            <h4><i class="pi pi-exclamation-triangle"></i> Degradation Patterns</h4>
+            <div class="antipattern-grid">
+                <div class="antipattern">
+                    <div class="ap-icon pollution"><i class="pi pi-cloud"></i></div>
+                    <div class="ap-content">
+                        <strong>Pollution</strong>
+                        <span>Too much irrelevant info</span>
+                    </div>
+                </div>
+                <div class="antipattern">
+                    <div class="ap-icon fragmentation"><i class="pi pi-th-large"></i></div>
+                    <div class="ap-content">
+                        <strong>Fragmentation</strong>
+                        <span>Non-contiguous sessions</span>
+                    </div>
+                </div>
+                <div class="antipattern">
+                    <div class="ap-icon drift"><i class="pi pi-compass"></i></div>
+                    <div class="ap-content">
+                        <strong>Drift</strong>
+                        <span>Losing focus on task</span>
+                    </div>
+                </div>
+                <div class="antipattern">
+                    <div class="ap-icon staleness"><i class="pi pi-history"></i></div>
+                    <div class="ap-content">
+                        <strong>Staleness</strong>
+                        <span>Outdated information</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROI Table -->
+        <div class="roi-section">
+            <h4><i class="pi pi-chart-line"></i> Memory ROI</h4>
+            <div class="roi-bars">
+                <div class="roi-item">
+                    <span class="roi-label">Small (10-50K LOC)</span>
+                    <div class="roi-bar-wrapper">
+                        <div class="roi-bar" style="width: 30%"></div>
+                    </div>
+                    <span class="roi-value">300%</span>
+                </div>
+                <div class="roi-item">
+                    <span class="roi-label">Medium (50-150K)</span>
+                    <div class="roi-bar-wrapper">
+                        <div class="roi-bar" style="width: 53%"></div>
+                    </div>
+                    <span class="roi-value">533%</span>
+                </div>
+                <div class="roi-item">
+                    <span class="roi-label">Large (150K+)</span>
+                    <div class="roi-bar-wrapper">
+                        <div class="roi-bar" style="width: 80%"></div>
+                    </div>
+                    <span class="roi-value">800%</span>
+                </div>
+            </div>
+            <div class="roi-insight">
+                <i class="pi pi-info-circle"></i>
+                Larger problems = faster ROI (break-even by session 2)
+            </div>
+        </div>
+
+        <!-- Core Formula -->
+        <div class="formula-section">
+            <div class="formula-box-visual">
+                <span class="formula-label">Quality &gt; Quantity</span>
+                <div class="formula-equation">
+                    <span class="formula-part">10K @ 90% relevance</span>
+                    <span class="formula-operator">&gt;</span>
+                    <span class="formula-part faded">50K @ 30% relevance</span>
+                </div>
+                <span class="formula-result">2.7x efficiency with 5x fewer tokens</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infographic-memory {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.memory-header {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #059669 0%, #0891b2 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.memory-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.memory-header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.capacity-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.capacity-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.capacity-value {
+    color: #0891b2;
+}
+
+.capacity-bar {
+    display: flex;
+    height: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.capacity-fill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+}
+
+.capacity-fill.optimal { background: #22c55e; }
+.capacity-fill.warning { background: #f59e0b; }
+.capacity-fill.danger { background: #ef4444; }
+
+.capacity-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.dimensions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.dimension-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.dim-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.dim-header i {
+    font-size: 1.25rem;
+}
+
+.dimension-card.relevance .dim-header i { color: #3b82f6; }
+.dimension-card.density .dim-header i { color: #8b5cf6; }
+.dimension-card.validity .dim-header i { color: #f59e0b; }
+
+.dim-header h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.dim-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.scale-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+.scale-item.critical { background: #dcfce7; }
+.scale-item.high { background: #dbeafe; }
+.scale-item.medium { background: #fef3c7; }
+.scale-item.low { background: #fee2e2; }
+
+.density-comparison {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 100px;
+    margin-bottom: 0.5rem;
+}
+
+.density-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
+
+.density-bar {
+    width: 100%;
+    background: #8b5cf6;
+    border-radius: 4px 4px 0 0;
+    min-height: 20px;
+}
+
+.density-item.low-density .density-bar {
+    background: #d1d5db;
+}
+
+.density-item span {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.density-item .tokens {
+    color: #64748b;
+}
+
+.efficiency-badge {
+    text-align: center;
+    background: #dcfce7;
+    color: #16a34a;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.validity-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.timeline-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    border-left: 3px solid;
+}
+
+.timeline-item.long { background: #dcfce7; border-color: #22c55e; }
+.timeline-item.medium { background: #dbeafe; border-color: #3b82f6; }
+.timeline-item.short { background: #fef3c7; border-color: #f59e0b; }
+.timeline-item.transient { background: #fee2e2; border-color: #ef4444; }
+
+.antipatterns-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.antipatterns-section h4 {
+    margin: 0 0 1rem;
+    color: #dc2626;
+}
+
+.antipattern-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.antipattern {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ap-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ap-icon.pollution { background: #fee2e2; color: #dc2626; }
+.ap-icon.fragmentation { background: #fef3c7; color: #d97706; }
+.ap-icon.drift { background: #e0e7ff; color: #4f46e5; }
+.ap-icon.staleness { background: #f3e8ff; color: #9333ea; }
+
+.ap-content strong {
+    display: block;
+    font-size: 0.85rem;
+}
+
+.ap-content span {
+    font-size: 0.7rem;
+    color: #64748b;
+}
+
+.roi-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.roi-section h4 {
+    margin: 0 0 1rem;
+    color: #1e293b;
+}
+
+.roi-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.roi-item {
+    display: grid;
+    grid-template-columns: 130px 1fr 60px;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.roi-label {
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.roi-bar-wrapper {
+    background: #e2e8f0;
+    border-radius: 4px;
+    height: 20px;
+}
+
+.roi-bar {
+    background: linear-gradient(90deg, #22c55e, #0891b2);
+    height: 100%;
+    border-radius: 4px;
+}
+
+.roi-value {
+    font-weight: 700;
+    color: #0891b2;
+}
+
+.roi-insight {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #f0fdfa;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #0f766e;
+}
+
+.formula-section {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+}
+
+.formula-box-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.formula-label {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.formula-equation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1rem;
+}
+
+.formula-part {
+    background: rgba(255,255,255,0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+}
+
+.formula-part.faded {
+    opacity: 0.5;
+}
+
+.formula-operator {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #22c55e;
+}
+
+.formula-result {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .dimensions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .antipattern-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .roi-item {
+        grid-template-columns: 100px 1fr 50px;
+    }
+
+    .formula-equation {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+</style>
