@@ -384,46 +384,7 @@
         // ═══════════════════════════════════════════════════════════════
 
         initKeyboardShortcuts: function() {
-            document.addEventListener('keydown', (e) => {
-                // Ctrl/Cmd + K: Toggle reading controls
-                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                    e.preventDefault();
-                    document.getElementById('show-controls').click();
-                }
-
-                // Ctrl/Cmd + R: Toggle reading mode
-                if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
-                    e.preventDefault();
-                    this.toggleReadingMode();
-                }
-
-                // Ctrl/Cmd + +: Increase font size
-                if ((e.ctrlKey || e.metaKey) && e.key === '=') {
-                    e.preventDefault();
-                    const slider = document.getElementById('font-size-slider');
-                    const newValue = Math.min(24, parseInt(slider.value) + 1);
-                    slider.value = newValue;
-                    slider.dispatchEvent(new Event('input'));
-                }
-
-                // Ctrl/Cmd + -: Decrease font size
-                if ((e.ctrlKey || e.metaKey) && e.key === '-') {
-                    e.preventDefault();
-                    const slider = document.getElementById('font-size-slider');
-                    const newValue = Math.max(12, parseInt(slider.value) - 1);
-                    slider.value = newValue;
-                    slider.dispatchEvent(new Event('input'));
-                }
-            });
-
-            // Show shortcuts help
-            console.log(`
-%c📖 Reading Enhancement Shortcuts
-%cCtrl/Cmd + K: Toggle controls
-Ctrl/Cmd + R: Toggle reading mode
-Ctrl/Cmd + +: Increase font size
-Ctrl/Cmd + -: Decrease font size
-            `, 'font-weight: bold; font-size: 14px;', 'font-size: 12px;');
+            // Keyboard shortcuts disabled to avoid browser conflicts
         },
 
         // ═══════════════════════════════════════════════════════════════

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Guides - Opus 4.5 Updated</title>
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/navigation.css">
+    <link rel="stylesheet" href="./styles/markdown.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* Guide-specific styles */
+        .guide-nav {
+            position: sticky;
+            top: 20px;
+            background: var(--card-bg);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-6);
+        }
+
+        .guide-nav h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .guide-tabs {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+
+        .guide-tab {
+            padding: var(--space-3) var(--space-4);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .guide-tab:hover {
+            border-color: var(--secondary-color);
+            background: white;
+        }
+
+        .guide-tab.active {
+            border-color: var(--secondary-color);
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .guide-content {
+            background: var(--card-bg);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            min-height: 500px;
+        }
+
+        .guide-content h1 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: var(--space-3);
+        }
+
+        .guide-content h2 {
+            color: var(--primary-color);
+            margin-top: var(--space-6);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .guide-content h3 {
+            color: var(--secondary-color);
+        }
+
+        .guide-content pre {
+            background: var(--code-bg);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .guide-content code {
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            font-size: 0.9em;
+        }
+
+        .guide-content blockquote {
+            border-left: 4px solid var(--warning-color);
+            background: #fffbeb;
+            padding: var(--space-3) var(--space-4);
+            margin: var(--space-4) 0;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8);
+            color: var(--text-muted);
+        }
+
+        .loading-spinner i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Ensure diff styles work in rendered markdown */
+        .guide-content .diff-container,
+        .guide-content .diff-inline,
+        .guide-content .update-banner {
+            margin: var(--space-4) 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Claude Code Guides</h1>
+            <p class="subtitle">Documentation updated for Claude Opus 4.5 - December 2025</p>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a> / <span>Guides</span>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Guide Navigation -->
+        <div class="guide-nav">
+            <h3><i class="pi pi-book"></i> Select Guide</h3>
+            <div class="guide-tabs">
+                <button class="guide-tab active" data-guide="behavior-issues">
+                    <i class="pi pi-exclamation-triangle"></i>
+                    Behavior Issues
+                </button>
+                <button class="guide-tab" data-guide="code-guide">
+                    <i class="pi pi-code"></i>
+                    Claude Code Guide
+                </button>
+            </div>
+        </div>
+
+        <!-- Guide Content -->
+        <div class="guide-content" id="guide-content">
+            <div class="loading-spinner">
+                <i class="pi pi-spinner pi-spin"></i>
+                <span>Loading guide...</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Strategic Context Management Documentation</p>
+            <p>Part of the SuperClaude Framework</p>
+            <p><a href="index.html">Back to Main Documentation</a></p>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top">+</a>
+
+    <script>
+        // Guide file mapping - paths from root
+        const guides = {
+            'behavior-issues': './guides/Claude_Behavior_Issues.md',
+            'code-guide': './guides/Claude_Code_Guide.md'
+        };
+
+        // Current guide
+        let currentGuide = 'behavior-issues';
+
+        // Configure marked to allow HTML
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            headerIds: true
+        });
+
+        // Load guide content
+        async function loadGuide(guideId) {
+            const contentDiv = document.getElementById('guide-content');
+            contentDiv.innerHTML = `
+                <div class="loading-spinner">
+                    <i class="pi pi-spinner pi-spin"></i>
+                    <span>Loading guide...</span>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(guides[guideId]);
+                if (!response.ok) throw new Error('Failed to load guide');
+
+                let markdown = await response.text();
+
+                // Parse markdown but preserve HTML blocks
+                const htmlBlocks = [];
+                markdown = markdown.replace(/<div class="(diff-container|diff-inline|update-banner|diff-reason)"[\s\S]*?<\/div>\s*<\/div>/g, (match) => {
+                    htmlBlocks.push(match);
+                    return `<!--HTML_BLOCK_${htmlBlocks.length - 1}-->`;
+                });
+
+                // Also handle single-level divs
+                markdown = markdown.replace(/<div class="(diff-inline)"[\s\S]*?<\/div>/g, (match) => {
+                    htmlBlocks.push(match);
+                    return `<!--HTML_BLOCK_${htmlBlocks.length - 1}-->`;
+                });
+
+                // Parse markdown
+                let html = marked.parse(markdown);
+
+                // Restore HTML blocks
+                htmlBlocks.forEach((block, index) => {
+                    html = html.replace(`<!--HTML_BLOCK_${index}-->`, block);
+                });
+
+                // Also handle any remaining HTML comments that weren't replaced
+                html = html.replace(/&lt;!--[\s\S]*?--&gt;/g, '');
+
+                contentDiv.innerHTML = html;
+
+                // Update active tab
+                document.querySelectorAll('.guide-tab').forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.guide === guideId);
+                });
+
+                currentGuide = guideId;
+
+            } catch (error) {
+                contentDiv.innerHTML = `
+                    <div class="info-box" style="background: #fef2f2; border-color: #fca5a5;">
+                        <h3><i class="pi pi-times-circle" style="color: #dc2626;"></i> Error Loading Guide</h3>
+                        <p>Could not load the guide file. Please check the console for details.</p>
+                        <p><code>${error.message}</code></p>
+                    </div>
+                `;
+                console.error('Error loading guide:', error);
+            }
+        }
+
+        // Tab click handlers
+        document.querySelectorAll('.guide-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                loadGuide(tab.dataset.guide);
+            });
+        });
+
+        // Load initial guide
+        document.addEventListener('DOMContentLoaded', () => {
+            loadGuide('behavior-issues');
+        });
+    </script>
+</body>
+</html>

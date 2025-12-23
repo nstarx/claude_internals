@@ -557,3 +557,417 @@
     visibility: visible;
     opacity: 1;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   DIFF VISUALIZATION (Opus 4.5 Review Updates)
+   Visual comparison of old vs new content
+   ═══════════════════════════════════════════════════════════════ */
+
+.diff-container {
+    margin: var(--space-4) 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+}
+
+.diff-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.diff-header i {
+    font-size: 1.25rem;
+}
+
+.diff-header .update-date {
+    margin-left: auto;
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+}
+
+.diff-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+@media (max-width: 768px) {
+    .diff-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+.diff-old,
+.diff-new {
+    padding: var(--space-4);
+    position: relative;
+}
+
+.diff-old {
+    background: #fef2f2;
+    border-right: 1px solid var(--border-color);
+}
+
+.diff-new {
+    background: #f0fdf4;
+}
+
+@media (max-width: 768px) {
+    .diff-old {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+}
+
+.diff-old::before,
+.diff-new::before {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid;
+}
+
+.diff-old::before {
+    content: "❌ BEFORE (Outdated)";
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+.diff-new::before {
+    content: "✅ AFTER (Opus 4.5)";
+    color: #16a34a;
+    border-color: #86efac;
+}
+
+.diff-old del,
+.diff-old .removed {
+    background: #fecaca;
+    color: #991b1b;
+    text-decoration: line-through;
+    padding: 0.125rem 0.25rem;
+    border-radius: 2px;
+}
+
+.diff-new ins,
+.diff-new .added {
+    background: #bbf7d0;
+    color: #166534;
+    text-decoration: none;
+    padding: 0.125rem 0.25rem;
+    border-radius: 2px;
+}
+
+/* Inline diff for subtle changes */
+.diff-inline {
+    background: var(--bg-secondary);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    margin: var(--space-2) 0;
+    border: 1px solid var(--border-color);
+}
+
+.diff-inline del {
+    background: #fecaca;
+    color: #991b1b;
+    text-decoration: line-through;
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
+    margin-right: 0.25rem;
+}
+
+.diff-inline ins {
+    background: #bbf7d0;
+    color: #166534;
+    text-decoration: none;
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
+}
+
+.diff-inline .arrow {
+    color: var(--text-muted);
+    margin: 0 0.5rem;
+}
+
+/* Update notice banner */
+.update-banner {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #f59e0b;
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin: var(--space-4) 0;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+}
+
+.update-banner i {
+    font-size: 1.5rem;
+    color: #d97706;
+    flex-shrink: 0;
+}
+
+.update-banner-content h4 {
+    color: #92400e;
+    margin: 0 0 var(--space-2) 0;
+}
+
+.update-banner-content p {
+    color: #78350f;
+    margin: 0;
+}
+
+/* Reason box for changes */
+.diff-reason {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    margin-top: var(--space-3);
+    font-size: var(--font-size-sm);
+    color: #1e40af;
+}
+
+.diff-reason strong {
+    display: block;
+    margin-bottom: var(--space-1);
+    color: #1e3a8a;
+}
+
+.diff-reason i {
+    margin-right: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   OPUS 4.5 UPDATE BANNER & NAVIGATION HIGHLIGHT
+   Prominent announcement for documentation updates
+   ═══════════════════════════════════════════════════════════════ */
+
+.opus-update-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.opus-update-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(50%); }
+}
+
+.opus-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.opus-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+}
+
+.opus-badge i {
+    animation: spin-slow 3s linear infinite;
+}
+
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.opus-text {
+    font-size: 0.9rem;
+}
+
+.opus-text strong {
+    font-weight: 700;
+}
+
+.opus-separator {
+    margin: 0 0.5rem;
+    opacity: 0.5;
+}
+
+.opus-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    color: #667eea;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.opus-cta:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    background: #f8f9fa;
+}
+
+.opus-cta i:last-child {
+    transition: transform 0.3s;
+}
+
+.opus-cta:hover i:last-child {
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .opus-banner-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+    .opus-text {
+        font-size: 0.8rem;
+    }
+
+    .opus-separator {
+        display: none;
+    }
+
+    .opus-text span:last-child {
+        display: block;
+        margin-top: 0.25rem;
+        opacity: 0.9;
+    }
+}
+
+/* Navigation Highlight for Updated Guides - HIGH SPECIFICITY */
+nav ul li.nav-highlight {
+    margin-bottom: 0.5rem !important;
+    grid-column: 1 / -1 !important;
+}
+
+nav ul li.nav-highlight a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border: none !important;
+    min-height: 50px !important;
+    font-size: 1rem !important;
+}
+
+nav ul li.nav-highlight a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: nav-shimmer 2s infinite;
+}
+
+@keyframes nav-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+nav ul li.nav-highlight a:hover {
+    transform: translateX(5px) !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+    color: white !important;
+}
+
+nav ul li.nav-highlight a i:first-child {
+    color: #ffd700 !important;
+    animation: star-pulse 1.5s infinite;
+}
+
+@keyframes star-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+nav ul li.nav-highlight .nav-badge,
+.nav-badge {
+    background: #ffd700 !important;
+    color: #1a1a2e !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    padding: 0.2rem 0.5rem !important;
+    border-radius: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-left: auto !important;
+    animation: badge-bounce 2s infinite;
+}
+
+@keyframes badge-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+nav ul li.nav-divider {
+    height: 1px !important;
+    background: var(--border-color) !important;
+    margin: 0.75rem 0 !important;
+    list-style: none !important;
+    grid-column: 1 / -1 !important;
+    padding: 0 !important;
+}

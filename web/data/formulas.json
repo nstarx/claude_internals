@@ -1,9 +1,11 @@
 {
   "metadata": {
-    "version": "1.0.0",
-    "last_updated": "2025-11-02",
+    "version": "1.1.0",
+    "last_updated": "2025-12-23",
     "description": "Comprehensive formula library for Strategic Context Management",
-    "verification_status": "verified"
+    "verification_status": "reviewed_opus_4.5",
+    "disclaimer": "These formulas are theoretical models for understanding AI context management. Token calculations are verified against official documentation. Cognitive formulas (decay, half-life, memory efficiency) are conceptual models without empirical validation—use them as mental frameworks, not precise predictions.",
+    "opus_4.5_review_notes": "Reviewed December 2025. Core token formulas (token_calculation, context_window_usage) are accurate. Cognitive science formulas (context_decay, half_life, cognitive_capacity) are theoretical models inspired by research but not empirically validated for LLM behavior."
   },
   "formulas": [
     {

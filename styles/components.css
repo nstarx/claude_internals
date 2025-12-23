@@ -716,3 +716,217 @@
     color: var(--info-color);
     font-weight: 500;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   OPUS 4.5 UPDATE BANNER
+   ═══════════════════════════════════════════════════════════════ */
+
+.opus-update-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.opus-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.opus-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.opus-text {
+    font-size: 0.9rem;
+}
+
+.opus-text strong {
+    font-weight: 700;
+}
+
+.opus-separator {
+    margin: 0 0.5rem;
+    opacity: 0.5;
+}
+
+.opus-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    color: #667eea;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.opus-cta:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .opus-banner-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    .opus-separator { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DIFF VISUALIZATION
+   ═══════════════════════════════════════════════════════════════ */
+
+.diff-container {
+    margin: 1rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #dee2e6;
+}
+
+.diff-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.diff-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.diff-old, .diff-new {
+    padding: 1rem;
+}
+
+.diff-old {
+    background: #fef2f2;
+    border-right: 1px solid #dee2e6;
+}
+
+.diff-new {
+    background: #f0fdf4;
+}
+
+.diff-old::before {
+    content: "BEFORE";
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #dc2626;
+    margin-bottom: 0.5rem;
+}
+
+.diff-new::before {
+    content: "AFTER (Opus 4.5)";
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #16a34a;
+    margin-bottom: 0.5rem;
+}
+
+.diff-old del {
+    background: #fecaca;
+    color: #991b1b;
+    text-decoration: line-through;
+}
+
+.diff-new ins {
+    background: #bbf7d0;
+    color: #166534;
+    text-decoration: none;
+}
+
+.diff-inline {
+    background: #f8f9fa;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin: 0.5rem 0;
+    border: 1px solid #dee2e6;
+}
+
+.diff-inline del {
+    background: #fecaca;
+    color: #991b1b;
+    text-decoration: line-through;
+    padding: 0.125rem 0.25rem;
+    border-radius: 3px;
+}
+
+.diff-inline ins {
+    background: #bbf7d0;
+    color: #166534;
+    text-decoration: none;
+    padding: 0.125rem 0.25rem;
+    border-radius: 3px;
+}
+
+.diff-inline .arrow {
+    color: #6c757d;
+    margin: 0 0.5rem;
+}
+
+.diff-reason {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: #1e40af;
+}
+
+.update-banner {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.update-banner-content h4 {
+    color: #92400e;
+    margin: 0 0 0.5rem 0;
+}
+
+.update-banner-content p {
+    color: #78350f;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .diff-body {
+        grid-template-columns: 1fr;
+    }
+    .diff-old {
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+}

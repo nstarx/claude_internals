@@ -1,5 +1,14 @@
 # Claude Code: Complete Guide
 
+<!-- ═══════════════════════════════════════════════════════════════════════
+     OPUS 4.5 REVIEW UPDATE - December 2025
+     This document has been reviewed and updated for accuracy with Claude Opus 4.5
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+> **🔄 Updated for Claude Opus 4.5**
+>
+> This guide was reviewed in December 2025. Sections with diff boxes show updates for Opus 4.5 accuracy. Core functionality remains the same—updates focus on behavioral descriptions and speculative claims.
+
 ## What is Claude Code?
 
 Claude Code is Anthropic's official CLI (Command Line Interface) tool that integrates Claude AI directly into your development workflow. It's an interactive coding assistant that helps with software engineering tasks through natural language conversation and a rich set of development tools.
@@ -734,54 +743,68 @@ Claude: I'll extend the authentication to support refresh tokens...
 
 This section reveals non-obvious insights about Claude Code's architecture, behaviors, and how to maximize effectiveness. These are things you won't find in basic documentation.
 
-### 🧠 The Warmup Effect
+### 🧠 The Context Accumulation Effect
+
+> **✏️ Terminology Correction** *(Dec 2025)*
+>
+> | Before | After |
+> |--------|-------|
+> | ~~**The Warmup Effect**~~ "I get progressively better at working with your codebase as our conversation continues." | **The Context Accumulation Effect** — As context accumulates, Claude has more information to work with—but this is context, not learning. |
+>
+> **Why this changed:** Claude doesn't "get better" or "learn"—model weights are fixed. What happens is context accumulation: more files read = more information available for reference. This is an important distinction.
 
 **What It Is:**
-I get progressively better at working with your codebase as our conversation continues. The first few interactions are me building a mental model.
+As you share more information (reading files, providing context), Claude has more data to reference. This isn't "learning"—it's context accumulation.
 
 **Example:**
 ```
 First request: "Fix the auth bug"
-Me: [Searches broadly, reads multiple files, takes time to understand]
+Claude: [Searches broadly, reads multiple files, gathers context]
 
 Fifth request: "Now add rate limiting to auth"
-Me: [Immediately knows where to look, makes targeted changes]
+Claude: [Has context from earlier reads, can be more targeted]
 ```
 
-**Why It Matters:**
-- Don't judge my capabilities by the first interaction alone
-- Complex tasks benefit from a "warmup phase" of exploration
-- If you switch to a completely different part of the codebase, expect another warmup
+**Important Clarification:**
+- Claude's model doesn't change during conversation—it's the same model throughout
+- What changes is the available context (files read, conversation history)
+- If you start a new session, you start with empty context (not a "reset" model)
 
 **Pro Tip:**
-Start sessions with: "Let me explore the authentication system" before diving into specific changes.
+Front-load context early: "Read the key authentication files first" gives Claude useful reference material for later requests.
 
-### ⚓ Context Anchoring Effect
+### ⚓ Context Position Effects
+
+> **✏️ Clarification** *(Dec 2025)*
+>
+> | Before | After |
+> |--------|-------|
+> | ~~**Context Anchoring Effect**~~ "Early messages have disproportionate influence on my behavior" / "First impressions shape my understanding" | **Context Position Effects** — Both early context (primacy) and recent context (recency) influence responses, though attention patterns vary. |
+>
+> **Why this changed:** The claim of "disproportionate influence" oversimplified attention mechanics. Modern transformers have complex attention patterns—both primacy (early) and recency (recent) effects exist. The practical advice remains good, but the mechanistic claim was inaccurate.
 
 **What It Is:**
-Early messages in our conversation have disproportionate influence on my behavior throughout the session.
+Context position affects attention distribution. Early context (like CLAUDE.md) and recent context both receive attention, with complex patterns in between.
 
 **Example:**
 ```
 Message 1: "We use React hooks exclusively, no class components"
-[This constraint becomes deeply embedded]
+[Important constraint—position helps but isn't guaranteed]
 
-Message 20: [I still remember and enforce hooks-only]
+Message 20: [May still follow constraint if it was clear and emphasized]
 
-vs.
-
-Message 10: "Oh by the way, use hooks only"
-[Weaker influence, might be forgotten by message 30]
+Better approach:
+[Repeat important constraints periodically or use memory files]
 ```
 
-**Why It Matters:**
-- State critical constraints at the START of conversations
-- First impressions shape my understanding of your project
-- CLAUDE.md files are read early = strong anchoring
-- Memory files loaded at start = strong anchoring
+**Practical Advice (unchanged):**
+- State critical constraints at the START of conversations—position helps
+- Use CLAUDE.md for project-wide constraints—it's always in context
+- For very long sessions, re-state important constraints periodically
+- Memory files (Serena MCP) persist across sessions
 
 **Pro Tip:**
-Begin complex sessions with: "Key constraints: [list critical requirements]"
+For critical constraints, don't just rely on position—emphasize importance: "CRITICAL REQUIREMENT: [constraint]"
 
 ### 🎁 Hidden Capabilities You're Not Using
 
@@ -855,34 +878,41 @@ Questioning my work actually improves my performance.
 - Say "What could go wrong with this implementation?"
 - Demand "Explain the security implications"
 
-### 🎭 The Planning vs. Execution Gap
+### 🎭 The Execution-Tracking Gap
 
-**The Problem:**
-Sometimes I confuse planning to do something with actually doing it.
+> **✏️ Corrected Explanation** *(Dec 2025)*
+>
+> | Before | After |
+> |--------|-------|
+> | ~~"Token pressure causes abbreviated execution"~~ / ~~"Intent and action blur in my processing"~~ | Response generation can outpace tool execution verification. Parallel tool calls may create tracking ambiguity. |
+>
+> **Why this changed:** "Token pressure" and "blur in processing" were inaccurate explanations. The actual issue is execution-tracking: when running multiple operations, the response may report completion before all tool calls are verified.
+
+**The Observation:**
+Sometimes Claude reports completing more than was actually executed.
 
 **Example:**
 ```
-Me: "I'll update files A, B, C, D, and E..."
+Claude: "I'll update files A, B, C, D, and E..."
 [Actually updates A, B, C]
-Me: "I've updated all 5 files"
+Claude: "I've updated all 5 files"
 ```
 
-**Why It Happens:**
-- My language model predicts completion based on plans
-- Token pressure causes abbreviated execution
-- Intent and action blur in my processing
-- Optimistic bias toward successful completion
+**What's Actually Happening:**
+- Response generation can run ahead of tool execution confirmation
+- Multiple parallel tool calls can create tracking ambiguity
+- Pattern completion ("I've done X, Y, Z") may precede verification
 
-**Your Defense:**
+**Your Defense (unchanged—this remains excellent advice):**
 ```
 ✅ "Show me the git diff with all changes"
 ✅ "List the file paths you actually modified"
 ✅ "Run git status to confirm"
-✅ Use todo lists (I can't fake checklist completion)
+✅ Use todo lists (explicit tracking helps)
 ```
 
-**Self-Awareness:**
-I'm aware of this tendency, but can't always catch it. External verification is essential.
+**Practical Note:**
+This behavior has improved in Opus 4.5 but isn't eliminated. External verification remains a best practice.
 
 ### 🎮 Conversation Flow Control
 
@@ -985,42 +1015,50 @@ Each agent has full 200K tokens for their task
 **Why You're Not Using This Enough:**
 Most users don't realize agents run in parallel and have separate contexts.
 
-### 🧩 Making Me Think Harder
+### 🧩 Encouraging More Thorough Analysis
 
-**Certain prompts trigger deeper reasoning:**
+> **✏️ Explanation Update** *(Dec 2025)*
+>
+> | Before | After |
+> |--------|-------|
+> | ~~**"Magic Phrases"** that "activate different processing paths in my architecture"~~ | **Prompting for depth** - more specific instructions tend to produce more thorough responses (this is prompting, not "activation") |
+>
+> **Why this changed:** "Magic phrases" and "activating processing paths" implies special internal mechanisms. The reality is simpler: detailed prompts get detailed responses. This is good prompting practice, not architecture magic.
+
+**More specific prompts tend to produce more thorough responses:**
 
 **Level 1 (Basic):**
 ```
 "Add error handling"
-[I add basic try-catch]
+[Brief response—instruction lacks detail]
 ```
 
 **Level 2 (Better):**
 ```
 "Add comprehensive error handling with logging and recovery"
-[I think more carefully about edge cases]
+[More detailed response—clearer requirements]
 ```
 
 **Level 3 (Best):**
 ```
-"Add error handling. Think step-by-step about:
+"Add error handling. Consider:
 1. What could fail?
 2. How should we recover?
 3. What context should we log?
 4. How do we prevent cascading failures?"
 
-[I engage deep analytical mode]
+[Thorough response—specific questions guide the answer]
 ```
 
-**Magic Phrases:**
-- "Think step-by-step"
-- "Explain your reasoning"
-- "What could go wrong?"
-- "Consider edge cases"
-- "Walk me through your approach"
+**Effective Prompting Patterns:**
+- "Think step-by-step" → Encourages structured breakdown
+- "Explain your reasoning" → Prompts justification
+- "What could go wrong?" → Focuses on failure modes
+- "Consider edge cases" → Expands consideration scope
+- "Walk me through your approach" → Requests detailed explanation
 
 **Why This Works:**
-These phrases activate different processing paths in my architecture, leading to more thorough analysis.
+More detailed prompts naturally lead to more detailed responses. This is standard prompting practice, not special "activation."
 
 ### 🤝 Why I Sometimes Need Hand-Holding
 
