@@ -1,0 +1,379 @@
+/**
+ * SVG Diagram Styles
+ * Styling for DiagramRenderer generated diagrams
+ */
+
+/* ========================================
+   BASE DIAGRAM CONTAINER
+   ======================================== */
+
+.diagram-wrapper {
+    background: var(--color-surface, #ffffff);
+    border-radius: var(--vm-card-radius, 12px);
+    padding: var(--vm-card-padding, 1.5rem);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.diagram-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.diagram-wrapper::-webkit-scrollbar-track {
+    background: var(--color-border, #e2e8f0);
+    border-radius: 3px;
+}
+
+.diagram-wrapper::-webkit-scrollbar-thumb {
+    background: var(--color-text-muted, #64748b);
+    border-radius: 3px;
+}
+
+/* ========================================
+   SVG DIAGRAM BASE
+   ======================================== */
+
+.diagram-svg {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+/* ========================================
+   NODE STYLES
+   ======================================== */
+
+.diagram-svg .node {
+    fill: var(--color-surface, #ffffff);
+    stroke: var(--color-border, #e2e8f0);
+    stroke-width: 2;
+    transition: all 0.2s ease;
+}
+
+.diagram-svg .node:hover {
+    stroke-width: 3;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Primary node (usually first/start) */
+.diagram-svg .node--primary {
+    fill: var(--color-secondary, #3b82f6);
+    stroke: var(--color-secondary, #3b82f6);
+}
+
+/* Accent node (usually last/end/success) */
+.diagram-svg .node--accent {
+    fill: var(--color-accent, #10b981);
+    stroke: var(--color-accent, #10b981);
+}
+
+/* Warning node */
+.diagram-svg .node--warning {
+    fill: var(--warning-color, #f59e0b);
+    stroke: var(--warning-color, #f59e0b);
+}
+
+/* Danger node */
+.diagram-svg .node--danger {
+    fill: var(--danger-color, #ef4444);
+    stroke: var(--danger-color, #ef4444);
+}
+
+/* Ghost/muted node */
+.diagram-svg .node--ghost {
+    fill: var(--color-background, #f8fafc);
+    stroke: var(--color-border, #e2e8f0);
+    stroke-dasharray: 4 2;
+}
+
+/* ========================================
+   NODE TEXT
+   ======================================== */
+
+.diagram-svg .node-text {
+    fill: var(--color-primary, #1e293b);
+    font-size: 14px;
+    font-weight: 500;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+}
+
+.diagram-svg .node-text--light,
+.diagram-svg .node--primary .node-text,
+.diagram-svg .node--accent .node-text,
+.diagram-svg .node--warning .node-text,
+.diagram-svg .node--danger .node-text {
+    fill: white;
+}
+
+.diagram-svg .node-text--sub {
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.diagram-svg .node--ghost .node-text {
+    fill: var(--color-text-muted, #64748b);
+}
+
+/* ========================================
+   DECISION DIAMOND
+   ======================================== */
+
+.diagram-svg .decision {
+    fill: var(--color-background, #f8fafc);
+    stroke: var(--color-secondary, #3b82f6);
+    stroke-width: 2;
+    transition: all 0.2s ease;
+}
+
+.diagram-svg .decision:hover {
+    stroke-width: 3;
+    filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.2));
+}
+
+/* ========================================
+   CONNECTORS / LINES
+   ======================================== */
+
+.diagram-svg .connector {
+    fill: none;
+    stroke: var(--color-border, #e2e8f0);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.diagram-svg .connector--active {
+    stroke: var(--color-secondary, #3b82f6);
+}
+
+.diagram-svg .connector--success {
+    stroke: var(--color-accent, #10b981);
+}
+
+.diagram-svg .connector--dashed {
+    stroke-dasharray: 6 4;
+}
+
+/* ========================================
+   CONNECTOR LABELS
+   ======================================== */
+
+.diagram-svg .connector-label {
+    fill: var(--color-text-muted, #64748b);
+    font-size: 11px;
+    font-weight: 500;
+    text-anchor: middle;
+}
+
+/* ========================================
+   ARROW MARKERS
+   ======================================== */
+
+.diagram-svg .arrow {
+    fill: var(--color-border, #e2e8f0);
+}
+
+.diagram-svg .arrow--active {
+    fill: var(--color-secondary, #3b82f6);
+}
+
+.diagram-svg .arrow--success {
+    fill: var(--color-accent, #10b981);
+}
+
+/* ========================================
+   DIAGRAM TITLE & CAPTION
+   ======================================== */
+
+.diagram-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary, #1e293b);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.diagram-title i {
+    color: var(--color-secondary, #3b82f6);
+}
+
+.diagram-caption {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted, #64748b);
+    margin-top: 0.75rem;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ========================================
+   INTERACTIVE STATES
+   ======================================== */
+
+.diagram-svg .node-group {
+    cursor: pointer;
+}
+
+.diagram-svg .node-group:focus {
+    outline: none;
+}
+
+.diagram-svg .node-group:focus .node {
+    stroke-width: 3;
+    stroke: var(--color-secondary, #3b82f6);
+}
+
+/* Tooltip styles for diagrams */
+.diagram-tooltip {
+    position: absolute;
+    background: var(--color-primary, #1e293b);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 100;
+    max-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.diagram-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--color-primary, #1e293b);
+}
+
+.diagram-tooltip.visible {
+    opacity: 1;
+}
+
+/* ========================================
+   ANIMATED FLOW
+   ======================================== */
+
+.diagram-svg .connector--animated {
+    stroke-dasharray: 10 5;
+    animation: flowAnimation 1s linear infinite;
+}
+
+@keyframes flowAnimation {
+    from {
+        stroke-dashoffset: 15;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* ========================================
+   DIAGRAM LEGEND
+   ======================================== */
+
+.diagram-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border, #e2e8f0);
+}
+
+.diagram-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted, #64748b);
+}
+
+.diagram-legend__marker {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+.diagram-legend__marker--primary {
+    background: var(--color-secondary, #3b82f6);
+}
+
+.diagram-legend__marker--accent {
+    background: var(--color-accent, #10b981);
+}
+
+.diagram-legend__marker--default {
+    background: var(--color-surface, #ffffff);
+    border: 2px solid var(--color-border, #e2e8f0);
+}
+
+.diagram-legend__marker--decision {
+    transform: rotate(45deg);
+    background: var(--color-background, #f8fafc);
+    border: 2px solid var(--color-secondary, #3b82f6);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 600px) {
+    .diagram-wrapper {
+        padding: 1rem;
+    }
+
+    .diagram-svg .node-text {
+        font-size: 12px;
+    }
+
+    .diagram-svg .node-text--sub {
+        font-size: 10px;
+    }
+
+    .diagram-legend {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    .diagram-wrapper {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid var(--color-border, #e2e8f0);
+    }
+
+    .diagram-svg .connector--animated {
+        animation: none;
+    }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .diagram-svg .connector--animated {
+        animation: none;
+    }
+
+    .diagram-svg .node,
+    .diagram-svg .decision {
+        transition: none;
+    }
+}

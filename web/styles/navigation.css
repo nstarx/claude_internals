@@ -1,40 +1,50 @@
 /**
- * SuperClaude Framework - Navigation Styles
- * Sticky navigation, collapsible menus, breadcrumbs, and scroll behavior
+ * Strategic Context Management - Navigation Styles
+ * Clean, editorial navigation inspired by The Atlantic's clarity
+ *
+ * Design Philosophy:
+ * - Clear wayfinding without visual noise
+ * - Subtle state changes
+ * - Typography-driven hierarchy
  */
 
 /* ═══════════════════════════════════════════════════════════════
    PRIMARY NAVIGATION
+   Clean table of contents with editorial refinement
    ═══════════════════════════════════════════════════════════════ */
 
 nav {
     background: var(--card-bg);
-    padding: var(--space-4);
+    padding: var(--space-5);
     margin: var(--space-5) 0;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-base);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--border-color);
     position: sticky;
-    top: 0;
+    top: var(--space-3);
     z-index: var(--z-sticky);
-    transition: all var(--transition-base), width 0.3s ease, max-width 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+    transition: box-shadow var(--transition-base);
 }
 
 /* Sticky nav shadow enhancement */
 nav.scrolled {
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
 }
 
 nav h2 {
-    color: var(--primary-color);
-    margin-bottom: var(--space-3);
-    font-size: var(--font-size-xl);
+    font-family: var(--font-sans);
+    color: var(--text-muted);
+    margin-bottom: var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
     cursor: pointer;
     user-select: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: var(--space-2);
-    border-radius: var(--radius-base);
+    border-radius: var(--radius-sm);
     transition: background var(--transition-fast);
     border-bottom: none;
 }
@@ -44,29 +54,27 @@ nav h2:hover {
 }
 
 nav h2:focus {
-    outline: 2px solid var(--secondary-color);
+    outline: 2px solid var(--accent-color);
     outline-offset: 2px;
 }
 
 /* Chevron icon for collapsible nav */
 nav h2::after {
-    content: '▼';
-    font-size: 0.8em;
+    content: '▾';
+    font-size: 1em;
     transition: transform var(--transition-base);
-    color: var(--secondary-color);
+    color: var(--text-light);
 }
 
 nav.collapsed h2::after {
     transform: rotate(-90deg);
 }
 
-/* Collapsed nav as compact icon */
+/* Collapsed nav as compact element */
 nav.collapsed {
     width: auto;
     max-width: fit-content;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-base);
-    box-shadow: var(--shadow-md);
+    padding: var(--space-3);
 }
 
 nav.collapsed h2 {
@@ -76,26 +84,17 @@ nav.collapsed h2 {
     margin-bottom: 0;
     white-space: nowrap;
     gap: var(--space-2);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-xs);
     padding: var(--space-1);
 }
 
 nav.collapsed h2:hover {
-    background: var(--primary-color);
-    color: var(--text-inverse);
+    background: var(--bg-secondary);
 }
 
-nav.collapsed h2::after {
-    font-size: 1em;
-}
-
-/* Hide full text when collapsed, show only icon and TOC */
-nav.collapsed h2 {
-    font-size: var(--font-size-lg);
-}
-
+/* Show "Contents" when collapsed */
 nav.collapsed h2::before {
-    content: '📑 TOC';
+    content: 'Contents';
     font-weight: 600;
 }
 
@@ -113,8 +112,8 @@ nav ul {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-2);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-1);
     transition: all var(--transition-base);
     overflow: hidden;
 }
@@ -128,29 +127,29 @@ nav ul li {
 }
 
 nav ul li a {
-    color: var(--secondary-color);
+    color: var(--text-color);
     text-decoration: none;
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-3);
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    border-radius: var(--radius-base);
+    border-radius: var(--radius-sm);
     transition: all var(--transition-fast);
-    min-height: 44px;
+    min-height: 40px;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     border: 1px solid transparent;
 }
 
 nav ul li a:hover,
 nav ul li a:focus {
-    background: var(--secondary-color);
-    color: var(--text-inverse);
-    transform: translateX(5px);
+    background: var(--bg-secondary);
+    color: var(--primary-color);
     text-decoration: none;
 }
 
 nav ul li a:focus {
-    outline: 2px solid var(--primary-color);
+    outline: 2px solid var(--accent-color);
     outline-offset: 2px;
 }
 
@@ -161,50 +160,58 @@ nav ul li a.active {
     font-weight: 600;
 }
 
-/* Icon in nav links (for PrimeVue icons) */
+/* Icon in nav links */
 nav ul li a .icon {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    color: var(--text-light);
+}
+
+nav ul li a:hover .icon,
+nav ul li a.active .icon {
+    color: inherit;
 }
 
 /* ═══════════════════════════════════════════════════════════════
    BREADCRUMBS
+   Simple, elegant trail navigation
    ═══════════════════════════════════════════════════════════════ */
 
-.breadcrumbs {
+.breadcrumbs,
+.breadcrumb {
     display: flex;
     align-items: center;
     gap: var(--space-1);
-    margin: var(--space-4) 0;
-    padding: var(--space-2) var(--space-4);
-    background: var(--bg-secondary);
-    border-radius: var(--radius-base);
+    margin: var(--space-3) 0;
     font-size: var(--font-size-sm);
     flex-wrap: wrap;
 }
 
-.breadcrumbs a {
-    color: var(--secondary-color);
+.breadcrumbs a,
+.breadcrumb a {
+    color: var(--text-muted);
     text-decoration: none;
     transition: color var(--transition-fast);
 }
 
-.breadcrumbs a:hover {
+.breadcrumbs a:hover,
+.breadcrumb a:hover {
     color: var(--primary-color);
-    text-decoration: underline;
 }
 
-.breadcrumbs .separator {
-    color: var(--text-muted);
+.breadcrumbs .separator,
+.breadcrumb .separator {
+    color: var(--text-light);
     margin: 0 var(--space-1);
     user-select: none;
 }
 
-.breadcrumbs .current {
+.breadcrumbs .current,
+.breadcrumb span:last-child {
     color: var(--text-color);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -220,12 +227,13 @@ nav ul li a .icon {
     padding: var(--space-2) var(--space-4);
     text-decoration: none;
     z-index: var(--z-modal);
-    border-radius: 0 0 var(--radius-base) 0;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
 }
 
 .skip-link:focus {
     top: 0;
-    outline: 2px solid var(--text-inverse);
+    outline: 2px solid var(--accent-color);
     outline-offset: 2px;
 }
 
@@ -235,21 +243,26 @@ nav ul li a .icon {
 
 .section-nav {
     background: var(--bg-secondary);
-    padding: var(--space-4);
-    border-radius: var(--radius-lg);
-    margin: var(--space-4) 0;
-    border: 1px solid var(--border-light);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-base);
+    margin: var(--space-5) 0;
+    border: 1px solid var(--border-color);
 }
 
 .section-nav h3 {
     margin-top: 0;
-    font-size: var(--font-size-lg);
-    color: var(--primary-color);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    margin-bottom: var(--space-3);
 }
 
 .section-nav ul {
     list-style: none;
-    margin: var(--space-2) 0 0 0;
+    margin: 0;
     padding: 0;
 }
 
@@ -258,27 +271,29 @@ nav ul li a .icon {
 }
 
 .section-nav ul li a {
-    color: var(--secondary-color);
+    color: var(--text-color);
     text-decoration: none;
-    padding: var(--space-1) var(--space-2);
+    padding: var(--space-1) 0;
     display: inline-block;
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-fast);
 }
 
 .section-nav ul li a:hover {
-    background: var(--card-bg);
-    transform: translateX(3px);
+    color: var(--primary-color);
 }
 
 /* Nested section navigation */
 .section-nav ul ul {
     margin-left: var(--space-4);
     margin-top: var(--space-1);
+    border-left: 1px solid var(--border-light);
+    padding-left: var(--space-3);
 }
 
 /* ═══════════════════════════════════════════════════════════════
    PAGINATION
+   Clean previous/next navigation
    ═══════════════════════════════════════════════════════════════ */
 
 .pagination {
@@ -287,10 +302,9 @@ nav ul li a .icon {
     align-items: center;
     gap: var(--space-4);
     margin: var(--space-6) 0;
-    padding: var(--space-4);
-    background: var(--card-bg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-base);
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .pagination-prev,
@@ -298,32 +312,29 @@ nav ul li a .icon {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-3) var(--space-4);
-    background: var(--secondary-color);
-    color: var(--text-inverse);
+    padding: var(--space-2) var(--space-3);
+    color: var(--primary-color);
     text-decoration: none;
-    border-radius: var(--radius-base);
-    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
     font-weight: 600;
+    transition: opacity var(--transition-fast);
     min-height: 44px;
 }
 
 .pagination-prev:hover,
 .pagination-next:hover {
-    background: var(--primary-color);
-    transform: scale(1.05);
+    opacity: 0.7;
 }
 
 .pagination-prev:focus,
 .pagination-next:focus {
-    outline: 2px solid var(--primary-color);
+    outline: 2px solid var(--accent-color);
     outline-offset: 2px;
 }
 
 .pagination-prev.disabled,
 .pagination-next.disabled {
-    background: var(--border-color);
-    color: var(--text-muted);
+    color: var(--text-light);
     cursor: not-allowed;
     pointer-events: none;
 }
@@ -334,22 +345,25 @@ nav ul li a .icon {
     text-align: center;
 }
 
-/* Chunk navigation (for large documents split into parts) */
+/* Chunk navigation */
 .chunk-nav {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-4);
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
     background: var(--bg-secondary);
-    border-radius: var(--radius-lg);
-    margin: var(--space-4) 0;
-    border: 2px solid var(--secondary-color);
+    border-radius: var(--radius-base);
+    margin: var(--space-5) 0;
+    border: 1px solid var(--border-color);
 }
 
 .chunk-nav-header {
+    font-family: var(--font-sans);
     font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: var(--space-2);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
     display: flex;
     align-items: center;
     gap: var(--space-2);
@@ -364,23 +378,23 @@ nav ul li a .icon {
 .chunk-nav-links a {
     padding: var(--space-2) var(--space-3);
     background: var(--card-bg);
-    color: var(--secondary-color);
+    color: var(--text-color);
     text-decoration: none;
-    border-radius: var(--radius-base);
-    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
     font-weight: 500;
-    border: 1px solid var(--border-light);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-fast);
 }
 
 .chunk-nav-links a:hover {
-    background: var(--secondary-color);
-    color: var(--text-inverse);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .chunk-nav-links a.current {
     background: var(--primary-color);
     color: var(--text-inverse);
-    font-weight: 600;
+    border-color: var(--primary-color);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -389,16 +403,19 @@ nav ul li a .icon {
 
 .toc {
     background: var(--bg-secondary);
-    padding: var(--space-4);
-    border-radius: var(--radius-lg);
-    margin: var(--space-4) 0;
-    border: 1px solid var(--border-light);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-base);
+    margin: var(--space-5) 0;
+    border: 1px solid var(--border-color);
 }
 
 .toc-title {
-    font-size: var(--font-size-lg);
-    font-weight: 700;
-    color: var(--primary-color);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
     margin-bottom: var(--space-3);
 }
 
@@ -415,27 +432,27 @@ nav ul li a .icon {
 .toc ul li a {
     color: var(--text-color);
     text-decoration: none;
-    padding: var(--space-1) var(--space-2);
+    padding: var(--space-1) 0;
     display: block;
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-fast);
 }
 
 .toc ul li a:hover {
-    background: var(--card-bg);
-    color: var(--secondary-color);
-    transform: translateX(3px);
+    color: var(--primary-color);
 }
 
 .toc ul ul {
     margin-left: var(--space-4);
     margin-top: var(--space-1);
+    border-left: 1px solid var(--border-light);
+    padding-left: var(--space-3);
 }
 
 /* Sticky TOC for long documents */
 .toc-sticky {
     position: sticky;
-    top: calc(var(--space-8) + 20px);
+    top: calc(var(--space-6) + 20px);
     max-height: calc(100vh - var(--space-8) - 40px);
     overflow-y: auto;
 }
@@ -448,27 +465,26 @@ nav ul li a .icon {
     display: none;
     background: none;
     border: none;
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
     color: var(--primary-color);
     cursor: pointer;
     padding: var(--space-2);
-    border-radius: var(--radius-base);
-    transition: background var(--transition-fast);
+    transition: opacity var(--transition-fast);
 }
 
 .menu-toggle:hover {
-    background: var(--bg-secondary);
+    opacity: 0.7;
 }
 
 .menu-toggle:focus {
-    outline: 2px solid var(--secondary-color);
+    outline: 2px solid var(--accent-color);
     outline-offset: 2px;
 }
 
-/* Hamburger icon animation */
+/* Hamburger icon */
 .hamburger {
-    width: 25px;
-    height: 20px;
+    width: 22px;
+    height: 16px;
     position: relative;
     display: inline-block;
 }
@@ -476,7 +492,7 @@ nav ul li a .icon {
 .hamburger span {
     display: block;
     width: 100%;
-    height: 3px;
+    height: 2px;
     background: var(--primary-color);
     position: absolute;
     left: 0;
@@ -503,6 +519,7 @@ nav ul li a .icon {
 
 /* ═══════════════════════════════════════════════════════════════
    SCROLL INDICATORS
+   Subtle progress indicator
    ═══════════════════════════════════════════════════════════════ */
 
 .scroll-progress {
@@ -510,8 +527,8 @@ nav ul li a .icon {
     top: 0;
     left: 0;
     width: 0%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+    height: 2px;
+    background: var(--primary-color);
     z-index: var(--z-modal);
     transition: width 0.1s linear;
 }

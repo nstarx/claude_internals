@@ -1,67 +1,111 @@
+<!-- Overview Infographic - Template -->
 <div class="infographic-container">
-    <div class="infographic-overview">
-        <!-- Header Card with Definition -->
-        <div class="overview-header">
-            <h3><i class="pi pi-sitemap"></i> Strategic Context Management</h3>
-            <p class="definition">
-                The intelligent curation, prioritization, and persistence of project knowledge
-                to maximize development effectiveness while minimizing cognitive and computational overhead.
-            </p>
-            <div class="overview-goal">
-                <span class="goal-label">Target:</span>
-                <span class="goal-badge">
-                    <i class="pi pi-check-circle"></i>
-                    ≥90% Context Relevance
-                </span>
+    <div class="visual-stack">
+
+        <!-- Hero Stat Cards -->
+        <div class="stat-cards">
+            <div class="stat-card stat-card--hero">
+                <div class="stat-card__value stat-card__value--highlight">200K</div>
+                <div class="stat-card__label">Token Window</div>
+                <div class="stat-card__progress">
+                    <div class="stat-card__progress-fill" style="width: 75%"></div>
+                </div>
+            </div>
+            <div class="stat-card stat-card--hero">
+                <div class="stat-card__value stat-card__value--success">90%</div>
+                <div class="stat-card__label">Target Relevance</div>
+                <div class="stat-card__progress">
+                    <div class="stat-card__progress-fill stat-card__progress-fill--success" style="width: 90%"></div>
+                </div>
             </div>
         </div>
 
-        <!-- The Four Challenges -->
-        <div class="pillars-grid">
-            <div class="pillar token-windows">
-                <div class="pillar-icon">
-                    <i class="pi pi-window-maximize"></i>
-                </div>
-                <h4>Token Windows</h4>
-                <div class="pillar-value">200K limit</div>
-                <p>Fixed context limits require strategic information selection</p>
+        <!-- Core Flow Diagram -->
+        <div class="diagram-wrapper">
+            <div class="diagram-title">
+                <i class="pi pi-sitemap"></i>
+                Strategic Context Flow
             </div>
+            <div id="overview-flow-diagram"></div>
+            <div class="diagram-caption">Information flows through curation, prioritization, and persistence</div>
+        </div>
 
-            <div class="pillar session-amnesia">
-                <div class="pillar-icon">
-                    <i class="pi pi-history"></i>
+        <!-- Four Challenges Grid -->
+        <div class="visual-grid visual-grid--4">
+            <div class="stat-card">
+                <div class="stat-card__value" style="font-size: 2rem;">
+                    <i class="pi pi-window-maximize" style="color: var(--color-secondary);"></i>
                 </div>
-                <h4>Session Amnesia</h4>
-                <div class="pillar-value">Lost context</div>
-                <p>Between sessions forces repeated discovery cycles</p>
+                <div class="stat-card__label">Token Windows</div>
             </div>
-
-            <div class="pillar info-overload">
-                <div class="pillar-icon">
-                    <i class="pi pi-database"></i>
+            <div class="stat-card">
+                <div class="stat-card__value" style="font-size: 2rem;">
+                    <i class="pi pi-history" style="color: var(--color-secondary);"></i>
                 </div>
-                <h4>Info Overload</h4>
-                <div class="pillar-value">Large codebases</div>
-                <p>Exceed immediate comprehension capacity</p>
+                <div class="stat-card__label">Session Amnesia</div>
             </div>
-
-            <div class="pillar cognitive-load">
-                <div class="pillar-icon">
-                    <i class="pi pi-bolt"></i>
+            <div class="stat-card">
+                <div class="stat-card__value" style="font-size: 2rem;">
+                    <i class="pi pi-database" style="color: var(--color-secondary);"></i>
                 </div>
-                <h4>Cognitive Load</h4>
-                <div class="pillar-value">Mental limits</div>
-                <p>Humans and AI struggle with excessive simultaneous context</p>
+                <div class="stat-card__label">Info Overload</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card__value" style="font-size: 2rem;">
+                    <i class="pi pi-bolt" style="color: var(--color-secondary);"></i>
+                </div>
+                <div class="stat-card__label">Cognitive Load</div>
             </div>
         </div>
 
-        <!-- Strategic Response -->
-        <div class="strategic-response">
-            <i class="pi pi-arrow-right response-arrow"></i>
-            <div>
-                <h4>Strategic Response</h4>
-                <p>Treat constraints as design parameters for building efficient workflows</p>
+        <!-- Summary Card -->
+        <div class="summary-card">
+            <div class="summary-card__header">
+                <div class="summary-card__icon">
+                    <i class="pi pi-list"></i>
+                </div>
+                <h4 class="summary-card__title">Key Takeaways</h4>
             </div>
+            <ul class="summary-card__list">
+                <li>Treat constraints as design parameters, not obstacles</li>
+                <li>Quality of context trumps quantity every time</li>
+                <li>Strategic curation enables 90%+ relevance scores</li>
+                <li>Persistent context eliminates repeated discovery cycles</li>
+            </ul>
+            <button class="summary-card__expand" onclick="this.closest('section')?.querySelector('[data-view=text]')?.click()">
+                <i class="pi pi-arrow-right"></i>
+                Expand for details
+            </button>
         </div>
+
     </div>
 </div>
+
+<script>
+// Initialize diagram when content loads
+(function() {
+    // Wait for DiagramRenderer to be available
+    function initDiagram() {
+        if (typeof DiagramRenderer === 'undefined') {
+            setTimeout(initDiagram, 100);
+            return;
+        }
+
+        const container = document.getElementById('overview-flow-diagram');
+        if (!container) return;
+
+        DiagramRenderer.renderFlow(container, [
+            { label: 'Input', sublabel: 'Raw context', type: 'primary' },
+            { label: 'Curate', sublabel: 'Filter noise' },
+            { label: 'Prioritize', sublabel: 'Rank by value' },
+            { label: 'Persist', sublabel: 'Store patterns' },
+            { label: 'Output', sublabel: '90%+ relevance', type: 'accent' }
+        ], {
+            nodeWidth: 120,
+            horizontalGap: 40
+        });
+    }
+
+    initDiagram();
+})();
+</script>

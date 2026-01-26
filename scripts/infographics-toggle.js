@@ -30,10 +30,286 @@
                 }
             });
 
+            // Bind keyboard shortcut
+            this.bindKeyboardShortcut();
+
             // Initialize any existing toggles
             this.initializeExistingToggles();
 
-            console.log('Infographics Toggle ready');
+            console.log('Infographics Toggle ready. Press "V" to toggle text/visual.');
+        },
+
+        /**
+         * Bind keyboard shortcuts
+         */
+        bindKeyboardShortcut: function() {
+            const self = this;
+            document.addEventListener('keydown', function(e) {
+                // Don't trigger if typing in an input
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+                    return;
+                }
+
+                const key = e.key.toLowerCase();
+
+                // 'V' key - toggle text/visual
+                if (key === 'v' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                    e.preventDefault();
+                    self.toggleCurrentSection();
+                }
+
+                // Arrow keys - navigate sections
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    self.navigateSection(e.key === 'ArrowDown' ? 'next' : 'prev');
+                }
+
+                // < > or Left/Right arrow keys - navigate TOC items
+                if (e.key === ',' || e.key === '<' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    self.navigateTOC('prev');
+                }
+                if (e.key === '.' || e.key === '>' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    self.navigateTOC('next');
+                }
+            }, true);
+        },
+
+        /**
+         * Navigate TOC items with < > or left/right arrows
+         */
+        navigateTOC: function(direction) {
+            // Use floating nav items
+            const tocLinks = Array.from(document.querySelectorAll('.fnav-item'));
+            if (tocLinks.length === 0) return;
+
+            // Find currently active TOC item
+            let currentIndex = tocLinks.findIndex(link => link.classList.contains('active'));
+
+            // If none active, start from beginning or end
+            if (currentIndex === -1) {
+                currentIndex = direction === 'next' ? -1 : tocLinks.length;
+            }
+
+            // Calculate target index
+            let targetIndex;
+            if (direction === 'next') {
+                targetIndex = currentIndex < tocLinks.length - 1 ? currentIndex + 1 : 0;
+            } else {
+                targetIndex = currentIndex > 0 ? currentIndex - 1 : tocLinks.length - 1;
+            }
+
+            // Get target section ID
+            const targetItem = tocLinks[targetIndex];
+            const targetId = targetItem.dataset.section;
+
+            // Load section via SectionLoader if available
+            if (window.SectionLoader) {
+                window.SectionLoader.loadSection(targetId);
+            }
+
+            // Update active state in floating nav
+            tocLinks.forEach(link => link.classList.remove('active'));
+            targetItem.classList.add('active');
+
+            // Scroll to section
+            const targetSection = document.getElementById(targetId) ||
+                                  document.getElementById('section-' + targetId);
+
+            if (targetSection) {
+                const headerOffset = 80;
+                const elementPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Show TOC indicator
+            const itemName = targetItem.querySelector('.fnav-item-name')?.textContent || targetId;
+            this.showTOCIndicator(itemName, direction);
+        },
+
+        /**
+         * Show TOC navigation indicator
+         */
+        showTOCIndicator: function(itemName, direction) {
+            const existing = document.querySelector('.toc-indicator');
+            if (existing) existing.remove();
+
+            const indicator = document.createElement('div');
+            indicator.className = 'toc-indicator';
+            indicator.innerHTML = `
+                <div class="toc-indicator-content">
+                    <i class="pi pi-angle-${direction === 'next' ? 'right' : 'left'}"></i>
+                    <span>${itemName}</span>
+                </div>
+            `;
+            document.body.appendChild(indicator);
+
+            requestAnimationFrame(() => {
+                indicator.classList.add('visible');
+            });
+
+            setTimeout(() => {
+                indicator.classList.remove('visible');
+                setTimeout(() => indicator.remove(), 300);
+            }, 800);
+        },
+
+        /**
+         * Navigate to next/previous section
+         */
+        navigateSection: function(direction) {
+            const sections = Array.from(document.querySelectorAll('section[id]'));
+            if (sections.length === 0) return;
+
+            // Find current section (the one most visible)
+            const viewportCenter = window.innerHeight / 2;
+            let currentIndex = -1;
+
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < viewportCenter && rect.bottom > 100) {
+                    currentIndex = index;
+                }
+            });
+
+            // Calculate target index
+            let targetIndex;
+            if (direction === 'next') {
+                targetIndex = currentIndex < sections.length - 1 ? currentIndex + 1 : 0;
+            } else {
+                targetIndex = currentIndex > 0 ? currentIndex - 1 : sections.length - 1;
+            }
+
+            // Scroll to target section
+            const targetSection = sections[targetIndex];
+            if (targetSection) {
+                const headerOffset = 80; // Account for fixed header
+                const elementPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Show navigation indicator
+                this.showNavIndicator(targetSection.id, direction);
+            }
+        },
+
+        /**
+         * Show navigation indicator
+         */
+        showNavIndicator: function(sectionId, direction) {
+            // Remove existing indicator
+            const existing = document.querySelector('.nav-indicator');
+            if (existing) existing.remove();
+
+            // Format section name
+            const sectionName = sectionId
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, c => c.toUpperCase());
+
+            // Create indicator
+            const indicator = document.createElement('div');
+            indicator.className = 'nav-indicator';
+            indicator.innerHTML = `
+                <div class="nav-indicator-content">
+                    <i class="pi pi-arrow-${direction === 'next' ? 'down' : 'up'}"></i>
+                    <span>${sectionName}</span>
+                </div>
+            `;
+            document.body.appendChild(indicator);
+
+            // Animate in
+            requestAnimationFrame(() => {
+                indicator.classList.add('visible');
+            });
+
+            // Remove after delay
+            setTimeout(() => {
+                indicator.classList.remove('visible');
+                setTimeout(() => indicator.remove(), 300);
+            }, 800);
+        },
+
+        /**
+         * Toggle the currently visible section's view
+         */
+        toggleCurrentSection: function() {
+            // Find sections with toggles
+            const sections = document.querySelectorAll('section[id]');
+            let targetSection = null;
+
+            // Find the section most visible in viewport
+            const viewportHeight = window.innerHeight;
+            const viewportCenter = viewportHeight / 2;
+
+            sections.forEach(section => {
+                const toggle = section.querySelector('.view-toggle');
+                if (!toggle) return;
+
+                const rect = section.getBoundingClientRect();
+                // Check if section is in viewport
+                if (rect.top < viewportCenter && rect.bottom > 100) {
+                    targetSection = section;
+                }
+            });
+
+            if (!targetSection) {
+                // Fallback: use first section with a toggle
+                targetSection = document.querySelector('section[id] .view-toggle')?.closest('section');
+            }
+
+            if (targetSection) {
+                const toggle = targetSection.querySelector('.view-toggle');
+                const activeBtn = toggle.querySelector('.toggle-btn.active');
+                const currentView = activeBtn?.dataset.view || 'text';
+                const newView = currentView === 'text' ? 'visual' : 'text';
+                const newBtn = toggle.querySelector(`[data-view="${newView}"]`);
+
+                if (newBtn) {
+                    this.handleToggle(newBtn);
+                    this.showIndicator(newView);
+                }
+            }
+        },
+
+        /**
+         * Show a brief indicator when toggling via keyboard
+         */
+        showIndicator: function(viewType) {
+            // Remove existing indicator
+            const existing = document.querySelector('.view-toggle-indicator');
+            if (existing) existing.remove();
+
+            // Create indicator
+            const indicator = document.createElement('div');
+            indicator.className = 'view-toggle-indicator';
+            indicator.innerHTML = `
+                <div class="indicator-content">
+                    <i class="pi ${viewType === 'visual' ? 'pi-chart-bar' : 'pi-align-left'}"></i>
+                    <span>${viewType === 'visual' ? 'Visual Mode' : 'Text Mode'}</span>
+                </div>
+            `;
+            document.body.appendChild(indicator);
+
+            // Animate in
+            requestAnimationFrame(() => {
+                indicator.classList.add('visible');
+            });
+
+            // Remove after delay
+            setTimeout(() => {
+                indicator.classList.remove('visible');
+                setTimeout(() => indicator.remove(), 300);
+            }, 1200);
         },
 
         /**

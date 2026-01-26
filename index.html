@@ -15,9 +15,11 @@
     <link rel="stylesheet" href="./styles/markdown-viewer.css">
     <link rel="stylesheet" href="./styles/artwork.css">
     <link rel="stylesheet" href="./styles/methodology.css">
+    <link rel="stylesheet" href="./styles/console-theme.css">
     <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="stylesheet" href="./styles/fix-desktop-nav.css">
     <link rel="stylesheet" href="./styles/infographics.css">
+    <link rel="stylesheet" href="./styles/diagrams.css">
     <link rel="stylesheet" href="./styles/floating-nav.css">
 </head>
 <body>
@@ -84,8 +86,14 @@
 
     <a href="#" class="back-to-top">↑</a>
 
+    <!-- Diagram Renderer (must load before infographics) -->
+    <script src="./scripts/diagram-renderer.js"></script>
+
     <!-- Infographics Toggle (must load before section-loader) -->
     <script src="./scripts/infographics-toggle.js"></script>
+
+    <!-- Visual Interactions (sliders, expandables) -->
+    <script src="./scripts/visual-interactions.js"></script>
 
     <!-- Floating Navigation -->
     <script src="./scripts/floating-nav.js"></script>

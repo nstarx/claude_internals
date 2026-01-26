@@ -15,8 +15,33 @@
     <link rel="stylesheet" href="./styles/artwork.css">
     <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="stylesheet" href="./styles/fix-desktop-nav.css">
+    <link rel="stylesheet" href="./styles/page-transitions.css">
+    <link rel="stylesheet" href="./styles/view-mode.css">
 </head>
-<body>
+<body class="has-global-nav">
+    <!-- Global Navigation Bar -->
+    <div class="global-nav">
+        <div class="global-nav-container">
+            <div class="global-nav-breadcrumb">
+                <a href="index.html">
+                    <i class="pi pi-home"></i>
+                    Strategic Context Management
+                </a>
+            </div>
+            <div class="global-nav-tabs">
+                <a href="index.html" class="global-nav-tab active">
+                    <i class="pi pi-list"></i>
+                    <span>Documentation</span>
+                </a>
+                <a href="guides.html" class="global-nav-tab">
+                    <i class="pi pi-book"></i>
+                    <span>Guides</span>
+                    <span class="badge">New</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- OPUS 4.5 UPDATE BANNER - Very prominent -->
     <div class="opus-update-banner">
         <div class="container">
@@ -121,5 +146,11 @@
     <script src="./scripts/simulators/memory-simulator.js"></script>
     <script src="./scripts/simulators/cognitive-load.js"></script>
     <script src="./scripts/simulators/decay-simulator.js"></script>
+
+    <!-- View Mode Toggle -->
+    <script src="./scripts/view-mode-toggle.js"></script>
+
+    <!-- Page Transitions (must be loaded last) -->
+    <script src="./scripts/page-transitions.js"></script>
 </body>
 </html>

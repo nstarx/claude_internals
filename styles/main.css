@@ -15,32 +15,47 @@
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-    /* Color Palette - Primary */
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
+    /* ═══════════════════════════════════════════════════════════════
+       STRICT 5-COLOR PALETTE - Visual Mode Redesign
+       ═══════════════════════════════════════════════════════════════ */
 
-    /* Color Palette - Semantic */
-    --success-color: #27ae60;
-    --warning-color: #f39c12;
-    --danger-color: #e74c3c;
-    --info-color: #3498db;
+    /* Core Palette (DO NOT ADD MORE) */
+    --color-primary: #1e293b;      /* Slate 800 - Text, headers */
+    --color-secondary: #3b82f6;    /* Blue 500 - Interactive, links */
+    --color-accent: #10b981;       /* Emerald 500 - Success, highlights */
+    --color-background: #f8fafc;   /* Slate 50 - Page background */
+    --color-surface: #ffffff;      /* White - Cards, surfaces */
+    --color-border: #e2e8f0;       /* Slate 200 - Subtle borders */
+
+    /* Derived Colors (from core palette only) */
+    --color-text: var(--color-primary);
+    --color-text-muted: #64748b;   /* Slate 500 - Secondary text */
+    --color-text-inverse: #ffffff;
+
+    /* Legacy mappings (for backward compatibility) */
+    --primary-color: var(--color-primary);
+    --secondary-color: var(--color-secondary);
+    --accent-color: var(--color-accent);
+    --success-color: var(--color-accent);
+    --warning-color: #f59e0b;      /* Amber - only for warnings */
+    --danger-color: #ef4444;       /* Red - only for errors */
+    --info-color: var(--color-secondary);
 
     /* Background Colors */
-    --bg-color: #ecf0f1;
-    --bg-secondary: #f8f9fa;
-    --card-bg: #ffffff;
-    --code-bg: #f8f9fa;
+    --bg-color: var(--color-background);
+    --bg-secondary: var(--color-background);
+    --card-bg: var(--color-surface);
+    --code-bg: var(--color-background);
 
     /* Border Colors */
-    --border-color: #dee2e6;
-    --border-light: #e9ecef;
+    --border-color: var(--color-border);
+    --border-light: var(--color-border);
 
     /* Text Colors */
-    --text-color: #2c3e50;
-    --text-muted: #6c757d;
-    --text-light: #95a5a6;
-    --text-inverse: #ffffff;
+    --text-color: var(--color-text);
+    --text-muted: var(--color-text-muted);
+    --text-light: var(--color-text-muted);
+    --text-inverse: var(--color-text-inverse);
 
     /* Typography Scale (Major Third - 1.250) */
     --font-size-xs: 0.75rem;      /* 12px */

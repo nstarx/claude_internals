@@ -1,0 +1,399 @@
+/**
+ * View Mode Toggle Styles
+ * Text Mode vs Visual Mode presentation
+ *
+ * Text Mode: Full documentation, detailed reading
+ * Visual Mode: Emphasis on diagrams, cards, compact text
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   TOGGLE BUTTON
+   ═══════════════════════════════════════════════════════════════ */
+
+.view-mode-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-left: auto;
+}
+
+.view-mode-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-inverse);
+}
+
+.view-mode-toggle:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.view-mode-toggle.visual-active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.view-mode-icon {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+}
+
+.view-mode-label {
+    display: none;
+}
+
+.view-mode-shortcut {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+    font-size: 10px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+}
+
+.visual-active .view-mode-shortcut {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Show label on larger screens */
+@media (min-width: 768px) {
+    .view-mode-label {
+        display: inline;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODE INDICATOR (Shows briefly on toggle)
+   ═══════════════════════════════════════════════════════════════ */
+
+.view-mode-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    z-index: calc(var(--z-modal) + 10);
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    padding: var(--space-5) var(--space-6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    pointer-events: none;
+}
+
+.view-mode-indicator.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.indicator-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.indicator-icon {
+    font-size: var(--font-size-2xl);
+    opacity: 0.9;
+}
+
+.indicator-text {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TEXT MODE (Default)
+   Full documentation, detailed reading experience
+   ═══════════════════════════════════════════════════════════════ */
+
+.view-mode-text {
+    /* Default styles - no changes needed */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   VISUAL MODE
+   Emphasis on diagrams, cards, compact presentation
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Body adjustments */
+.view-mode-visual {
+    --font-size-base: 0.9375rem; /* Slightly smaller base text */
+}
+
+/* Paragraphs: more compact in visual mode */
+.view-mode-visual p {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-2);
+}
+
+/* Long text blocks: summarize/collapse */
+.view-mode-visual .text-content,
+.view-mode-visual .explanation,
+.view-mode-visual section > p {
+    max-height: 6em;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+/* Show "Read more" indicator */
+.view-mode-visual .text-content::after,
+.view-mode-visual .explanation::after {
+    content: 'Press V for full text';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    padding: var(--space-1);
+    background: linear-gradient(to bottom, transparent, var(--bg-color));
+}
+
+/* Cards: more prominent */
+.view-mode-visual .card,
+.view-mode-visual .info-box,
+.view-mode-visual .warning-box,
+.view-mode-visual .success-box,
+.view-mode-visual .error-box {
+    box-shadow: var(--shadow-md);
+    transform: scale(1.01);
+}
+
+/* Diagrams and code blocks: larger */
+.view-mode-visual pre,
+.view-mode-visual .diagram {
+    font-size: 1em;
+    padding: var(--space-5);
+    margin: var(--space-5) calc(var(--space-4) * -1);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+/* Tables: more visual emphasis */
+.view-mode-visual table {
+    font-size: var(--font-size-sm);
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+}
+
+.view-mode-visual th {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+}
+
+/* Grids: tighter layout for more visual density */
+.view-mode-visual .grid,
+.view-mode-visual .scenario-grid {
+    gap: var(--space-3);
+}
+
+/* Headings: more compact */
+.view-mode-visual h2 {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-3);
+}
+
+.view-mode-visual h3 {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+}
+
+/* Simulators: expanded in visual mode */
+.view-mode-visual .simulator-card {
+    box-shadow: var(--shadow-lg);
+}
+
+.view-mode-visual .simulators-section {
+    padding: var(--space-8) 0;
+    margin: var(--space-5) calc(var(--space-6) * -1);
+}
+
+/* Lists: more compact */
+.view-mode-visual ul,
+.view-mode-visual ol {
+    margin-bottom: var(--space-2);
+}
+
+.view-mode-visual li {
+    margin-bottom: var(--space-1);
+}
+
+/* Badges: slightly larger for visibility */
+.view-mode-visual .badge {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) var(--space-2);
+}
+
+/* Workflow steps: card-like in visual mode */
+.view-mode-visual .workflow-step {
+    background: var(--card-bg);
+    padding: var(--space-3);
+    margin: var(--space-2) 0;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent-color);
+}
+
+/* Metric cards: more prominent */
+.view-mode-visual .metric-card {
+    padding: var(--space-4);
+    box-shadow: var(--shadow-md);
+}
+
+.view-mode-visual .metric-value {
+    font-size: var(--font-size-3xl);
+}
+
+/* Formula displays: enhanced */
+.view-mode-visual .formula-display,
+.view-mode-visual .formula-code {
+    font-size: var(--font-size-lg);
+    padding: var(--space-4);
+}
+
+/* Nav: collapsible by default in visual mode */
+.view-mode-visual nav:not(:hover):not(:focus-within) {
+    max-width: fit-content;
+}
+
+.view-mode-visual nav:not(:hover):not(:focus-within) ul {
+    display: none;
+}
+
+.view-mode-visual nav:not(:hover):not(:focus-within) h2::after {
+    transform: rotate(-90deg);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   VISUAL-ONLY AND TEXT-ONLY CONTENT MARKERS
+   Use these classes to show/hide content based on mode
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Content only shown in visual mode */
+.visual-only {
+    display: none;
+}
+
+.view-mode-visual .visual-only {
+    display: block;
+}
+
+/* Content only shown in text mode */
+.text-only {
+    display: block;
+}
+
+.view-mode-visual .text-only {
+    display: none;
+}
+
+/* Inline variants */
+.visual-only-inline {
+    display: none;
+}
+
+.view-mode-visual .visual-only-inline {
+    display: inline;
+}
+
+.text-only-inline {
+    display: inline;
+}
+
+.view-mode-visual .text-only-inline {
+    display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE ADJUSTMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .view-mode-toggle {
+        padding: var(--space-1) var(--space-2);
+    }
+
+    .view-mode-shortcut {
+        display: none;
+    }
+
+    .view-mode-indicator {
+        padding: var(--space-4);
+    }
+
+    .indicator-icon {
+        font-size: var(--font-size-xl);
+    }
+
+    .indicator-text {
+        font-size: var(--font-size-base);
+    }
+
+    /* Visual mode less aggressive on mobile */
+    .view-mode-visual pre,
+    .view-mode-visual .diagram {
+        margin: var(--space-3) 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+    .view-mode-indicator {
+        transition: opacity 0.1s;
+        transform: translate(-50%, -50%);
+    }
+
+    .view-mode-indicator.visible {
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRINT: Always use text mode
+   ═══════════════════════════════════════════════════════════════ */
+
+@media print {
+    .view-mode-toggle,
+    .view-mode-indicator {
+        display: none !important;
+    }
+
+    .visual-only {
+        display: none !important;
+    }
+
+    .text-only {
+        display: block !important;
+    }
+}

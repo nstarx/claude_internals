@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./styles/navigation.css">
     <link rel="stylesheet" href="./styles/markdown.css">
     <link rel="stylesheet" href="./styles/responsive.css">
+    <link rel="stylesheet" href="./styles/page-transitions.css">
+    <link rel="stylesheet" href="./styles/view-mode.css">
 
     <!-- Marked.js for Markdown rendering -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -20,7 +22,7 @@
         /* Guide-specific styles */
         .guide-nav {
             position: sticky;
-            top: 20px;
+            top: 72px; /* Account for global nav (52px) + padding */
             background: var(--card-bg);
             padding: var(--space-4);
             border-radius: var(--radius-lg);
@@ -135,18 +137,60 @@
         }
     </style>
 </head>
-<body>
+<body class="has-global-nav">
+    <!-- Global Navigation Bar -->
+    <div class="global-nav">
+        <div class="global-nav-container">
+            <div class="global-nav-breadcrumb">
+                <a href="index.html">
+                    <i class="pi pi-home"></i>
+                    Strategic Context Management
+                </a>
+                <span class="separator"><i class="pi pi-angle-right"></i></span>
+                <span class="current-page">
+                    <i class="pi pi-book"></i>
+                    Guides
+                </span>
+            </div>
+            <div class="global-nav-tabs">
+                <a href="index.html" class="global-nav-tab">
+                    <i class="pi pi-list"></i>
+                    <span>Documentation</span>
+                </a>
+                <a href="guides.html" class="global-nav-tab active">
+                    <i class="pi pi-book"></i>
+                    <span>Guides</span>
+                    <span class="badge">New</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <h1>Claude Code Guides</h1>
             <p class="subtitle">Documentation updated for Claude Opus 4.5 - December 2025</p>
-            <nav class="breadcrumb">
-                <a href="index.html">Home</a> / <span>Guides</span>
-            </nav>
         </div>
     </header>
 
     <div class="container">
+        <!-- Back to Documentation Link -->
+        <a href="index.html" class="back-to-sections">
+            <i class="pi pi-arrow-left"></i>
+            Back to Documentation
+        </a>
+
+        <!-- Location Indicator -->
+        <div class="location-indicator">
+            <div class="location-indicator-icon">
+                <i class="pi pi-book"></i>
+            </div>
+            <div class="location-indicator-text">
+                <div class="location-indicator-title">You are viewing</div>
+                <div class="location-indicator-current">Opus 4.5 Updated Guides</div>
+            </div>
+        </div>
+
         <!-- Guide Navigation -->
         <div class="guide-nav">
             <h3><i class="pi pi-book"></i> Select Guide</h3>
@@ -175,11 +219,10 @@
         <div class="container">
             <p>Strategic Context Management Documentation</p>
             <p>Part of the SuperClaude Framework</p>
-            <p><a href="index.html">Back to Main Documentation</a></p>
         </div>
     </footer>
 
-    <a href="#" class="back-to-top">+</a>
+    <a href="#" class="back-to-top"><i class="pi pi-arrow-up"></i></a>
 
     <script>
         // Guide file mapping
@@ -272,5 +315,9 @@
             loadGuide('behavior-issues');
         });
     </script>
+
+    <!-- Page Transitions -->
+    <script src="./scripts/view-mode-toggle.js"></script>
+    <script src="./scripts/page-transitions.js"></script>
 </body>
 </html>
