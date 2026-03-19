@@ -9,7 +9,7 @@
     const CompactSimulator = {
         // Configuration
         config: {
-            maxContext: 200000,
+            maxContext: 1000000,
             autoCompactThreshold: 0.95,
             warningThreshold: 0.75,
             compressionRatio: 0.90, // 90% compression on historical
@@ -91,7 +91,7 @@
                             <div class="context-header">
                                 <span class="context-title">Context Window Usage</span>
                                 <span class="context-stats">
-                                    <span id="total-used">160K</span> / 200K tokens
+                                    <span id="total-used">800K</span> / 1M tokens
                                     (<span id="usage-percent">80%</span>)
                                 </span>
                             </div>

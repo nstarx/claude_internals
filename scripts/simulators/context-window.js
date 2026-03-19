@@ -8,9 +8,9 @@
 
     const ContextWindowVisualizer = {
         // Constants
-        CONTEXT_LIMIT: 200000,
-        BLOCK_SIZE: 5000, // Each block represents 5K tokens
-        MAX_BLOCKS: 40, // 200K / 5K
+        CONTEXT_LIMIT: 1000000,
+        BLOCK_SIZE: 25000, // Each block represents 25K tokens
+        MAX_BLOCKS: 40, // 1M / 25K
 
         blocks: [],
 
@@ -69,12 +69,12 @@
                             <div class="window-header">
                                 <div class="window-info">
                                     <span class="window-label">Context Window</span>
-                                    <span class="window-capacity">200,000 tokens</span>
+                                    <span class="window-capacity">1,000,000 tokens</span>
                                 </div>
                                 <div class="window-stats">
                                     <span id="used-tokens">0</span>
                                     <span class="divider">/</span>
-                                    <span>200K</span>
+                                    <span>1M</span>
                                 </div>
                             </div>
 
@@ -109,7 +109,7 @@
                             </div>
                             <div class="stat-card">
                                 <div class="stat-label">Remaining</div>
-                                <div class="stat-value" id="remaining-tokens">200K</div>
+                                <div class="stat-value" id="remaining-tokens">1M</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-label">Status</div>

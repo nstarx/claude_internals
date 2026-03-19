@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1M Token Context Window: Deep Documentation - Claude Opus 4.6 &amp; Sonnet 4.6</title>
+    <meta name="description" content="Comprehensive documentation on the 1 million token context window for Claude Opus 4.6 and Sonnet 4.6 — covering context degradation, cost analysis, community strategies, and interactive visualizations.">
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/navigation.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+    <link rel="stylesheet" href="./styles/context-window-page.css">
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════════════════ -->
+    <header>
+        <div class="container">
+            <h1>1M Token Context Window</h1>
+            <p class="subtitle">Deep documentation on Anthropic's 1 million token context window for Claude Opus 4.6 and Sonnet 4.6 — architecture, degradation, cost, and strategies</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-value">1,000,000</span>
+                    <span class="stat-label">Tokens</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-value">~750K</span>
+                    <span class="stat-label">Words</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-value">600</span>
+                    <span class="stat-label">Images / PDF Pages</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-value">$0</span>
+                    <span class="stat-label">Long-Context Premium</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             TABLE OF CONTENTS
+             ═══════════════════════════════════════════════════════════════ -->
+        <nav>
+            <h2 class="toc-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+                <span class="toc-text">Table of Contents</span>
+                <i class="pi pi-chevron-down toc-chevron"></i>
+            </h2>
+            <ul class="toc-list">
+                <li><a href="#announcement"><i class="pi pi-megaphone"></i> The Announcement</a></li>
+                <li><a href="#what-is-context"><i class="pi pi-book"></i> What is a Context Window?</a></li>
+                <li><a href="#key-statistics"><i class="pi pi-chart-bar"></i> Key Statistics</a></li>
+                <li><a href="#context-degradation"><i class="pi pi-exclamation-triangle"></i> Context Degradation ("Context Rot")</a></li>
+                <li><a href="#cost-performance"><i class="pi pi-dollar"></i> Cost &amp; Performance Analysis</a></li>
+                <li><a href="#community-strategies"><i class="pi pi-users"></i> Community Strategies &amp; Best Practices</a></li>
+                <li><a href="#claude-code-impact"><i class="pi pi-code"></i> Impact on Claude Code</a></li>
+                <li><a href="#model-comparisons"><i class="pi pi-arrows-h"></i> Model Comparisons</a></li>
+                <li><a href="#community-sentiment"><i class="pi pi-comments"></i> Community Sentiment Analysis</a></li>
+                <li><a href="#interactive-tools"><i class="pi pi-sliders-h"></i> Interactive Visualizations</a></li>
+                <li><a href="#recommendations"><i class="pi pi-check-circle"></i> Recommendations &amp; Conclusion</a></li>
+            </ul>
+        </nav>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 1: THE ANNOUNCEMENT
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="announcement">
+            <h2><i class="pi pi-megaphone"></i> The Announcement</h2>
+
+            <div class="info-box">
+                <strong><i class="pi pi-info-circle"></i> General Availability</strong>
+                <p>Anthropic announced that the <strong>1 million token context window</strong> is now generally available for both <strong>Claude Opus 4.6</strong> and <strong>Claude Sonnet 4.6</strong>. Previously available as a limited beta, the expanded context window is now accessible to all API users and Claude Pro/Max subscribers.</p>
+            </div>
+
+            <p>The announcement carried several landmark details that distinguished it from competing offerings:</p>
+
+            <ul>
+                <li><strong>Standard pricing applies across the full 1M window</strong> — there is no long-context surcharge or premium tier required. Previously, some providers charged 2-4x more for context beyond certain thresholds. Anthropic chose to absorb the cost entirely.</li>
+                <li><strong>Media limits expanded to 600 images or PDF pages</strong> — enabling ingestion of entire codebases, research paper collections, legal document packages, or book-length manuscripts in a single prompt.</li>
+                <li><strong>Applies to both Opus 4.6 and Sonnet 4.6</strong> — the flagship reasoning model and the workhorse coding model both receive the full 1M window, making this a platform-wide upgrade rather than a single-model feature.</li>
+            </ul>
+
+            <h3>Strategic Context</h3>
+            <p>This move is widely interpreted as a competitive response to the broader industry trend toward massive context windows. OpenAI's GPT-4.5 offers a 1M token context, and Google's Gemini models have advertised 1M-2M token windows since mid-2024. However, raw window size alone is insufficient — what matters is how well the model actually <em>uses</em> the full context, a distinction that becomes critically important in the <a href="#context-degradation">Context Degradation</a> section below.</p>
+
+            <p>Anthropic's decision to remove the long-context surcharge is particularly significant for <strong>agentic workloads</strong> like Claude Code, where autonomous coding sessions can easily consume hundreds of thousands of tokens over the course of an investigation. The elimination of the premium makes long sessions financially viable in a way they were not before.</p>
+
+            <div class="community-quote">
+                The removal of the long-context surcharge is arguably a bigger deal than the 1M context itself. It changes the economics of agentic coding entirely.
+                <span class="quote-source">-- Hacker News community discussion</span>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 2: WHAT IS A CONTEXT WINDOW?
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="what-is-context">
+            <h2><i class="pi pi-book"></i> What is a Context Window?</h2>
+
+            <h3>Tokens: The Fundamental Unit</h3>
+            <p>Large language models (LLMs) do not process raw text directly. Instead, text is broken into <strong>tokens</strong> — subword units that typically represent 3-4 characters of English text. A token might be a complete short word ("the", "cat"), a word fragment ("un-", "-tion"), or a single character for rare symbols. On average, <strong>1 token is approximately 0.75 words</strong> in English, or conversely, 1 word is roughly 1.3 tokens.</p>
+
+            <p>The <strong>context window</strong> (also called context length or context size) is the maximum number of tokens a model can process in a single interaction. It includes <em>everything</em>: the system prompt, the user's message, all conversation history, any documents or code included in the prompt, and the model's own output. Think of it as the model's <strong>working memory</strong> — everything it can "see" and reason about at once.</p>
+
+            <div class="info-box">
+                <strong><i class="pi pi-lightbulb"></i> Analogy: Working Memory</strong>
+                <p>A context window is like a desk. A small desk (4K tokens) lets you work with a single page. A large desk (1M tokens) lets you spread out an entire filing cabinet. But just because you <em>can</em> spread out 3,000 pages doesn't mean you'll remember the detail on page 1,487 while writing on page 2,903. The quality of attention across that desk matters enormously.</p>
+            </div>
+
+            <h3>Historical Progression of Context Windows</h3>
+            <p>Context windows have grown exponentially over just a few years:</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content"><strong>4,096 tokens</strong> — GPT-3.5 launch. Roughly 3,000 words. Enough for a short conversation or a few pages of text. Multi-turn conversations would quickly overflow.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">Early 2023</div>
+                    <div class="timeline-content"><strong>8,192 tokens</strong> — GPT-4 initial release. Doubled capacity enabled more complex reasoning chains, but still limited for document analysis.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">Mid 2023</div>
+                    <div class="timeline-content"><strong>32,768 tokens</strong> — GPT-4-32K variant. A major step allowing ingestion of full research papers or medium-sized codebases.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">Late 2023</div>
+                    <div class="timeline-content"><strong>100,000 tokens</strong> — Claude 2 introduced the 100K window, a 12x leap over GPT-4 base. Anthropic pioneered the idea that "you can just put the entire codebase in the prompt."</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">Early 2024</div>
+                    <div class="timeline-content"><strong>200,000 tokens</strong> — Claude 3 launched with 200K context across all model tiers. Google countered with Gemini 1.5 Pro at 1M tokens (limited availability).</div>
+                </div>
+                <div class="timeline-item current">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2025-2026</div>
+                    <div class="timeline-content"><strong>1,000,000 tokens</strong> — Claude Opus 4.6 and Sonnet 4.6. Generally available. Standard pricing. 750,000 words or approximately 3,000 pages of text in a single prompt.</div>
+                </div>
+            </div>
+
+            <h3>Why Larger Context Matters</h3>
+            <p>Different use cases require different context sizes:</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Use Case</th>
+                            <th>Typical Tokens Needed</th>
+                            <th>Why It Matters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Simple Q&A</td>
+                            <td>1K - 5K</td>
+                            <td>Any model handles this. Context size irrelevant.</td>
+                        </tr>
+                        <tr>
+                            <td>Document summarization</td>
+                            <td>10K - 50K</td>
+                            <td>Full papers, contracts, or reports in one pass.</td>
+                        </tr>
+                        <tr>
+                            <td>Codebase analysis</td>
+                            <td>50K - 200K</td>
+                            <td>Understanding cross-file dependencies, refactoring patterns.</td>
+                        </tr>
+                        <tr>
+                            <td>Agentic coding sessions</td>
+                            <td>100K - 500K</td>
+                            <td>Multi-step investigations accumulate tool calls, file reads, and reasoning.</td>
+                        </tr>
+                        <tr>
+                            <td>Book-length analysis</td>
+                            <td>200K - 800K</td>
+                            <td>Analyzing entire novels, legislation, or patent portfolios.</td>
+                        </tr>
+                        <tr>
+                            <td>Full repository + history</td>
+                            <td>500K - 1M</td>
+                            <td>Large monorepo analysis with git history and documentation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="warning-box">
+                <strong><i class="pi pi-exclamation-triangle"></i> Critical Caveat</strong>
+                <p>A larger context window does not automatically mean better results. As documented extensively in the <a href="#context-degradation">Context Degradation</a> section, models exhibit significant quality loss as context fills up. The 1M window is best understood as a maximum capacity, not an optimal operating point.</p>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 3: KEY STATISTICS
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="key-statistics">
+            <h2><i class="pi pi-chart-bar"></i> Key Statistics</h2>
+
+            <div class="key-figures">
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-server"></i></div>
+                    <span class="figure-number">1,000,000</span>
+                    <div class="figure-label">Token Context Window</div>
+                </div>
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-dollar"></i></div>
+                    <span class="figure-number">$0</span>
+                    <div class="figure-label">Long-Context Premium</div>
+                </div>
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-image"></i></div>
+                    <span class="figure-number">600</span>
+                    <div class="figure-label">Max Images / PDF Pages</div>
+                </div>
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-file"></i></div>
+                    <span class="figure-number">~3,000</span>
+                    <div class="figure-label">Pages of Text</div>
+                </div>
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-pencil"></i></div>
+                    <span class="figure-number">~750K</span>
+                    <div class="figure-label">Words Equivalent</div>
+                </div>
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-bolt"></i></div>
+                    <span class="figure-number">5x</span>
+                    <div class="figure-label">Increase from 200K</div>
+                </div>
+            </div>
+
+            <h3>What 1M Tokens Looks Like in Practice</h3>
+            <ul>
+                <li><strong>Entire codebases:</strong> A typical medium-to-large project (50,000-100,000 lines of code) fits comfortably within 1M tokens, including comments, tests, and configuration files.</li>
+                <li><strong>Book collections:</strong> Approximately 5-6 full novels or 10-15 non-fiction books depending on length.</li>
+                <li><strong>Legal documents:</strong> An entire merger agreement package (main agreement + schedules + exhibits) typically runs 200K-400K tokens.</li>
+                <li><strong>Research papers:</strong> 50-100 academic papers including figures and references.</li>
+                <li><strong>Conversation history:</strong> Approximately 500-1,000 back-and-forth exchanges in a coding session, including tool calls and file reads.</li>
+            </ul>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 4: CONTEXT DEGRADATION
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="context-degradation">
+            <h2><i class="pi pi-exclamation-triangle"></i> Context Degradation ("Context Rot")</h2>
+
+            <div class="error-box">
+                <strong><i class="pi pi-exclamation-circle"></i> The Most Important Section</strong>
+                <p>This is the most critical topic in the entire 1M context discussion. A larger context window is only valuable if the model can actually attend to and reason about its contents. Research and practical experience demonstrate significant degradation as context fills up.</p>
+            </div>
+
+            <h3>The "Lost in the Middle" Phenomenon</h3>
+
+            <p>The <strong>"Lost in the Middle"</strong> phenomenon, first documented in a landmark 2023 paper by Liu et al. (Stanford/UC Berkeley), describes a fundamental limitation of transformer-based language models: they attend most strongly to information at the <strong>beginning</strong> and <strong>end</strong> of their context window, while progressively <strong>ignoring information in the middle</strong>.</p>
+
+            <h4>Why This Happens: Attention Mechanics</h4>
+            <p>Transformer models use a mechanism called <strong>self-attention</strong> to determine which tokens in the context are relevant to generating the next token. The attention weights form a distribution across all input tokens, and empirical analysis shows this distribution is not uniform:</p>
+
+            <ul>
+                <li><strong>Primacy bias:</strong> The first tokens in context (system prompt, initial instructions) receive disproportionately high attention. This is partly because early tokens set the "framing" that all subsequent tokens are interpreted against.</li>
+                <li><strong>Recency bias:</strong> The most recent tokens (the current question, the last few exchanges) also receive strong attention, as they represent the most immediately relevant context for generation.</li>
+                <li><strong>Middle neglect:</strong> Tokens in the middle of a long context — which in a coding session might include file reads from 200 exchanges ago — receive progressively less attention. They are not forgotten entirely, but the model's ability to recall specific details from this region is measurably degraded.</li>
+            </ul>
+
+            <div class="info-box">
+                <strong><i class="pi pi-info-circle"></i> Attention Map Visualization</strong>
+                <p>The grid below shows a simplified attention distribution across the context window. Green cells indicate high attention; gray cells indicate low attention. Use the slider to see how the "middle dead zone" expands as context fills up.</p>
+            </div>
+
+            <div class="attention-map-container">
+                <div class="slider-group">
+                    <label>
+                        Context Utilization:
+                        <span class="slider-value" id="attention-slider-value">20%</span>
+                    </label>
+                    <input type="range" id="attention-slider" min="0" max="100" value="20" step="1">
+                </div>
+                <div class="attention-map-grid" id="attention-map-grid"></div>
+                <div class="attention-labels">
+                    <span>Start of context</span>
+                    <span>Middle</span>
+                    <span>End of context</span>
+                </div>
+                <div class="attention-legend">
+                    <div class="legend-item">
+                        <div class="legend-swatch" style="background: #10b981;"></div>
+                        <span>High attention</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-swatch" style="background: #94a3b8;"></div>
+                        <span>Medium attention</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-swatch" style="background: #c8ced2;"></div>
+                        <span>Low attention</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>The "Dumb Zone" Phenomenon</h3>
+
+            <p>Beyond the academic "Lost in the Middle" research, practitioners have identified a broader pattern called the <strong>"Dumb Zone"</strong> — a noticeable drop in overall model intelligence (not just recall) once context exceeds certain thresholds.</p>
+
+            <h4>Key Research: The RPI Framework</h4>
+            <p><strong>Dex Horthy</strong> published influential research suggesting that model performance begins to degrade meaningfully once <strong>context utilization exceeds approximately 40%</strong> of the window. For a 200K window, this means quality starts declining around 80K tokens. For a 1M window, the threshold is roughly 400K tokens.</p>
+
+            <p>Horthy proposed the <strong>RPI Framework</strong> (Research, Plan, Implement) as a mitigation strategy — a disciplined workflow that involves frequent <strong>intentional compaction</strong> to keep context lean rather than letting it grow unchecked. The framework is detailed in the <a href="#community-strategies">Community Strategies</a> section.</p>
+
+            <div class="warning-box">
+                <strong><i class="pi pi-exclamation-triangle"></i> Critical Insight: Degradation Depends on Tokens, Not Window Size</strong>
+                <p>A crucial finding: degradation is determined by <strong>how many tokens have been consumed</strong>, not by the size of the window. 90,000 tokens consumed produces the same quality degradation whether you are in a 100K window or a 1M window. The larger window gives you more room, but it does not make the model smarter at any given fill level.</p>
+            </div>
+
+            <h4>Degradation Zones</h4>
+            <p>Based on community observations and testing, context can be roughly divided into three quality zones:</p>
+
+            <div class="degradation-zones">
+                <div class="zone zone-safe"><span class="zone-label">Safe Zone (0-40%)</span></div>
+                <div class="zone zone-caution"><span class="zone-label">Caution (40-70%)</span></div>
+                <div class="zone zone-danger"><span class="zone-label">Danger (70-100%)</span></div>
+            </div>
+            <div class="zone-markers">
+                <span>0K</span>
+                <span>200K</span>
+                <span>400K</span>
+                <span>600K</span>
+                <span>800K</span>
+                <span>1M</span>
+            </div>
+
+            <h4>Debate: Has the Dumb Zone Been Fixed?</h4>
+            <p>The community remains divided on whether recent model updates have addressed the dumb zone:</p>
+
+            <div class="grid">
+                <div class="card card-success">
+                    <h4><i class="pi pi-check-circle"></i> Improvements Reported</h4>
+                    <ul>
+                        <li>Some users report that <strong>Codex 5.2</strong> effectively eliminated the dumb zone, maintaining coherence well past 400K tokens.</li>
+                        <li><strong>Opus extended thinking mode</strong> appears to help the model maintain reasoning quality at higher context utilization.</li>
+                        <li>Anthropic has reportedly improved internal attention mechanisms in the Opus 4.x series specifically for long-context scenarios.</li>
+                    </ul>
+                </div>
+                <div class="card card-warning">
+                    <h4><i class="pi pi-question-circle"></i> Skeptics Remain</h4>
+                    <ul>
+                        <li>Others report seeing the same degradation patterns in Opus 4.6 as in earlier models.</li>
+                        <li>Non-coding tasks (creative writing, analysis) may degrade faster than coding tasks due to less structured context.</li>
+                        <li>The "needle in a haystack" benchmarks used to test context may not capture real-world degradation patterns.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Practical Degradation Observations</h3>
+
+            <p>Reports from Hacker News and the Claude community paint a nuanced picture:</p>
+
+            <div class="community-quote">
+                Things work remarkably well up to about 700K tokens. After that, quality drops off a cliff. It's not gradual — it's like the model suddenly can't keep track of what it was doing.
+                <span class="quote-source">-- HN user, Claude Code discussion thread</span>
+            </div>
+
+            <div class="community-quote">
+                Even at 200K context, Claude starts producing gibberish for complex non-coding tasks. I was doing a long legal analysis and by 150K tokens it was contradicting its own earlier conclusions.
+                <span class="quote-source">-- HN user, long-context experience thread</span>
+            </div>
+
+            <div class="community-quote">
+                Context decay happens at the same rate regardless of window size. A 1M window just means you can decay for longer before hitting the wall.
+                <span class="quote-source">-- HN user, context window discussion</span>
+            </div>
+
+            <h3>Compaction: The Double-Edged Sword</h3>
+
+            <p><strong>Compaction</strong> (also called context summarization or context pruning) is the process by which a model or tool summarizes older conversation history to free up context space. It is the primary mechanism for extending sessions beyond the context limit, but it comes with significant trade-offs.</p>
+
+            <h4>The Compaction Problem</h4>
+            <ul>
+                <li><strong>Loss of nuance:</strong> Compaction necessarily discards detail. Subtle debugging observations, edge case notes, or architectural reasoning may be summarized away, leading the model to repeat previously-explored dead ends.</li>
+                <li><strong>Timing friction:</strong> With the old 200K window, compaction triggered "when things were just getting good" — at the point where the model had finally accumulated enough context to understand the problem deeply, it would be forced to forget most of it.</li>
+                <li><strong>Loop induction:</strong> Poor compaction can cause the model to forget that it already tried a particular approach, leading to frustrating debugging loops.</li>
+                <li><strong>Variable quality:</strong> Some users report that Claude's compaction quality improved significantly approximately 2 months prior to the 1M announcement. Others report the opposite — that compaction "drops everything useful and keeps the boilerplate."</li>
+            </ul>
+
+            <div class="grid">
+                <div class="card card-success">
+                    <h4><i class="pi pi-thumbs-up"></i> 1M Context Helps Compaction</h4>
+                    <p>The 1M window means compaction triggers far less frequently. Many coding sessions complete entirely within 400-700K tokens, avoiding compaction altogether. When compaction does trigger, there is more room for a generous summary.</p>
+                </div>
+                <div class="card card-danger">
+                    <h4><i class="pi pi-thumbs-down"></i> 1M Context Does Not Fix Compaction</h4>
+                    <p>For truly long sessions (multi-hour autonomous coding), even 1M tokens will eventually be consumed. The compaction quality issue remains, just deferred. Additionally, the cost of operating at 700K+ tokens is substantial (see <a href="#cost-performance">Cost Analysis</a>).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 5: COST & PERFORMANCE
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="cost-performance">
+            <h2><i class="pi pi-dollar"></i> Cost &amp; Performance Analysis</h2>
+
+            <p>While the removal of the long-context premium is welcome, operating at high context utilization remains expensive simply due to the volume of tokens being processed.</p>
+
+            <h3>Opus 4.6 Pricing Breakdown</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Rate</th>
+                            <th>At 700K Context</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Input tokens</td>
+                            <td>$15.00 / 1M tokens</td>
+                            <td>$10.50 per call</td>
+                        </tr>
+                        <tr>
+                            <td>Cache reads</td>
+                            <td>$1.50 / 1M tokens</td>
+                            <td>$1.05 per call</td>
+                        </tr>
+                        <tr>
+                            <td>Output tokens</td>
+                            <td>$75.00 / 1M tokens</td>
+                            <td>$0.30 per call (4K output)</td>
+                        </tr>
+                        <tr>
+                            <td>Cache writes</td>
+                            <td>$18.75 / 1M tokens</td>
+                            <td>$13.13 (first call only)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>Practical Cost Scenarios</h4>
+
+            <div class="key-figures">
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-wrench"></i></div>
+                    <span class="figure-number">~$1</span>
+                    <div class="figure-label">Per tool call at 700K (cache reads)</div>
+                </div>
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-replay"></i></div>
+                    <span class="figure-number">$100+</span>
+                    <div class="figure-label">100 tool calls at 700K</div>
+                </div>
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-chart-line"></i></div>
+                    <span class="figure-number">8x</span>
+                    <div class="figure-label">Cost of 800K vs 100K call</div>
+                </div>
+                <div class="key-figure">
+                    <div class="figure-icon"><i class="pi pi-clock"></i></div>
+                    <span class="figure-number">$500-1K</span>
+                    <div class="figure-label">Long autonomous session cost</div>
+                </div>
+            </div>
+
+            <h3>Cache Reads Clarification</h3>
+            <div class="info-box">
+                <strong><i class="pi pi-info-circle"></i> Important: Cache Reads vs. Input Tokens</strong>
+                <p>There has been confusion in the community about whether cache reads count as "paid input tokens." Per Anthropic's prompt caching documentation: <strong>cache reads are charged at a reduced rate</strong> ($1.50/1M for Opus vs. $15.00/1M for uncached input). This represents a 90% discount. In agentic workflows where the same large context is reused across many tool calls, the majority of context hits the cache, making the effective per-call cost much lower than the raw input rate.</p>
+                <p>However, even at the cache rate, 700K tokens per call at $1.50/1M = <strong>$1.05 per call</strong>. Over 100 tool calls in a session, that is still $105 in cache reads alone, before accounting for output tokens.</p>
+            </div>
+
+            <h3>Subscription Impact: Claude Max</h3>
+            <p>For Claude Max subscribers using Claude Code, the 1M context window burns through subscription usage rapidly. Reports indicate:</p>
+            <ul>
+                <li>Sessions at high context utilization can exhaust daily limits in 1-2 hours of active use.</li>
+                <li>Response times reportedly reached <strong>approximately 1 hour per prompt</strong> for some users at very high context utilization, though this appears to be an edge case related to server load rather than a consistent issue.</li>
+                <li>The cost efficiency of the Max subscription becomes questionable when operating consistently above 500K tokens, as the per-token equivalent cost may exceed API rates.</li>
+            </ul>
+
+            <h3>The Linear Cost Problem</h3>
+            <p>Unlike many computational costs that benefit from economies of scale, LLM context costs scale <strong>linearly</strong> with size. An 800K token call costs exactly 8x what a 100K token call costs. There is no volume discount within a single call. This makes the economic argument for disciplined context management compelling: keeping context at 100-200K tokens through strategic trimming can reduce costs by 4-8x compared to letting context grow to fill the window.</p>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 6: COMMUNITY STRATEGIES
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="community-strategies">
+            <h2><i class="pi pi-users"></i> Community Strategies &amp; Best Practices</h2>
+
+            <p>The developer community has developed sophisticated strategies for working effectively with large context windows. These approaches recognize that the best use of a 1M window is often to <em>not</em> fill it all at once.</p>
+
+            <h3>Code Mapping Approach</h3>
+            <p>Developer <strong>jeremychone</strong> popularized a code mapping strategy that dramatically reduces context requirements through intelligent summarization:</p>
+
+            <div class="simulator-panel">
+                <h4><i class="pi pi-map"></i> Code Map Structure (Per File)</h4>
+                <pre><code># module/auth/handler.rs
+
+## Summary
+Handles HTTP authentication requests including login,
+logout, and token refresh endpoints.
+
+## When to Use
+Reference this file when working on authentication
+flows, session management, or JWT token handling.
+
+## Public Types
+- AuthRequest { username: String, password: String }
+- AuthResponse { token: String, expires_at: DateTime }
+- AuthError { code: u16, message: String }
+
+## Public Functions
+- handle_login(req: AuthRequest) -> Result&lt;AuthResponse&gt;
+- handle_logout(token: &str) -> Result&lt;()&gt;
+- refresh_token(token: &str) -> Result&lt;AuthResponse&gt;
+- validate_token(token: &str) -> Result&lt;Claims&gt;</code></pre>
+            </div>
+
+            <div class="success-box">
+                <strong><i class="pi pi-check-circle"></i> Results: 98% Context Reduction</strong>
+                <p>This approach reduced <strong>381 context files (1.62 MB)</strong> to <strong>5 files (27.90 KB)</strong> — a <strong>98% reduction</strong>. Typical context usage dropped to <strong>30-80K tokens</strong> even for large codebases. The code maps use pure markdown formatting, which LLMs interpret naturally without requiring any sed/grep tooling.</p>
+            </div>
+
+            <h3>The RPI Framework</h3>
+            <p>Dex Horthy's <strong>Research, Plan, Implement</strong> framework structures AI-assisted development into distinct phases with intentional context boundaries:</p>
+
+            <div class="strategy-cards">
+                <div class="strategy-card">
+                    <div class="card-icon"><i class="pi pi-search"></i></div>
+                    <h4>1. Research Phase</h4>
+                    <p>The AI scans relevant files, reads documentation, and builds an understanding of the problem space. This is where context accumulates most rapidly.</p>
+                    <ul>
+                        <li>Scan project structure</li>
+                        <li>Read relevant source files</li>
+                        <li>Identify dependencies and patterns</li>
+                        <li>Note potential issues and edge cases</li>
+                    </ul>
+                </div>
+                <div class="strategy-card accent">
+                    <div class="card-icon"><i class="pi pi-list"></i></div>
+                    <h4>2. Plan Phase</h4>
+                    <p>Findings are documented in a detailed, step-by-step plan file (<code>PLAN.md</code>). This serves as the "external memory" that survives context clearing.</p>
+                    <ul>
+                        <li>Write detailed implementation steps</li>
+                        <li>Document architectural decisions</li>
+                        <li>List files to modify and changes needed</li>
+                        <li>Include edge cases and testing criteria</li>
+                    </ul>
+                </div>
+                <div class="strategy-card">
+                    <div class="card-icon"><i class="pi pi-code"></i></div>
+                    <h4>3. Implement Phase</h4>
+                    <p><strong>Clear context</strong>, then start a fresh session with only the plan file. The AI implements each step with a clean, undegraded context.</p>
+                    <ul>
+                        <li>Start fresh session</li>
+                        <li>Load only PLAN.md</li>
+                        <li>Implement step by step</li>
+                        <li>Keep context lean and focused</li>
+                    </ul>
+                </div>
+                <div class="strategy-card accent">
+                    <div class="card-icon"><i class="pi pi-eye"></i></div>
+                    <h4>4. Reflect Phase</h4>
+                    <p>After implementation, review the work and document learnings. This creates institutional knowledge for future sessions.</p>
+                    <ul>
+                        <li>Review implementation against plan</li>
+                        <li>Document deviations and reasons</li>
+                        <li>Write implementation notes</li>
+                        <li>Commit plans to repository</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Persistent Planning</h3>
+            <p>A broader practice that emerged from the RPI framework involves using persistent plan files as a core part of the development workflow:</p>
+            <ul>
+                <li><strong>Create PLAN.md files</strong> with detailed, numbered implementation steps before writing any code.</li>
+                <li><strong>Clear context before implementation</strong> — start each implementation phase with a fresh, undegraded context.</li>
+                <li><strong>Team reviews on plans</strong> — human developers review the AI-generated plan before the coding phase begins, catching architectural issues early.</li>
+                <li><strong>Commit plans to repository</strong> — plans become part of the project's documentation, providing context for future developers (both human and AI).</li>
+            </ul>
+
+            <h3>Tools &amp; Extensions</h3>
+            <p>Several tools have emerged to help manage context more effectively:</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h4><span class="tool-badge"><i class="pi pi-box"></i> AIPack</span></h4>
+                    <p>A Rust-based runtime with Lua scripting for creating "AI packs" — curated, compressed representations of codebases. Automates the code mapping approach with configurable summarization rules.</p>
+                </div>
+                <div class="card">
+                    <h4><span class="tool-badge"><i class="pi pi-desktop"></i> OpenCode</span></h4>
+                    <p>An open-source alternative to Claude Code with <strong>configurable compaction</strong>. Users can define when and how compaction occurs, set custom summarization prompts, and control what gets preserved versus discarded.</p>
+                </div>
+                <div class="card">
+                    <h4><span class="tool-badge"><i class="pi pi-microsoft"></i> Context Master</span></h4>
+                    <p>A VSCode extension that leverages the <strong>Language Server Protocol (LSP)</strong> to provide intelligent context selection. It understands code structure and can automatically include only the relevant symbols, types, and functions.</p>
+                </div>
+                <div class="card">
+                    <h4><span class="tool-badge"><i class="pi pi-sitemap"></i> maki (Tree-sitter)</span></h4>
+                    <p>Uses <strong>Tree-sitter</strong> AST parsing to create "skeleton" representations of code files — preserving structure (function signatures, type definitions, class hierarchies) while stripping implementation details. Achieves 80-95% compression depending on the language.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 7: IMPACT ON CLAUDE CODE
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="claude-code-impact">
+            <h2><i class="pi pi-code"></i> Impact on Claude Code</h2>
+
+            <p>Claude Code — Anthropic's official CLI tool for AI-assisted software development — is one of the primary beneficiaries of the 1M context window. The tool operates as an autonomous agent, reading files, running commands, and building up context over the course of a session.</p>
+
+            <h3>Why It Matters for Claude Code</h3>
+            <ul>
+                <li><strong>Elimination of the long-context surcharge</strong> is enormous for Claude Code users, where sessions routinely exceed 100K tokens. A typical investigation might involve reading 20+ files, running multiple test commands, and iterating on solutions.</li>
+                <li><strong>Fewer compaction interruptions</strong> mean the model can maintain deeper understanding of the problem throughout a session. With the 200K window, compaction often triggered during complex debugging — precisely when the accumulated context was most valuable.</li>
+                <li><strong>Larger investigations are possible</strong> — cross-cutting concerns that span dozens of files, refactoring tasks that touch the entire codebase, or migration projects that require understanding both old and new patterns simultaneously.</li>
+            </ul>
+
+            <h3>The Gas Tank Analogy</h3>
+
+            <div class="community-quote">
+                It's like having a 60-liter fuel tank versus a 15-liter tank. You don't need 60 liters for most trips. But the range anxiety is gone, and those few times you need to drive 500 km without stopping — that's where it matters.
+                <span class="quote-source">-- Community analogy for 1M context</span>
+            </div>
+
+            <div class="gas-tank-visual">
+                <div class="gas-tank">
+                    <h5>200K Window</h5>
+                    <div class="tank-gauge">
+                        <div class="tank-fill small"></div>
+                    </div>
+                    <div class="tank-label">15L Tank — refuel frequently</div>
+                </div>
+                <div class="gas-tank">
+                    <h5>1M Window</h5>
+                    <div class="tank-gauge">
+                        <div class="tank-fill large"></div>
+                    </div>
+                    <div class="tank-label">60L Tank — long-range capable</div>
+                </div>
+            </div>
+
+            <h3>The Coherence Challenge</h3>
+            <p>Despite the expanded window, the core challenge remains: <strong>the model must maintain coherence after 200K tokens</strong>. Claude Code's effectiveness depends not just on having the context available, but on the model actively using it — remembering file contents it read 300 exchanges ago, maintaining consistency between its plan and its implementation, and not repeating failed approaches.</p>
+
+            <div class="warning-box">
+                <strong><i class="pi pi-exclamation-triangle"></i> Practical Reality</strong>
+                <p>For most Claude Code sessions, the optimal strategy remains keeping context lean (100-200K tokens) through disciplined file reading, clear prompting, and occasional manual compaction. The 1M window provides a safety net for sessions that grow unexpectedly large, but it should not be the target operating point.</p>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 8: MODEL COMPARISONS
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="model-comparisons">
+            <h2><i class="pi pi-arrows-h"></i> Model Comparisons</h2>
+
+            <p>The 1M context landscape includes several competitors, but their real-world performance varies dramatically from their marketed capabilities.</p>
+
+            <div class="table-wrapper">
+                <table class="model-comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Advertised Window</th>
+                            <th>Usable Range</th>
+                            <th>Long-Context Premium</th>
+                            <th>Community Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Claude Opus 4.6</strong></td>
+                            <td>1,000,000</td>
+                            <td>~700K effective</td>
+                            <td><span class="check">None</span></td>
+                            <td><span class="check">Best long-context quality</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Claude Sonnet 4.6</strong></td>
+                            <td>1,000,000</td>
+                            <td>~500-600K effective</td>
+                            <td><span class="check">None</span></td>
+                            <td><span class="check">Best value for long tasks</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>GPT-4.5</strong></td>
+                            <td>1,000,000</td>
+                            <td>~300-400K effective</td>
+                            <td><span class="partial">Tiered pricing</span></td>
+                            <td><span class="partial">Mixed reports</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gemini 2.0 Pro</strong></td>
+                            <td>2,000,000</td>
+                            <td>~200-400K effective</td>
+                            <td><span class="partial">Premium tier</span></td>
+                            <td><span class="cross">Significant degradation</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Codex 5.2</strong></td>
+                            <td>200,000</td>
+                            <td>~150K effective</td>
+                            <td><span class="check">None</span></td>
+                            <td><span class="check">Strong post-compaction</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Community Assessment</h3>
+
+            <div class="community-quote">
+                Opus is the only model that provides real, usable long context. Gemini's 2M context is marketing — try doing a 500K token coding session and watch it forget its own tool calls, loop endlessly, and produce hallucinated file paths.
+                <span class="quote-source">-- Developer experience report, HN thread</span>
+            </div>
+
+            <h4>Notable Comparisons</h4>
+            <ul>
+                <li><strong>Opus vs. Codex 5.2:</strong> Codex reportedly outperforms Opus specifically in <em>post-compaction</em> quality — after context has been summarized, Codex maintains better coherence. However, Opus's larger window means compaction triggers far less frequently, making the comparison nuanced.</li>
+                <li><strong>Opus vs. Gemini:</strong> Despite Gemini's 2M token window, community reports consistently indicate severe degradation at deep context: forgetting tool call results, losing track of conversation flow, and entering loops. The larger number appears to be more of a marketing point than a practical advantage.</li>
+                <li><strong>Opus vs. GPT-4.5:</strong> GPT-4.5's 1M context is competitive but reportedly comes with tiered pricing and less consistent quality at the high end. Some users report GPT-4.5 handles very specific "needle in a haystack" retrieval better, while Opus handles holistic reasoning over large contexts better.</li>
+            </ul>
+
+            <div class="info-box">
+                <strong><i class="pi pi-info-circle"></i> Caveat on Comparisons</strong>
+                <p>Model comparisons are inherently subjective and depend heavily on the specific task, prompt structure, and how context is organized. These assessments reflect aggregate community sentiment as of early 2026 and may not reflect your specific use case. Always benchmark with your own workloads.</p>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 9: COMMUNITY SENTIMENT
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="community-sentiment">
+            <h2><i class="pi pi-comments"></i> Community Sentiment Analysis</h2>
+
+            <p>Community reaction to the 1M context window has been largely positive but nuanced. Three distinct camps have emerged:</p>
+
+            <div class="sentiment-chart">
+                <div class="sentiment-row">
+                    <span class="sentiment-label">Pro-Large Context</span>
+                    <div class="sentiment-bar-track">
+                        <div class="sentiment-bar-fill pro" style="width: 45%;">45%</div>
+                    </div>
+                </div>
+                <div class="sentiment-row">
+                    <span class="sentiment-label">Skeptical</span>
+                    <div class="sentiment-bar-track">
+                        <div class="sentiment-bar-fill skeptical" style="width: 30%;">30%</div>
+                    </div>
+                </div>
+                <div class="sentiment-row">
+                    <span class="sentiment-label">Pragmatic</span>
+                    <div class="sentiment-bar-track">
+                        <div class="sentiment-bar-fill consensus" style="width: 25%;">25%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card card-success">
+                    <h4><i class="pi pi-thumbs-up"></i> Pro-Large Context Camp (45%)</h4>
+                    <p>These users emphasize the practical benefits of reduced compaction friction and the ability to tackle larger problems:</p>
+                    <ul>
+                        <li>Autonomous coding tasks that require deep investigation</li>
+                        <li>Long debugging sessions where accumulated context is critical</li>
+                        <li>Avoidance of compaction-induced loops and memory loss</li>
+                        <li>Reduction in "range anxiety" — not worrying about hitting limits</li>
+                        <li>Ability to include entire test suites alongside source code</li>
+                    </ul>
+                </div>
+                <div class="card card-secondary">
+                    <h4><i class="pi pi-question-circle"></i> Skeptical Camp (30%)</h4>
+                    <p>These users argue that large context windows are unnecessary for disciplined workflows and may actually harm quality:</p>
+                    <ul>
+                        <li>Tight scoping yields better results than large context</li>
+                        <li>Context decay remains regardless of window size</li>
+                        <li>Encourages lazy prompt engineering ("just dump everything in")</li>
+                        <li>Cost-prohibitive for most practical use cases</li>
+                        <li>"I rarely need more than 50K tokens if I structure my prompts well"</li>
+                    </ul>
+                </div>
+                <div class="card card-primary">
+                    <h4><i class="pi pi-balance-scale"></i> Pragmatic / Consensus Camp (25%)</h4>
+                    <p>This group acknowledges both the benefits and limitations, advocating for a middle path:</p>
+                    <ul>
+                        <li>Larger windows reduce friction but don't eliminate the need for discipline</li>
+                        <li>Use the full window as a safety net, not a target</li>
+                        <li>Combine large context with strategic summarization</li>
+                        <li>Different tasks have different optimal context sizes</li>
+                        <li>The pricing change matters more than the size change</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 10: INTERACTIVE VISUALIZATIONS
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="interactive-tools">
+            <h2><i class="pi pi-sliders-h"></i> Interactive Visualizations</h2>
+
+            <p>Use the tools below to explore the relationships between context size, quality, and cost.</p>
+
+            <!-- Context Utilization Simulator -->
+            <div class="simulator-panel">
+                <h4><i class="pi pi-gauge"></i> Context Utilization Simulator</h4>
+                <p>Drag the slider to explore how different context utilization levels affect quality, cost, and equivalent content size.</p>
+
+                <div class="slider-group">
+                    <label>
+                        Context Size:
+                        <span class="slider-value" id="sim-tokens">100K</span>
+                    </label>
+                    <input type="range" id="context-sim-slider" min="10000" max="1000000" value="100000" step="10000">
+                </div>
+
+                <div class="quality-meter">
+                    <label style="font-weight: 600; font-size: var(--font-size-sm);">
+                        Estimated Quality:
+                        <span id="sim-quality-text" style="color: var(--color-accent);">98%</span>
+                        <span id="sim-rating" style="color: var(--color-text-muted); font-weight: 400;">(Excellent)</span>
+                    </label>
+                    <div class="quality-bar-track">
+                        <div class="quality-bar-fill" id="sim-quality-fill" style="width: 98%; background: #10b981;">98%</div>
+                    </div>
+                    <div class="quality-label">
+                        <span>Severely Degraded</span>
+                        <span>Excellent</span>
+                    </div>
+                </div>
+
+                <div class="calc-results">
+                    <div class="calc-result-card">
+                        <div class="result-label">Cost per Call (Cached)</div>
+                        <div class="result-value" id="sim-cost">$0.15</div>
+                        <div class="result-detail">Opus 4.6 cache read rate</div>
+                    </div>
+                    <div class="calc-result-card">
+                        <div class="result-label">Equivalent Words</div>
+                        <div class="result-value" id="sim-words">75K</div>
+                        <div class="result-detail">At ~0.75 words/token</div>
+                    </div>
+                    <div class="calc-result-card">
+                        <div class="result-label">Equivalent Pages</div>
+                        <div class="result-value" id="sim-pages">300</div>
+                        <div class="result-detail">At ~250 words/page</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cost Calculator -->
+            <div class="simulator-panel">
+                <h4><i class="pi pi-calculator"></i> Session Cost Calculator</h4>
+                <p>Estimate the total cost of a coding session based on context size, number of calls, and model choice.</p>
+
+                <div class="calculator-grid">
+                    <div class="calc-input-group">
+                        <label for="calc-context">Context Size (tokens)</label>
+                        <input type="number" id="calc-context" value="200000" min="1000" max="1000000" step="10000">
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="calc-calls">Number of Calls</label>
+                        <input type="number" id="calc-calls" value="50" min="1" max="1000">
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="calc-model">Model</label>
+                        <select id="calc-model">
+                            <option value="opus-4.6">Claude Opus 4.6</option>
+                            <option value="sonnet-4.6">Claude Sonnet 4.6</option>
+                            <option value="haiku-3.5">Claude Haiku 3.5</option>
+                        </select>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="calc-cache" style="cursor: pointer;">
+                            <input type="checkbox" id="calc-cache" checked style="margin-right: 6px; cursor: pointer;">
+                            Use Prompt Caching
+                        </label>
+                    </div>
+                </div>
+
+                <div class="calc-results">
+                    <div class="calc-result-card">
+                        <div class="result-label">Input Cost</div>
+                        <div class="result-value" id="calc-result-input">$15.00</div>
+                        <div class="result-detail">Context tokens x calls</div>
+                    </div>
+                    <div class="calc-result-card">
+                        <div class="result-label">Output Cost</div>
+                        <div class="result-value" id="calc-result-output">$15.00</div>
+                        <div class="result-detail">~4K output tokens/call</div>
+                    </div>
+                    <div class="calc-result-card">
+                        <div class="result-label">Total Session Cost</div>
+                        <div class="result-value" id="calc-result-total">$30.00</div>
+                        <div class="result-detail">Input + Output</div>
+                    </div>
+                    <div class="calc-result-card">
+                        <div class="result-label">Cost per Call</div>
+                        <div class="result-value" id="calc-result-percall">$0.60</div>
+                        <div class="result-detail">Total / number of calls</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             SECTION 11: RECOMMENDATIONS
+             ═══════════════════════════════════════════════════════════════ -->
+        <section id="recommendations">
+            <h2><i class="pi pi-check-circle"></i> Recommendations &amp; Conclusion</h2>
+
+            <h3>Best Practices for Using 1M Context Effectively</h3>
+
+            <div class="recommendation-grid">
+                <div class="recommendation">
+                    <h4><i class="pi pi-map"></i> Create Code Maps</h4>
+                    <p>Generate per-file summaries (summary, when_to_use, public_types, public_functions) for your codebase. Load these maps instead of raw source files when starting a session. Only pull in full file contents when the model needs to edit or deeply understand specific code.</p>
+                </div>
+                <div class="recommendation">
+                    <h4><i class="pi pi-list"></i> Use the RPI Framework</h4>
+                    <p>Structure work into Research, Plan, Implement phases with context clearing between them. Write detailed PLAN.md files during the planning phase. Start implementation with a fresh context that loads only the plan.</p>
+                </div>
+                <div class="recommendation">
+                    <h4><i class="pi pi-gauge"></i> Monitor Context Usage</h4>
+                    <p>Stay aware of how much context you have consumed. If you notice the model starting to repeat itself, forget earlier instructions, or produce lower-quality output, it may be time to compact or restart with a focused context.</p>
+                </div>
+                <div class="recommendation">
+                    <h4><i class="pi pi-dollar"></i> Be Cost-Conscious</h4>
+                    <p>Remember that cost scales linearly with context size. For routine tasks, keep context lean (50-100K tokens). Reserve the deep context for genuinely complex, cross-cutting investigations where the accumulated understanding is irreplaceable.</p>
+                </div>
+                <div class="recommendation">
+                    <h4><i class="pi pi-refresh"></i> Compact Strategically</h4>
+                    <p>Don't wait for automatic compaction. When you finish a phase of work, manually summarize the key findings and start fresh. This gives you control over what the model remembers vs. what it forgets.</p>
+                </div>
+                <div class="recommendation">
+                    <h4><i class="pi pi-sitemap"></i> Front-Load Critical Context</h4>
+                    <p>Place the most important information (system prompts, architectural guidelines, critical constraints) at the very beginning of context where attention is strongest. Put reference material that only needs occasional lookup in the middle.</p>
+                </div>
+            </div>
+
+            <h3>When to Use Full Context vs. Strategic Trimming</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Recommended Approach</th>
+                            <th>Target Context Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Simple bug fix</td>
+                            <td>Minimal context — relevant file + error</td>
+                            <td>10-30K tokens</td>
+                        </tr>
+                        <tr>
+                            <td>Feature implementation</td>
+                            <td>Code maps + plan + relevant files</td>
+                            <td>50-100K tokens</td>
+                        </tr>
+                        <tr>
+                            <td>Cross-cutting refactor</td>
+                            <td>Code maps + RPI framework</td>
+                            <td>100-200K tokens</td>
+                        </tr>
+                        <tr>
+                            <td>Complex investigation</td>
+                            <td>Let context grow naturally, compact at ~400K</td>
+                            <td>200-400K tokens</td>
+                        </tr>
+                        <tr>
+                            <td>Full codebase migration</td>
+                            <td>Phased approach with persistent plans</td>
+                            <td>Multiple sessions, 200K each</td>
+                        </tr>
+                        <tr>
+                            <td>Deep autonomous session</td>
+                            <td>Full context with monitoring</td>
+                            <td>Up to 700K tokens</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>The Future of Context Windows</h3>
+            <p>Looking ahead, several trends are likely to shape the context window landscape:</p>
+            <ul>
+                <li><strong>Architecture improvements:</strong> New attention mechanisms (sparse attention, sliding window attention, retrieval-augmented generation) may reduce the "lost in the middle" problem, making larger context windows genuinely useful rather than nominally available.</li>
+                <li><strong>Adaptive context management:</strong> Models may learn to proactively manage their own context — summarizing old information, flagging when they are losing track of details, and requesting specific information from users rather than relying on having everything in context.</li>
+                <li><strong>Hybrid retrieval approaches:</strong> Rather than stuffing everything into context, models may combine a moderate context window with on-demand retrieval from external stores (vector databases, code indices), achieving the benefits of large context without the degradation.</li>
+                <li><strong>Context-aware pricing:</strong> As competition increases, providers may move toward more granular pricing that accounts for actual attention usage rather than raw token count.</li>
+                <li><strong>The 10M+ horizon:</strong> Multiple labs are reportedly working on 10M+ token windows. If degradation can be solved, this would enable true "everything in context" workflows for even the largest codebases and document collections.</li>
+            </ul>
+
+            <div class="success-box">
+                <strong><i class="pi pi-star"></i> Bottom Line</strong>
+                <p>The 1M token context window for Claude Opus 4.6 and Sonnet 4.6, combined with the elimination of long-context surcharges, is a meaningful advance that removes friction and enables new workflows. However, it does not eliminate the fundamental challenges of attention degradation and cost scaling. The developers who benefit most will be those who treat the 1M window as headroom rather than a target — using disciplined context management while appreciating the safety net of extra capacity when complex problems demand it.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════════════════ -->
+    <footer>
+        <div class="container">
+            <p>1M Token Context Window: Deep Documentation</p>
+            <p>Part of the SuperClaude Framework | Claude Opus 4.6 &amp; Sonnet 4.6</p>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="pi pi-arrow-up"></i></a>
+
+    <!-- Scripts -->
+    <script src="./scripts/context-window-page.js"></script>
+</body>
+</html>

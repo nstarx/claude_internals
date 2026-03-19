@@ -8,7 +8,7 @@
 
     const TokenCalculator = {
         // Constants
-        CONTEXT_LIMIT: 200000,
+        CONTEXT_LIMIT: 1000000,
         TOKENS_PER_LINE_MIN: 4,
         TOKENS_PER_LINE_MAX: 6,
         TOKENS_PER_LINE_AVG: 5,
@@ -82,7 +82,7 @@
                             <div class="result-card">
                                 <div class="result-label">Context Windows</div>
                                 <div class="result-value" id="context-windows">0</div>
-                                <div class="result-subtext">×200K limit</div>
+                                <div class="result-subtext">×1M limit</div>
                             </div>
 
                             <div class="result-card">
@@ -102,7 +102,7 @@
                                     <div class="progress-fill"></div>
                                 </div>
                                 <div class="progress-marker" style="left: 100%;">
-                                    <span class="marker-label">200K</span>
+                                    <span class="marker-label">1M</span>
                                 </div>
                             </div>
                         </div>
